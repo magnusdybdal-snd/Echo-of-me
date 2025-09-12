@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkchrrxv5lera"
-path="res://.godot/imported/Brick_01.png-f9b194e97bcb45a54ab63192a5ffd6cf.ctex"
+uid="uid://bxqfyacpjsnlg"
+path="res://.godot/imported/dungeon_cartoon_2d_platformer_tileset_platformer.png-274bb9d3ce53f496f91a71f7b69cccff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/5_Levels/DUNGEON CARTOON 2D PLATFORMER TILESET/PNG/Platformer/Brick_01.png"
-dest_files=["res://.godot/imported/Brick_01.png-f9b194e97bcb45a54ab63192a5ffd6cf.ctex"]
+source_file="res://assets/5_Levels/DUNGEON CARTOON 2D PLATFORMER TILESET/PNG/Platformer/dungeon_cartoon_2d_platformer_tileset_platformer.png"
+dest_files=["res://.godot/imported/dungeon_cartoon_2d_platformer_tileset_platformer.png-274bb9d3ce53f496f91a71f7b69cccff.ctex"]
 
 [params]
 
