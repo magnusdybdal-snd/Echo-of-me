@@ -245,19 +245,18 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cusn3"]
-radius = 7.0
-height = 26.0
+radius = 11.0
+height = 44.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
-position = Vector2(0, -16)
-scale = Vector2(1.7, 1.7)
 script = ExtResource("1_v4rts")
 
 [node name="AnimatedSprite2D_player" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_hwyk6")
-animation = &"landing"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
