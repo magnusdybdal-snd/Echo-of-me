@@ -73,4 +73,7 @@ tile_set = SubResource("TileSet_k60qr")
 position = Vector2(568, 574)
 
 [node name="AnimatableBody2D" parent="." instance=ExtResource("3_aeicj")]
-position = Vector2(654, 553)
+position = Vector2(659, 546)
+
+[node name="AnimatableBody2D2" parent="." instance=ExtResource("3_aeicj")]
+position = Vector2(658, 486)
