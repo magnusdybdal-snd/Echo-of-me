@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=9 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
+[ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="3_aeicj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wsli"]
 texture = ExtResource("1_aeicj")
@@ -60,6 +61,44 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3wsli")
 
+[sub_resource type="Animation" id="Animation_7k28k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(529, 473)]
+}
+
+[sub_resource type="Animation" id="Animation_aeicj"]
+resource_name = "move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(529, 473), Vector2(817, 473)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3jmop"]
+_data = {
+&"RESET": SubResource("Animation_7k28k"),
+&"move": SubResource("Animation_aeicj")
+}
+
 [node name="Test level" type="Node2D"]
 
 [node name="Tilemaps" type="Node2D" parent="."]
@@ -70,3 +109,18 @@ tile_set = SubResource("TileSet_k60qr")
 
 [node name="Player" parent="." instance=ExtResource("2_7k28k")]
 position = Vector2(568, 574)
+
+[node name="Static platform" parent="." instance=ExtResource("3_aeicj")]
+position = Vector2(674, 544)
+
+[node name="Moving platform" parent="." instance=ExtResource("3_aeicj")]
+position = Vector2(529, 473)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Moving platform"]
+libraries = {
+&"": SubResource("AnimationLibrary_3jmop")
+}
+autoplay = "move"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 324)

@@ -1,19 +1,16 @@
 extends CharacterBody2D
 
+const SPEED := 200.0
+const JUMP_VELOCITY := -370.0 
 
-const SPEED = 200.0
-const JUMP_VELOCITY = -350.0
+@onready var animated_sprite = %AnimatedSprite2D_player
 
-@onready var animated_sprite = $AnimatedSprite2D
-
-var jumping = false
-var falling = false
-var landing = false
+var jumping := false
+var falling := false
+var landing := false
 
 func _physics_process(delta: float) -> void:
-	
-	print("anim:", animated_sprite.animation, "  jumping:", jumping, "  is_on_floor:", is_on_floor())
- 
+	 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -34,6 +31,7 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		animated_sprite.flip_h = true
 	
+	# Handles which animation to play
 	if is_on_floor():
 		if falling:
 			# just landed
@@ -62,6 +60,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+# Makes sure the jumping and landing animation finishes before playing the falling animation
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite.animation == "jump":
 		jumping = false
