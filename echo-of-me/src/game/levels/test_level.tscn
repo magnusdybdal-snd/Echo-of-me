@@ -1,95 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=4 format=4 uid="uid://dcp17f2vr5fsn"]
 
-[ext_resource type="Texture2D" uid="uid://bxqfyacpjsnlg" path="res://assets/5_Levels/DUNGEON CARTOON 2D PLATFORMER TILESET/PNG/Platformer/dungeon_cartoon_2d_platformer_tileset_platformer.png" id="1_7bmr8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c2mv"]
-size = Vector2(5803, 20)
+[ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_7bmr8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wsli"]
 texture = ExtResource("1_7bmr8")
-texture_region_size = Vector2i(128, 128)
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
 4:0/0 = 0
+5:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
 3:1/0 = 0
 4:1/0 = 0
 5:1/0 = 0
-6:1/0 = 0
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
 4:2/0 = 0
 5:2/0 = 0
-6:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
 2:3/0 = 0
 3:3/0 = 0
 4:3/0 = 0
 5:3/0 = 0
-6:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-3:7/0 = 0
-4:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-3:8/0 = 0
-4:8/0 = 0
-5:8/0 = 0
-0:9/0 = 0
-7:2/0 = 0
-7:3/0 = 0
-6:0/0 = 0
-5:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_k60qr"]
-tile_size = Vector2i(128, 128)
-sources/69 = SubResource("TileSetAtlasSource_3wsli")
-tile_proxies/coords_level = [[64, Vector2i(0, 0)], [94, Vector2i(0, 0)], [65, Vector2i(0, 0)], [94, Vector2i(1, 0)], [68, Vector2i(0, 0)], [94, Vector2i(2, 0)], [70, Vector2i(0, 0)], [94, Vector2i(3, 0)], [70, Vector2i(0, 1)], [94, Vector2i(3, 1)], [70, Vector2i(1, 0)], [94, Vector2i(4, 0)], [70, Vector2i(1, 1)], [94, Vector2i(4, 1)], [71, Vector2i(0, 0)], [94, Vector2i(5, 0)], [71, Vector2i(0, 1)], [94, Vector2i(5, 1)], [71, Vector2i(1, 0)], [94, Vector2i(6, 0)], [71, Vector2i(1, 1)], [94, Vector2i(6, 1)], [72, Vector2i(0, 0)], [94, Vector2i(0, 2)], [72, Vector2i(0, 1)], [94, Vector2i(0, 3)], [72, Vector2i(1, 0)], [94, Vector2i(1, 2)], [72, Vector2i(1, 1)], [94, Vector2i(1, 3)], [73, Vector2i(0, 0)], [94, Vector2i(2, 2)], [73, Vector2i(0, 1)], [94, Vector2i(2, 3)], [73, Vector2i(1, 0)], [94, Vector2i(3, 2)], [73, Vector2i(1, 1)], [94, Vector2i(3, 3)], [74, Vector2i(0, 0)], [94, Vector2i(4, 2)], [74, Vector2i(0, 1)], [94, Vector2i(4, 3)], [75, Vector2i(0, 0)], [94, Vector2i(5, 2)], [75, Vector2i(0, 1)], [94, Vector2i(5, 3)], [76, Vector2i(0, 0)], [94, Vector2i(6, 2)], [76, Vector2i(0, 1)], [94, Vector2i(6, 3)], [76, Vector2i(1, 0)], [94, Vector2i(7, 2)], [76, Vector2i(1, 1)], [94, Vector2i(7, 3)], [77, Vector2i(0, 0)], [94, Vector2i(0, 4)], [78, Vector2i(0, 0)], [94, Vector2i(1, 4)], [79, Vector2i(0, 0)], [94, Vector2i(2, 4)], [80, Vector2i(0, 0)], [94, Vector2i(3, 4)], [81, Vector2i(0, 0)], [94, Vector2i(4, 4)], [82, Vector2i(0, 0)], [94, Vector2i(5, 4)], [83, Vector2i(0, 0)], [94, Vector2i(6, 4)], [84, Vector2i(0, 0)], [94, Vector2i(0, 5)], [85, Vector2i(0, 0)], [94, Vector2i(1, 5)], [86, Vector2i(0, 0)], [94, Vector2i(2, 5)], [87, Vector2i(0, 0)], [94, Vector2i(3, 5)], [88, Vector2i(0, 0)], [94, Vector2i(4, 5)], [89, Vector2i(0, 0)], [94, Vector2i(5, 5)], [90, Vector2i(0, 0)], [94, Vector2i(6, 5)], [92, Vector2i(0, 0)], [94, Vector2i(0, 6)], [93, Vector2i(0, 0)], [94, Vector2i(1, 6)]]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_3wsli")
 
 [node name="Test level" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-1715, 1652)
+[node name="Tilemaps" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(2353.5, 285)
-shape = SubResource("RectangleShape2D_1c2mv")
-
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="Tilemaps"]
+tile_map_data = PackedByteArray("AAAAABMAAAABAAEAAAABABMAAAABAAEAAAACABMAAAABAAEAAAADABMAAAABAAEAAAAEABMAAAABAAEAAAAFABMAAAABAAEAAAAGABMAAAABAAEAAAAHABMAAAABAAEAAAAIABMAAAABAAEAAAAJABMAAAABAAEAAAAKABMAAAABAAEAAAALABMAAAABAAEAAAAMABMAAAABAAEAAAANABMAAAABAAEAAAAOABMAAAABAAEAAAAPABMAAAABAAEAAAAQABMAAAABAAEAAAARABMAAAABAAEAAAASABMAAAABAAEAAAATABMAAAABAAEAAAAUABMAAAABAAEAAAAVABMAAAABAAEAAAAWABMAAAABAAEAAAAXABMAAAABAAEAAAAYABMAAAABAAEAAAAZABMAAAABAAEAAAAaABMAAAABAAEAAAAbABMAAAABAAEAAAAcABMAAAABAAEAAAAdABMAAAABAAEAAAAeABMAAAABAAEAAAAfABMAAAABAAEAAAAgABMAAAABAAEAAAAhABMAAAABAAEAAAAiABMAAAABAAEAAAAjABMAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_k60qr")
-rendering_quadrant_size = 10
-format = 2
-layer_0/tile_data = PackedInt32Array(1048559, 196677, 5, 1048560, 196677, 5, 1048561, 196677, 5, 1048562, 196677, 5, 1048563, 196677, 5, 1048564, 196677, 5, 1048565, 196677, 5, 1048566, 196677, 5, 1048567, 196677, 5, 1048568, 196677, 5, 1048569, 196677, 5, 1048570, 196677, 5, 1048571, 196677, 5, 1048572, 196677, 5, 1048573, 196677, 5, 1048574, 196677, 5, 1048575, 196677, 5, 983040, 196677, 5, 983041, 196677, 5, 983042, 196677, 5, 983043, 196677, 5, 983044, 196677, 5, 983045, 196677, 5, 983046, 196677, 5, 983047, 196677, 5, 983048, 196677, 5, 983049, 196677, 5, 983050, 196677, 5, 983051, 196677, 5, 983052, 196677, 5, 983053, 196677, 5, 983054, 196677, 5, 983055, 196677, 5, 983056, 196677, 5, 983057, 196677, 5, 983058, 196677, 5, 983059, 196677, 5, 983060, 196677, 5, 983061, 196677, 5, 983062, 196677, 5, 983063, 196677, 5, 983064, 196677, 5, 983065, 196677, 5, 983066, 196677, 5, 983067, 196677, 5, 1048550, 196677, 5, 1048551, 196677, 5, 1048552, 196677, 5, 1048553, 196677, 5, 1048554, 196677, 5, 1048555, 196677, 5, 1048556, 196677, 5, 1048557, 196677, 5, 1048558, 196677, 5, 983068, 196677, 5, 983069, 196677, 5, 983070, 196677, 5, 983071, 196677, 5, 983072, 196677, 5, 983073, 196677, 5, 983074, 196677, 5, 983075, 196677, 5)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(656, 508)
-zoom = Vector2(0.2, 0.2)
