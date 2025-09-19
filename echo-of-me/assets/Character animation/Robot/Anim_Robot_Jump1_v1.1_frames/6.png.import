@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d337wuo6k1cj0"
-path="res://.godot/imported/4.png-1f0cf47e64fb8246b84c8072119186ee.ctex"
+uid="uid://sf1hvph4k6in"
+path="res://.godot/imported/6.png-2e6769c3329744058bec5e025dc227e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Character animation/Anim_Robot_Walk1_v1.1_frames/4.png"
-dest_files=["res://.godot/imported/4.png-1f0cf47e64fb8246b84c8072119186ee.ctex"]
+source_file="res://assets/Character animation/Robot/Anim_Robot_Jump1_v1.1_frames/6.png"
+dest_files=["res://.godot/imported/6.png-2e6769c3329744058bec5e025dc227e7.ctex"]
 
 [params]
 

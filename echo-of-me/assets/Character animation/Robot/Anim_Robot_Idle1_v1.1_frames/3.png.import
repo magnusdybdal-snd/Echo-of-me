@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csvgmocbjevc"
-path="res://.godot/imported/3.png-05bc5d3a56f655d3b3521d66f0445110.ctex"
+path="res://.godot/imported/3.png-086b5bdf8a83fbc9813bf2f98300688e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Character animation/Anim_Robot_Idle1_v1.1_frames/3.png"
-dest_files=["res://.godot/imported/3.png-05bc5d3a56f655d3b3521d66f0445110.ctex"]
+source_file="res://assets/Character animation/Robot/Anim_Robot_Idle1_v1.1_frames/3.png"
+dest_files=["res://.godot/imported/3.png-086b5bdf8a83fbc9813bf2f98300688e.ctex"]
 
 [params]
 
