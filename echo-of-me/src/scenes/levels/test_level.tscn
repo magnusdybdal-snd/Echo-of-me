@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=15 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="3_aeicj"]
 [ext_resource type="PackedScene" uid="uid://dcpnhn77fy4rm" path="res://src/scenes/box.tscn" id="4_7k28k"]
+[ext_resource type="Script" uid="uid://cnchy3s7it60o" path="res://src/scripts/platform.gd" id="4_wuimx"]
+[ext_resource type="PackedScene" uid="uid://blfestifyuj5q" path="res://src/scenes/button.tscn" id="5_3jmop"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wsli"]
 texture = ExtResource("1_aeicj")
@@ -100,6 +102,44 @@ _data = {
 &"move": SubResource("Animation_aeicj")
 }
 
+[sub_resource type="Animation" id="Animation_wuimx"]
+resource_name = "rise"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(99, 589), Vector2(99, 362)]
+}
+
+[sub_resource type="Animation" id="Animation_mrx7m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(99, 589)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uvtlq"]
+_data = {
+&"RESET": SubResource("Animation_mrx7m"),
+&"rise": SubResource("Animation_wuimx")
+}
+
 [node name="Test level" type="Node2D"]
 
 [node name="Tilemaps" type="Node2D" parent="."]
@@ -123,8 +163,22 @@ libraries = {
 }
 autoplay = "move"
 
+[node name="ButtonPlatform" parent="." instance=ExtResource("3_aeicj")]
+position = Vector2(99, 589)
+script = ExtResource("4_wuimx")
+
+[node name="Rise" type="AnimationPlayer" parent="ButtonPlatform"]
+libraries = {
+&"": SubResource("AnimationLibrary_uvtlq")
+}
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 324)
 
 [node name="Box" parent="." instance=ExtResource("4_7k28k")]
 position = Vector2(540, 440)
+
+[node name="Button" parent="." instance=ExtResource("5_3jmop")]
+position = Vector2(264, 601)
+
+[connection signal="pressed" from="Button" to="ButtonPlatform" method="_on_button_pressed"]
