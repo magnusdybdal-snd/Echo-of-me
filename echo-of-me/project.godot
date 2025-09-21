@@ -42,3 +42,6 @@ move_right={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+[global_group]
+
+player="group of player scene for collision detection with only the player."
