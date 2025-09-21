@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=10 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="3_aeicj"]
+[ext_resource type="PackedScene" uid="uid://dcpnhn77fy4rm" path="res://src/scenes/box.tscn" id="4_7k28k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wsli"]
 texture = ExtResource("1_aeicj")
@@ -107,7 +108,7 @@ _data = {
 tile_map_data = PackedByteArray("AAAAABMAAAABAAEAAAABABMAAAABAAEAAAACABMAAAABAAEAAAADABMAAAABAAEAAAAEABMAAAABAAEAAAAFABMAAAABAAEAAAAGABMAAAABAAEAAAAHABMAAAABAAEAAAAIABMAAAABAAEAAAAJABMAAAABAAEAAAAKABMAAAABAAEAAAALABMAAAABAAEAAAAMABMAAAABAAEAAAANABMAAAABAAEAAAAOABMAAAABAAEAAAAPABMAAAABAAEAAAAQABMAAAABAAEAAAARABMAAAABAAEAAAASABMAAAABAAEAAAATABMAAAABAAEAAAAUABMAAAABAAEAAAAVABMAAAABAAEAAAAWABMAAAABAAEAAAAXABMAAAABAAEAAAAYABMAAAABAAEAAAAZABMAAAABAAEAAAAaABMAAAABAAEAAAAbABMAAAABAAEAAAAcABMAAAABAAEAAAAdABMAAAABAAEAAAAeABMAAAABAAEAAAAfABMAAAABAAEAAAAgABMAAAABAAEAAAAhABMAAAABAAEAAAAiABMAAAABAAEAAAAjABMAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_k60qr")
 
-[node name="Player" parent="." instance=ExtResource("2_7k28k")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("2_7k28k")]
 position = Vector2(568, 574)
 
 [node name="Static platform" parent="." instance=ExtResource("3_aeicj")]
@@ -124,3 +125,6 @@ autoplay = "move"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 324)
+
+[node name="Box" parent="." instance=ExtResource("4_7k28k")]
+position = Vector2(540, 440)

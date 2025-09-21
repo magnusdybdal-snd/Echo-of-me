@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 var push = false
 var direction = 0
-const SPEED = 5000
+const SPEED = 7000
 
 
 func _physics_process(delta: float) -> void:
