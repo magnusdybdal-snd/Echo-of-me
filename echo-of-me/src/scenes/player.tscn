@@ -248,7 +248,7 @@ animations = [{
 radius = 11.0
 height = 44.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 collision_layer = 3
 script = ExtResource("1_v4rts")
