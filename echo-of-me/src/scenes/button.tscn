@@ -40,7 +40,7 @@ script = ExtResource("1_qlidy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n2b6u")
-animation = &"pressed"
+animation = &"released"
 autoplay = "released"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
