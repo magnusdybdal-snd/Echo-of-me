@@ -1,6 +1,7 @@
-[gd_scene load_steps=33 format=3 uid="uid://c5ima8afigtj5"]
+[gd_scene load_steps=34 format=3 uid="uid://c5ima8afigtj5"]
 
 [ext_resource type="Texture2D" uid="uid://d0nmfq362i70k" path="res://assets/Character animation/Echo Character/AnimationSheet_Character_echo.png" id="1_fomcc"]
+[ext_resource type="Script" uid="uid://biobpk5a88mih" path="res://src/scripts/echo_player.gd" id="1_jysbo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8bix6"]
 atlas = ExtResource("1_fomcc")
@@ -253,13 +254,14 @@ animations = [{
 height = 38.0
 
 [node name="Echo_player" type="CharacterBody2D"]
+script = ExtResource("1_jysbo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_4mnvi")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.9455973
+frame_progress = 0.8038656
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
