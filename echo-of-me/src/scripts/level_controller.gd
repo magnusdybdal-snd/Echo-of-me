@@ -2,8 +2,8 @@ extends Node
 signal reset_level
 
 @export var player_path : NodePath
-# Gets the player from the level it is controlling
-@onready var player = get_node(player_path)
+# Gets the player from the level it is controllingplayer_path
+@onready var player = get_node("Player")
 
 var echoes : Array = []
 
