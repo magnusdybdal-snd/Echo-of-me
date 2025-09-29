@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://biihkc0s4fiab"]
+[gd_scene load_steps=36 format=3 uid="uid://biihkc0s4fiab"]
 
 [ext_resource type="Texture2D" uid="uid://cu8xxx0jpvqk5" path="res://assets/Character animation/Hooded Protaganist/AnimationSheet_Character.png" id="1_cusn3"]
 [ext_resource type="Script" uid="uid://38x278i5tjkv" path="res://src/scripts/player.gd" id="1_v4rts"]
@@ -35,13 +35,21 @@ region = Rect2(192, 224, 32, 32)
 atlas = ExtResource("1_cusn3")
 region = Rect2(224, 224, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cusn3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4rts"]
 atlas = ExtResource("1_cusn3")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v4rts"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc20y"]
 atlas = ExtResource("1_cusn3")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qshy"]
+atlas = ExtResource("1_cusn3")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmqm0"]
+atlas = ExtResource("1_cusn3")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n0oma"]
 atlas = ExtResource("1_cusn3")
@@ -151,15 +159,27 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
-"duration": 6.0,
-"texture": SubResource("AtlasTexture_cusn3")
-}, {
-"duration": 3.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_v4rts")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kc20y")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_3qshy")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_vmqm0")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_v4rts")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kc20y")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -259,6 +279,7 @@ scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_hwyk6")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.1482437
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 3)

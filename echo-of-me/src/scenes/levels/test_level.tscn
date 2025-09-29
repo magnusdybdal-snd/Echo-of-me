@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=24 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hn4qpeibboil" path="res://src/scenes/key.tscn" id="9_ultnw"]
 [ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="10_43lcp"]
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="11_xvx1o"]
+[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="12_u0x3y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wsli"]
 texture = ExtResource("1_aeicj")
@@ -217,6 +218,7 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 324)
+zoom = Vector2(1.68, 1.68)
 
 [node name="Box" parent="." instance=ExtResource("4_7k28k")]
 position = Vector2(540, 440)
@@ -248,6 +250,9 @@ scale = Vector2(2, 2)
 z_index = 9
 position = Vector2(-13.5, 1)
 scale = Vector2(1, 0.92424244)
+
+[node name="Echo_player" parent="." instance=ExtResource("12_u0x3y")]
+position = Vector2(512, 460)
 
 [connection signal="pressed" from="Button" to="ButtonPlatform" method="_on_button_pressed"]
 [connection signal="pressed" from="button_momentary" to="door-placeholder" method="_on_button_momentary_pressed"]
