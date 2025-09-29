@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=4 uid="uid://dusk3ghqnya25"]
+[gd_scene load_steps=21 format=4 uid="uid://dusk3ghqnya25"]
 
+[ext_resource type="Script" uid="uid://c1wr1bb7sr8g4" path="res://src/scripts/level_controller.gd" id="1_0d4ev"]
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_yliwm"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_0d4ev"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="3_2awxn"]
@@ -179,7 +180,8 @@ _data = {
 &"RESET": SubResource("Animation_43lcp")
 }
 
-[node name="Test level" type="Node2D"]
+[node name="LevelController" type="Node2D"]
+script = ExtResource("1_0d4ev")
 
 [node name="Tilemaps" type="Node2D" parent="."]
 
