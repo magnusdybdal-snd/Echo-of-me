@@ -9,6 +9,9 @@ mono/
 export.cfg
 export_presets.cfg
 
+# Affinity photo project folder for door
+../door-making
+
 # OS junk
 .DS_Store
 Thumbs.db

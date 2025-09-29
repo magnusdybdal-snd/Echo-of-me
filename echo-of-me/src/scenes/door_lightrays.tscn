@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://c70iuqis64jdr"]
+
+[ext_resource type="Texture2D" uid="uid://qymqc4njgu8e" path="res://assets/Tilesets/Props/door/lightrays_64x32_1.png" id="1_5dmde"]
+[ext_resource type="Texture2D" uid="uid://bsarqmknsh4v3" path="res://assets/Tilesets/Props/door/lightrays_64x32_2.png" id="2_eyw2h"]
+[ext_resource type="Texture2D" uid="uid://bkou5i0iyl0fi" path="res://assets/Tilesets/Props/door/lightrays_64x32_3.png" id="3_2oth1"]
+[ext_resource type="Texture2D" uid="uid://137hkdcyxlit" path="res://assets/Tilesets/Props/door/lightrays_64x32_4.png" id="4_b6s1m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rhdug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5dmde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_eyw2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2oth1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_b6s1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}]
+
+[node name="Lightrays" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_rhdug")
+autoplay = "default"
+frame_progress = 0.20324132
