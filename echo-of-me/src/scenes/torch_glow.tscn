@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://lnm6wpnl3wb3"]
+
+[ext_resource type="Texture2D" uid="uid://c8bbt7qadwaru" path="res://assets/Tilesets/Props/Torch Animated Glow.png" id="1_8ln4b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16luv"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5btl"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugbwi"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nvaw"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_simkf"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vaf1"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv3o4"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26c4c"]
+atlas = ExtResource("1_8ln4b")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fck71"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16luv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5btl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugbwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nvaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_simkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vaf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv3o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26c4c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="torch_glow" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_fck71")
+autoplay = "default"

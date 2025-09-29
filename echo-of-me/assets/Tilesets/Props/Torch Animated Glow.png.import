@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4n4b75ru8tbp"
-path="res://.godot/imported/key_big.png-cd16d67f354e5173d834bf163e5cae46.ctex"
+uid="uid://c8bbt7qadwaru"
+path="res://.godot/imported/Torch Animated Glow.png-e7e9d0f7f70245fedf9feb4132248faf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tilesets/Props/key_big.png"
-dest_files=["res://.godot/imported/key_big.png-cd16d67f354e5173d834bf163e5cae46.ctex"]
+source_file="res://assets/Tilesets/Props/Torch Animated Glow.png"
+dest_files=["res://.godot/imported/Torch Animated Glow.png-e7e9d0f7f70245fedf9feb4132248faf.ctex"]
 
 [params]
 
