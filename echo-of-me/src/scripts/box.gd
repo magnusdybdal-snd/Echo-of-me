@@ -13,7 +13,7 @@ func _ready() -> void:
 	# Gets the start position of the object
 	start_position = global_position
 	# Connects to the level controller
-	var level_controller = get_tree().current_scene
+	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 	
 # Sets the position back to start
