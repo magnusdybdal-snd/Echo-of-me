@@ -695,13 +695,13 @@ scale = Vector2(1, 0.92424244)
 [node name="Echo_player" parent="." instance=ExtResource("12_u0x3y")]
 position = Vector2(510, 428)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Torch-group" type="Node2D" parent="."]
 position = Vector2(798, 543)
 
-[node name="Torch" parent="Node2D" instance=ExtResource("17_v7dnh")]
+[node name="Torch" parent="Torch-group" instance=ExtResource("17_v7dnh")]
 position = Vector2(82, -34)
 
-[node name="torch_glow" parent="Node2D" instance=ExtResource("18_qkto2")]
+[node name="torch_glow" parent="Torch-group" instance=ExtResource("18_qkto2")]
 position = Vector2(81, -89)
 
 [connection signal="pressed" from="Button" to="ButtonPlatform" method="_on_button_pressed"]

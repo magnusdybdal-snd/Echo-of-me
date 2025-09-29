@@ -22,7 +22,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [],
 "loop": true,
@@ -33,4 +33,4 @@ animations = [{
 [node name="Lightrays" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_rhdug")
 autoplay = "default"
-frame_progress = 0.3618322
+frame_progress = 0.20324132
