@@ -15,6 +15,10 @@ run/main_scene="uid://dcp17f2vr5fsn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+GameManager="*res://src/scenes/game_manager.tscn"
+
 [dotnet]
 
 project/assembly_name="Echo of Me"
