@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=35 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="10_43lcp"]
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="11_xvx1o"]
 [ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="12_u0x3y"]
+[ext_resource type="PackedScene" uid="uid://7yvjftaq4tc3" path="res://src/scenes/torch.tscn" id="17_v7dnh"]
+[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="18_qkto2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c20t4"]
 texture = ExtResource("2_c20t4")
@@ -691,7 +693,16 @@ position = Vector2(-13.5, 1)
 scale = Vector2(1, 0.92424244)
 
 [node name="Echo_player" parent="." instance=ExtResource("12_u0x3y")]
-position = Vector2(512, 460)
+position = Vector2(510, 428)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(798, 543)
+
+[node name="Torch" parent="Node2D" instance=ExtResource("17_v7dnh")]
+position = Vector2(82, -34)
+
+[node name="torch_glow" parent="Node2D" instance=ExtResource("18_qkto2")]
+position = Vector2(81, -89)
 
 [connection signal="pressed" from="Button" to="ButtonPlatform" method="_on_button_pressed"]
 [connection signal="pressed" from="button_momentary" to="door-placeholder" method="_on_button_momentary_pressed"]
