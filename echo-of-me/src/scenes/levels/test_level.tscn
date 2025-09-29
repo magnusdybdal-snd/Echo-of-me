@@ -1,6 +1,7 @@
 [gd_scene load_steps=35 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_ultnw"]
 [ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="2_7k28k"]
 [ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="2_c20t4"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="3_aeicj"]
@@ -507,21 +508,6 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3wsli")
 
-[sub_resource type="Animation" id="Animation_7k28k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(529, 473)]
-}
-
 [sub_resource type="Animation" id="Animation_aeicj"]
 resource_name = "move"
 length = 3.0
@@ -541,27 +527,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3jmop"]
 _data = {
-&"RESET": SubResource("Animation_7k28k"),
 &"move": SubResource("Animation_aeicj")
 }
 
-[sub_resource type="Animation" id="Animation_mrx7m"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(99, 589)]
-}
-
-[sub_resource type="Animation" id="Animation_wuimx"]
-resource_name = "rise"
+[sub_resource type="Animation" id="Animation_xvx1o"]
+resource_name = "auto"
 length = 3.0
 loop_mode = 2
 tracks/0/type = "value"
@@ -574,13 +544,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(99, 589), Vector2(99, 362)]
+"values": [Vector2(99, 589), Vector2(99, 403)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_uvtlq"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fklp7"]
 _data = {
-&"RESET": SubResource("Animation_mrx7m"),
-&"rise": SubResource("Animation_wuimx")
+&"auto": SubResource("Animation_xvx1o")
 }
 
 [sub_resource type="Animation" id="Animation_ultnw"]
@@ -599,32 +568,20 @@ tracks/0/keys = {
 "values": [Vector2(950, 560), Vector2(950, 500)]
 }
 
-[sub_resource type="Animation" id="Animation_43lcp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(950, 599)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xvx1o"]
 _data = {
-&"Open_door": SubResource("Animation_ultnw"),
-&"RESET": SubResource("Animation_43lcp")
+&"Open_door": SubResource("Animation_ultnw")
 }
 
 [node name="Test level" type="Node2D"]
-position = Vector2(-1, 1)
 
-[node name="Tilemaps" type="Node2D" parent="."]
+[node name="LevelController" parent="." instance=ExtResource("1_ultnw")]
+player_path = NodePath("")
 
+[node name="Tilemaps" type="Node2D" parent="LevelController"]
+
+[node name="middleground" type="TileMapLayer" parent="LevelController/Tilemaps"]
+tile_map_data = PackedByteArray("AAAAABMAAAABAAEAAAABABMAAAABAAEAAAACABMAAAABAAEAAAADABMAAAABAAEAAAAEABMAAAABAAEAAAAFABMAAAABAAEAAAAGABMAAAABAAEAAAAHABMAAAABAAEAAAAIABMAAAABAAEAAAAJABMAAAABAAEAAAAKABMAAAABAAEAAAALABMAAAABAAEAAAAMABMAAAABAAEAAAANABMAAAABAAEAAAAOABMAAAABAAEAAAAPABMAAAABAAEAAAAQABMAAAABAAEAAAARABMAAAABAAEAAAASABMAAAABAAEAAAATABMAAAABAAEAAAAUABMAAAABAAEAAAAVABMAAAABAAEAAAAWABMAAAABAAEAAAAXABMAAAABAAEAAAAYABMAAAABAAEAAAAZABMAAAABAAEAAAAaABMAAAABAAEAAAAbABMAAAABAAEAAAAcABMAAAABAAEAAAAdABMAAAABAAEAAAAeABMAAAABAAEAAAAfABMAAAABAAEAAAAgABMAAAABAAEAAAAhABMAAAABAAEAAAAiABMAAAABAAEAAAAjABMAAAABAAEAAAA=")
 [node name="Background" type="TileMapLayer" parent="Tilemaps"]
 tile_map_data = PackedByteArray("AAAkABQAAAACAAMAAAAkABMAAAACAAIAAAAkABIAAAACAAIAAAAkABEAAAACAAIAAAAkABAAAAACAAIAAAAkAA8AAAACAAIAAAAkAA4AAAACAAEAAAAjABQAAAABAAMAAAAjABMAAAABAAIAAAAjABIAAAABAAIAAAAjABEAAAABAAIAAAAjABAAAQAEAAMAAAAjAA8AAAABAAIAAAAjAA4AAAABAAEAAAAiABQAAAABAAMAAAAiABMAAAABAAIAAAAiABIAAAABAAIAAAAiABEAAAABAAIAAAAiABAAAQABAAEAAAAiAA8AAAABAAIAAAAiAA4AAAABAAEAAAAhABQAAAABAAMAAAAhABMAAAABAAIAAAAhABIAAAABAAIAAAAhABEAAQAAAAMAAAAhABAAAAABAAIAAAAhAA8AAAABAAIAAAAhAA4AAAABAAEAAAAgABQAAAABAAMAAAAgABMAAAABAAIAAAAgABIAAAABAAIAAAAgABEAAQAEAAMAAAAgABAAAAABAAIAAAAgAA8AAAABAAIAAAAgAA4AAAABAAEAAAAfABQAAAABAAMAAAAfABMAAAABAAIAAAAfABIAAAABAAIAAAAfABEAAQABAAEAAAAfABAAAAABAAIAAAAfAA8AAAABAAIAAAAfAA4AAAABAAEAAAAeABQAAAABAAMAAAAeABMAAAABAAIAAAAeABIAAQADAAIAAAAeABEAAAABAAIAAAAeABAAAAABAAIAAAAeAA8AAAABAAIAAAAeAA4AAAABAAEAAAAdABQAAAABAAMAAAAdABMAAAABAAIAAAAdABIAAQAAAAAAAAAdABEAAAABAAIAAAAdABAAAAABAAIAAAAdAA8AAAABAAIAAAAdAA4AAAABAAEAAAAcABQAAAABAAMAAAAcABMAAAABAAIAAAAcABIAAAABAAIAAAAcABEAAAABAAIAAAAcABAAAAABAAIAAAAcAA8AAAABAAIAAAAcAA4AAAABAAEAAAAbABQAAAABAAMAAAAbABMAAAABAAIAAAAbABIAAAABAAIAAAAbABEAAAABAAIAAAAbABAAAAABAAIAAAAbAA8AAAABAAIAAAAbAA4AAAAEAAEAAAAaABQAAAABAAMAAAAaABMAAAABAAIAAAAaABIAAAABAAIAAAAaABEAAAABAAIAAAAaABAAAAABAAIAAAAaAA8AAAABAAIAAAAaAA4AAAABAAIAAAAZABQAAAABAAMAAAAZABMAAAABAAIAAAAZABIAAAABAAIAAAAZABEAAAABAAIAAAAZABAAAAABAAIAAAAZAA8AAAABAAIAAAAZAA4AAAAFAAEAAAAYABQAAAABAAMAAAAYABMAAAABAAIAAAAYABIAAAABAAIAAAAYABEAAAABAAIAAAAYABAAAAABAAIAAAAYAA8AAAABAAIAAAAYAA4AAAABAAEAAAAXABQAAAABAAMAAAAXABMAAAABAAIAAAAXABIAAAABAAIAAAAXABEAAQAEAAMAAAAXABAAAAABAAIAAAAXAA8AAAABAAIAAAAXAA4AAAAFAAIAAAAWABQAAAABAAMAAAAWABMAAAABAAIAAAAWABIAAAABAAIAAAAWABEAAQAEAAMAAAAWABAAAAABAAIAAAAWAA8AAAABAAIAAAAWAA4AAAABAAEAAAAVABQAAAABAAMAAAAVABMAAAABAAIAAAAVABIAAAABAAIAAAAVABEAAQAEAAMAAAAVABAAAAABAAIAAAAVAA8AAAABAAIAAAAVAA4AAAABAAEAAAAUABQAAAABAAMAAAAUABMAAAABAAIAAAAUABIAAAABAAIAAAAUABEAAQAEAAMAAAAUABAAAAABAAIAAAAUAA8AAAABAAIAAAAUAA4AAAABAAEAAAATABQAAAABAAMAAAATABMAAAABAAIAAAATABIAAAABAAIAAAATABEAAQACAAMAAAATABAAAAABAAIAAAATAA8AAAABAAIAAAATAA4AAAABAAEAAAASABQAAAABAAMAAAASABMAAAABAAIAAAASABIAAAABAAIAAAASABEAAAABAAIAAAASABAAAQADAAMAAAASAA8AAAABAAIAAAASAA4AAAABAAEAAAARABQAAAABAAMAAAARABMAAAABAAIAAAARABIAAAABAAIAAAARABEAAAABAAIAAAARABAAAQAEAAMAAAARAA8AAAABAAIAAAARAA4AAAABAAEAAAAQABQAAAABAAMAAAAQABMAAAABAAIAAAAQABIAAAABAAIAAAAQABEAAAABAAIAAAAQABAAAQACAAMAAAAQAA8AAAABAAIAAAAQAA4AAAABAAEAAAAPABQAAAABAAMAAAAPABMAAAABAAIAAAAPABIAAQADAAEAAAAPABEAAAABAAIAAAAPABAAAQAFAAMAAAAPAA8AAAABAAIAAAAPAA4AAAABAAEAAAAOABQAAAABAAMAAAAOABMAAAABAAIAAAAOABIAAQACAAMAAAAOABEAAAABAAIAAAAOABAAAQADAAEAAAAOAA8AAAABAAIAAAAOAA4AAAABAAEAAAANABQAAAABAAMAAAANABMAAAABAAIAAAANABIAAAABAAIAAAANABEAAQABAAMAAAANABAAAQABAAMAAAANAA8AAAABAAIAAAANAA4AAAAFAAIAAAAMABQAAAABAAMAAAAMABMAAAABAAIAAAAMABIAAAABAAIAAAAMABEAAQAEAAMAAAAMABAAAAABAAIAAAAMAA8AAAABAAIAAAAMAA4AAAABAAEAAAALABQAAAABAAMAAAALABMAAAABAAIAAAALABIAAAABAAIAAAALABEAAQACAAMAAAALABAAAAABAAIAAAALAA8AAAABAAIAAAALAA4AAAAFAAIAAAAKABQAAAABAAMAAAAKABMAAAABAAIAAAAKABIAAAABAAIAAAAKABEAAAABAAIAAAAKABAAAQADAAMAAAAKAA8AAAABAAIAAAAKAA4AAAABAAEAAAAJABQAAAABAAMAAAAJABMAAAABAAIAAAAJABIAAAABAAIAAAAJABEAAAABAAIAAAAJABAAAQAEAAMAAAAJAA8AAAABAAIAAAAJAA4AAAABAAEAAAAIABQAAAABAAMAAAAIABMAAAABAAIAAAAIABIAAAABAAIAAAAIABEAAAABAAIAAAAIABAAAAABAAIAAAAIAA8AAAABAAIAAAAIAA4AAAAFAAIAAAAHABQAAAABAAMAAAAHABMAAAABAAIAAAAHABIAAAABAAIAAAAHABEAAAABAAIAAAAHABAAAAABAAIAAAAHAA8AAAABAAIAAAAHAA4AAAABAAEAAAAGABQAAAABAAMAAAAGABMAAAABAAIAAAAGABIAAAABAAIAAAAGABEAAQADAAEAAAAGABAAAAABAAIAAAAGAA8AAAABAAIAAAAGAA4AAAABAAEAAAAFABQAAAABAAMAAAAFABMAAAABAAIAAAAFABIAAAABAAIAAAAFABEAAQABAAMAAAAFABAAAQAEAAMAAAAFAA8AAAABAAIAAAAFAA4AAAABAAEAAAAEABQAAAABAAMAAAAEABMAAAABAAIAAAAEABIAAAABAAIAAAAEABEAAAABAAIAAAAEABAAAQAEAAMAAAAEAA8AAAABAAIAAAAEAA4AAAABAAEAAAADABQAAAABAAMAAAADABMAAAABAAIAAAADABIAAAABAAIAAAADABEAAAABAAIAAAADABAAAAABAAIAAAADAA8AAAABAAIAAAADAA4AAAABAAEAAAACABQAAAABAAMAAAACABMAAAABAAIAAAACABIAAAABAAIAAAACABEAAAABAAIAAAACABAAAAABAAIAAAACAA8AAAABAAIAAAACAA4AAAABAAEAAAABABQAAAABAAMAAAABABMAAAABAAIAAAABABIAAAABAAIAAAABABEAAAABAAIAAAABABAAAAABAAIAAAABAA8AAAABAAIAAAABAA4AAAABAAEAAAAAABQAAAABAAMAAAAAABMAAAABAAIAAAAAABIAAAABAAIAAAAAABEAAAABAAIAAAAAABAAAAABAAIAAAAAAA8AAAABAAIAAAAAAA4AAAABAAEAAAD//xQAAAAAAAMAAAD//xMAAAAAAAIAAAD//xIAAAAAAAIAAAD//xEAAAAAAAIAAAD//xAAAAAAAAIAAAD//w8AAAAAAAIAAAD//w4AAAAAAAEAAAAIAAoAAAADAAEAAAAIAAsAAAADAAIAAAAIAAwAAAADAAIAAAAIAA0AAAADAAIAAAALAAwAAAADAAEAAAALAA0AAQAEAAMAAAANAAwAAAADAAEAAAANAA0AAQAEAAMAAAAWAAwAAAADAAAAAAAXAA0AAQAEAAMAAAAbAAwAAAAEAAMAAAAbAA0AAQAEAAMAAAAZAAwAAAAAAAEAAAAZAA0AAQAEAAMAAAAaAA0AAQAEAAMAAAAdAAwAAAACAAAAAAAcAAwAAAABAAAAAAAaAAwAAAAFAAEAAAD//w0AAQAAAAAAAAAAAA0AAQADAAIAAAABAA0AAQACAAMAAAACAA0AAQAEAAMAAAADAA0AAQAEAAMAAAAEAA0AAQAEAAMAAAAFAA0AAQAEAAMAAAAGAA0AAQAEAAMAAAAHAA0AAQAEAAMAAAAWAA0AAQAEAAMAAAAVAA0AAQAEAAMAAAAUAA0AAQAEAAMAAAATAA0AAQAEAAMAAAASAA0AAQAEAAMAAAARAA0AAQAEAAMAAAAQAA0AAQAEAAMAAAAPAA0AAQAEAAMAAAAOAA0AAQAEAAMAAAAMAA0AAQAEAAMAAAAKAA0AAQAEAAMAAAAJAA0AAQAEAAMAAAAkAA0AAQABAAAAAAAjAA0AAQACAAIAAAAiAA0AAQAAAAMAAAAhAA0AAQAEAAMAAAAgAA0AAQAEAAMAAAAfAA0AAQAEAAMAAAAeAA0AAQAEAAMAAAAdAA0AAQAEAAMAAAAcAA0AAQAEAAMAAAAYAA0AAQAEAAMAAAA=")
 tile_set = SubResource("TileSet_4w60u")
@@ -633,49 +590,55 @@ tile_set = SubResource("TileSet_4w60u")
 tile_map_data = PackedByteArray("AAAAABMAAAABAAEAAAABABMAAAABAAEAAAACABMAAAABAAEAAAADABMAAAABAAEAAAAEABMAAAABAAEAAAAFABMAAAABAAEAAAAGABMAAAABAAEAAAAHABMAAAABAAEAAAAIABMAAAABAAEAAAAJABMAAAABAAEAAAAKABMAAAABAAEAAAALABMAAAABAAEAAAAMABMAAAABAAEAAAANABMAAAABAAEAAAAOABMAAAABAAEAAAAPABMAAAABAAEAAAAQABMAAAABAAEAAAARABMAAAABAAEAAAASABMAAAABAAEAAAATABMAAAABAAEAAAAUABMAAAABAAEAAAAVABMAAAABAAEAAAAWABMAAAABAAEAAAAXABMAAAABAAEAAAAYABMAAAABAAEAAAAZABMAAAABAAEAAAAaABMAAAABAAEAAAAbABMAAAABAAEAAAAcABMAAAABAAEAAAAdABMAAAABAAEAAAAeABMAAAABAAEAAAAfABMAAAABAAEAAAAgABMAAAABAAEAAAAhABMAAAABAAEAAAAiABMAAAABAAEAAAAjABMAAAABAAEAAAAbAA0AAAACAAEAAAAbAA4AAAACAAIAAAAbAA8AAAACAAEAAAAbABAAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_k60qr")
 
-[node name="Player" parent="." instance=ExtResource("2_7k28k")]
+[node name="Player" parent="LevelController" instance=ExtResource("2_7k28k")]
 position = Vector2(568, 574)
 
-[node name="Static platform" parent="." instance=ExtResource("3_aeicj")]
+[node name="Static platform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(674, 544)
 
-[node name="Moving platform" parent="." instance=ExtResource("3_aeicj")]
+[node name="Moving platform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(529, 473)
+script = ExtResource("4_wuimx")
+type = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Moving platform"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController/Moving platform"]
 libraries = {
 &"": SubResource("AnimationLibrary_3jmop")
 }
 autoplay = "move"
 
-[node name="ButtonPlatform" parent="." instance=ExtResource("3_aeicj")]
+[node name="ButtonPlatform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(99, 589)
 script = ExtResource("4_wuimx")
+type = 2
 
-[node name="Rise" type="AnimationPlayer" parent="ButtonPlatform"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController/ButtonPlatform"]
 libraries = {
-&"": SubResource("AnimationLibrary_uvtlq")
+&"": SubResource("AnimationLibrary_fklp7")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="LevelController"]
 position = Vector2(578, 324)
 zoom = Vector2(1.68, 1.68)
 
-[node name="Box" parent="." instance=ExtResource("4_7k28k")]
+[node name="Box" parent="LevelController" instance=ExtResource("4_7k28k")]
+z_index = 10
 position = Vector2(540, 440)
+scale = Vector2(2, 2)
 
-[node name="Button" parent="." instance=ExtResource("5_3jmop")]
+[node name="Button" parent="LevelController" instance=ExtResource("5_3jmop")]
 position = Vector2(264, 601)
 
-[node name="button_momentary" parent="." instance=ExtResource("7_mrx7m")]
+[node name="button_momentary" parent="LevelController" instance=ExtResource("7_mrx7m")]
 position = Vector2(777, 601)
 
-[node name="door-placeholder" parent="." instance=ExtResource("3_aeicj")]
-position = Vector2(950, 599)
+[node name="door-placeholder" parent="LevelController" groups=["player"] instance=ExtResource("3_aeicj")]
+position = Vector2(950, 560)
 rotation = -1.5707964
-script = ExtResource("8_uvtlq")
+script = ExtResource("4_wuimx")
+type = 3
 
-[node name="OpenDoor" type="AnimationPlayer" parent="door-placeholder"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController/door-placeholder"]
 libraries = {
 &"": SubResource("AnimationLibrary_xvx1o")
 }
@@ -704,7 +667,7 @@ position = Vector2(82, -34)
 [node name="torch_glow" parent="Torch-group" instance=ExtResource("18_qkto2")]
 position = Vector2(81, -89)
 
-[connection signal="pressed" from="Button" to="ButtonPlatform" method="_on_button_pressed"]
-[connection signal="pressed" from="button_momentary" to="door-placeholder" method="_on_button_momentary_pressed"]
-[connection signal="released" from="button_momentary" to="door-placeholder" method="_on_button_momentary_released"]
+[connection signal="pressed" from="LevelController/Button" to="LevelController/ButtonPlatform" method="_on_button_pressed"]
+[connection signal="pressed" from="LevelController/button_momentary" to="LevelController/door-placeholder" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/button_momentary" to="LevelController/door-placeholder" method="_on_button_released"]
 [connection signal="body_entered" from="Key" to="Player" method="_on_key_body_entered"]
