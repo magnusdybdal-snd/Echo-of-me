@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const FRICTION := 1000
+const FRICTION := 3000
 
 var start_position : Vector2
 var is_being_pushed := false
