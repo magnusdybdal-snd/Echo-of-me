@@ -14,15 +14,15 @@ func _input(event):
 		hard_reset()
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
+# Then resets the recording of the player for new recording
 func soft_reset():
-	#reset_player()
+	if player.recording.size() > 0:
+		spawn_echo_from_player()
 	reset_level_state()
-	#spawn_echo_from_player()
-	#start_new_recording()
+	start_new_recording()
 	
 # Resets the level, removes echoes and clears all recordings, like starting the level fresh
 func hard_reset():
-	reset_player()
 	reset_level_state()
 	clear_echoes()
 	start_new_recording()
@@ -31,9 +31,11 @@ func hard_reset():
 func spawn_echo_from_player():
 	var echo_scene = preload("res://src/scenes/echo_player.tscn")
 	var echo = echo_scene.instantiate()
-	echo.global_position = player.global_position
+	
+	echo.global_position = player.spawn_position
 	echo.recorded_inputs = player.recording.duplicate(true)
-	get_parent().add_child(echo)
+	
+	add_child(echo)
 	echoes.append(echo) 	
 
 # Clears all echoes for hard reset
@@ -46,11 +48,8 @@ func reset_level_state():
 	# All objects to be reset should listen to this signal
 	emit_signal("reset_level")
 	
-# Resets the player position to the spawn of the level
-func reset_player():
-	player.global_position = player.spawn_position
-	player.velocity = Vector2.ZERO
-	
 # Clear all recorded moves from the player
 func start_new_recording():
 	player.recording.clear()
+	player.frame_index = 0
+	player.is_recording = true

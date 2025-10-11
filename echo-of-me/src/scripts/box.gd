@@ -19,6 +19,7 @@ func _ready() -> void:
 # Sets the position back to start
 func _on_reset_level():
 	global_position = start_position
+	velocity = Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -28,7 +29,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * delta * SPEED
 	else:
 		velocity.x = 0
-	move_and_slide()
+
 	
 
 
