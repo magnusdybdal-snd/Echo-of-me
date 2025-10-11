@@ -5,6 +5,7 @@ var frame_index: int = 0
 
 const SPEED := 200.0
 const JUMP_VELOCITY := -370.0
+const PUSH_FORCE := 50.0
 
 @onready var animated_sprite = %AnimatedSprite2D_echo
 
@@ -58,6 +59,12 @@ func _physics_process(delta: float) -> void:
 				animated_sprite.play("in air")
 			if velocity.y > 0:
 				falling = true
+				
+			# Handles pushing of rigid bodies (boxes) - ADD THIS SECTION
+		for i in get_slide_collision_count():
+			var c = get_slide_collision(i)
+			if c.get_collider() is RigidBody2D:
+				c.get_collider().apply_central_impulse(-c.get_normal() * PUSH_FORCE)
 				
 		frame_index += 1
 		

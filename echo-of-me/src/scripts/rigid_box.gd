@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const FRICTION := 500
+const FRICTION := 1000
 
 var start_position : Vector2
 var is_being_pushed := false
@@ -9,8 +9,6 @@ func _ready():
 	start_position = global_position
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
-	
-	body_entered.connect(Callable(self, "_on_body_entered"))
 	
 func _physics_process(delta: float) -> void:
 	if not is_being_pushed:
@@ -31,8 +29,10 @@ func _on_reset_level():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		print("Body entered: ", body.name, " Groups: ", body.get_groups())
 		is_being_pushed = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		print("Body exited: ", body.name, " Groups: ", body.get_groups())
 		is_being_pushed = false

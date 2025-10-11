@@ -3,8 +3,7 @@ extends CharacterBody2D
 const SPEED := 200.0
 const JUMP_VELOCITY := -370.0 
 # Force the player applies to rigid bodies when colliding
-const PUSH_FORCE := 200.0
-const MIN_PUSH_FORCE := 20
+const PUSH_FORCE := 50.0
 
 @onready var animated_sprite = %AnimatedSprite2D_player
 
@@ -90,8 +89,7 @@ func _physics_process(delta: float) -> void:
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
-			var push_force = (PUSH_FORCE * velocity.length() / SPEED) + MIN_PUSH_FORCE
-			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+			c.get_collider().apply_central_impulse(-c.get_normal() * PUSH_FORCE)
 
 
 # Makes sure the jumping and landing animation finishes before playing the falling animation

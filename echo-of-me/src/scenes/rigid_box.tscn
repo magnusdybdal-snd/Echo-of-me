@@ -7,7 +7,7 @@
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_474vp"]
-size = Vector2(38, 20)
+size = Vector2(44, 20)
 
 [node name="RigidBox" type="RigidBody2D" groups=["PhysicsObjects"]]
 collision_layer = 8
@@ -26,6 +26,8 @@ region_enabled = true
 region_rect = Rect2(80, 48, 16, 16)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_474vp")

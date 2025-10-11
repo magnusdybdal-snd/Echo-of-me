@@ -253,18 +253,17 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fomcc"]
 height = 38.0
 
-[node name="Echo_player" type="CharacterBody2D"]
+[node name="Echo_player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_jysbo")
 
 [node name="AnimatedSprite2D_echo" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_4mnvi")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.104963586
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
