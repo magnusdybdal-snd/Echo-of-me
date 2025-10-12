@@ -28,6 +28,8 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if jump_pressed and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			jumping = true
+			falling = false
 			animated_sprite.play("jump")
 			
 		# Horizontal movement
