@@ -142,7 +142,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"die",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -151,7 +151,7 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_6vemb")
 }, {
-"duration": 3.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_nsd4u")
 }, {
 "duration": 2.0,
@@ -185,9 +185,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uyvp6")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -199,7 +199,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0d0r3")
 }],
-"loop": true,
+"loop": false,
 "name": &"landing",
 "speed": 5.0
 }, {
@@ -229,7 +229,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_2v4bt")
 }],
 "loop": true,
-"name": &"running",
+"name": &"run",
 "speed": 10.0
 }, {
 "frames": [{
@@ -246,8 +246,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_oh7ox")
 }],
 "loop": true,
-"name": &"walking",
-"speed": 5.0
+"name": &"walk",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fomcc"]
@@ -258,15 +258,15 @@ collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_jysbo")
 
-[node name="AnimatedSprite2D_echo" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_4mnvi")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_fomcc")
 
-[connection signal="animation_finished" from="AnimatedSprite2D_echo" to="." method="_on_animated_sprite_2d_echo_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

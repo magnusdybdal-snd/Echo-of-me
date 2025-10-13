@@ -33,7 +33,6 @@ project/assembly_name="Echo of Me"
 
 player="group of player scene for collision detection with only the player."
 PhysicsObjects=""
-echo=""
 
 [input]
 
