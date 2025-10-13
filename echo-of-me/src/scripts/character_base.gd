@@ -6,7 +6,7 @@ class_name CharacterBase
 # Constants for player movement and forces
 const SPEED := 200.0
 const JUMP_VELOCITY := -370.0
-const PUSH_FORCE := 50.0
+const PUSH_FORCE := 100.0
 
 # Used to control animations
 var jumping := false
@@ -76,7 +76,9 @@ func push_boxes() -> void:
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
-			c.get_collider().apply_central_impulse(-c.get_normal() * PUSH_FORCE)
+			c.get_collider().apply_central_force(-c.get_normal() * PUSH_FORCE * 15)
+			if "signal_push" in c.get_collider():
+				c.get_collider().signal_push()
 
 
 # Abstract method overridden by children

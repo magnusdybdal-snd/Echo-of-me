@@ -1,19 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cq8rrfg4xhml1"]
+[gd_scene load_steps=6 format=3 uid="uid://cq8rrfg4xhml1"]
 
 [ext_resource type="Script" uid="uid://dxephcnvoxhop" path="res://src/scripts/rigid_box.gd" id="1_cuxeg"]
 [ext_resource type="Texture2D" uid="uid://cxxx2fj3ufaq0" path="res://assets/Tilesets/Props/1_Mine_Props_1.png" id="1_tfug4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cuxeg"]
+friction = 500.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cuxeg"]
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_474vp"]
-size = Vector2(46, 20)
+size = Vector2(40, 20)
 
 [node name="RigidBox" type="RigidBody2D" groups=["PhysicsObjects"]]
 collision_layer = 8
 collision_mask = 15
+physics_material_override = SubResource("PhysicsMaterial_cuxeg")
 lock_rotation = true
-linear_damp = 28.505
 script = ExtResource("1_cuxeg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

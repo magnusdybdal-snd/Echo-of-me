@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://nocignd5huwf"]
+[gd_scene load_steps=18 format=3 uid="uid://nocignd5huwf"]
 
 [ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="1_kj6es"]
 [ext_resource type="Texture2D" uid="uid://b8dppg74ut3yc" path="res://assets/Tilesets/Background/2_Mine_Tileset_2_Background.png" id="2_xy0tj"]
@@ -438,6 +438,9 @@ sources/0 = SubResource("TileSetAtlasSource_kj6es")
 sources/1 = SubResource("TileSetAtlasSource_xy0tj")
 sources/2 = SubResource("TileSetAtlasSource_0axa2")
 sources/3 = SubResource("TileSetAtlasSource_5wydi")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kj6es"]
+friction = 500.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k7o8j"]
 texture = ExtResource("5_k8neq")
@@ -940,6 +943,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_o53qi"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_kj6es")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "First one"
 terrain_set_0/terrain_0/color = Color(0.882353, 0, 0.215686, 1)
