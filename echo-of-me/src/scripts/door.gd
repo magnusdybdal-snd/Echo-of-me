@@ -2,7 +2,7 @@ extends StaticBody2D
 @onready var DoorSprite: AnimatedSprite2D = $Trigger/AnimatedSprite2D
 @onready var collision_area_shape_top: CollisionShape2D = $CollisionAreaShape_top
 @onready var collision_area_shape_bottom: CollisionShape2D = $CollisionAreaShape_bottom
-@onready var collision_shape_door: CollisionShape2D = $Door/CollisionShapeDoor
+@onready var collision_shape_door: CollisionShape2D = $LevelController/Door/CollisionShapeDoor
 
 @onready var lightrays: AnimatedSprite2D = $Lightrays
 @onready var key: Area2D = $"../Key"
