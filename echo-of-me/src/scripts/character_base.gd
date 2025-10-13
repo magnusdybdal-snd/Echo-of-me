@@ -3,6 +3,7 @@
 extends CharacterBody2D
 class_name CharacterBase
 
+# Constants for player movement and forces
 const SPEED := 200.0
 const JUMP_VELOCITY := -370.0
 const PUSH_FORCE := 50.0
@@ -13,6 +14,9 @@ var falling := false
 var landing := false
 
 @onready var animated_sprite = %AnimatedSprite2D
+
+func _ready():
+	animated_sprite.animation_finished.connect(Callable(self, "_on_animated_sprite_2d_animation_finished"))
 
 func _physics_process(delta):
 	apply_gravity(delta)
@@ -52,11 +56,24 @@ func update_animation(direction: float) -> void:
 		if velocity.y > 0:
 			falling = true
 
+# Sets flags for animation control and plays jump animation
 func start_jump_animation():
 	jumping = true
 	falling = false
 	animated_sprite.play("jump")
 
+# Makes sure the jumping and landing animation finishes before playing the falling animation
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite.animation == "jump":
+		jumping = false
+		if not is_on_floor():
+			animated_sprite.play("in air")
+			
+	elif animated_sprite.animation == "landing":
+		landing = false
+		animated_sprite.play("idle")
+
+# Controls how the character will interact with rigid bodies (boxes)
 func push_boxes() -> void:
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)

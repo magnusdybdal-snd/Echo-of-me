@@ -7,7 +7,7 @@
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_474vp"]
-size = Vector2(44, 20)
+size = Vector2(46, 20)
 
 [node name="RigidBox" type="RigidBody2D" groups=["PhysicsObjects"]]
 collision_layer = 8

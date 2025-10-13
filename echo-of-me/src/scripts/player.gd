@@ -17,48 +17,31 @@ func _physics_process(delta: float) -> void:
 	 
 	# Echo recording system
 	if is_recording:
-		var input_frame = {
-			"frame": frame_index,
-			"direction": Input.get_axis("move_left", "move_right"),
-			"jump": Input.is_action_just_pressed("jump")
-		}
-		recording.append(input_frame)
-		frame_index += 1
+		record_input()
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		start_jump_animation()
 
-	# Get the input direction (-1, 0, 1)
-	var direction := Input.get_axis("move_left", "move_right")
-
 	super._physics_process(delta)
 	
 	# Applies the movement
-	if direction:
-		velocity.x = direction * SPEED
+	if get_direction():
+		velocity.x = get_direction() * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 
+# Overridden function from master class. Gets the direction of player for animation control
 func get_direction() -> float:
 	return Input.get_axis("move_left", "move_right")
 
-# Makes sure the jumping and landing animation finishes before playing the falling animation
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite.animation == "jump":
-		jumping = false
-		if not is_on_floor():
-			animated_sprite.play("in air")
-			
-	elif animated_sprite.animation == "landing":
-		landing = false
-		animated_sprite.play("idle")
-		
+# Reacts to signal from level controller
 func _on_reset_level():
 	reset_player()
 	
+# Resets the players position, flags and recording system
 func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
@@ -67,20 +50,17 @@ func reset_player():
 	landing = false
 	animated_sprite.play("idle")
 	clear_recording()
-	
+
+# Appends player inputs to the recording for later echo spawn / mimic	
+func record_input() -> void:
+	recording.append({
+		"frame": frame_index,
+		"direction": Input.get_axis("move_left", "move_right"),
+		"jump": Input.is_action_just_pressed("jump")
+	})
+	frame_index += 1
+
+# Clears the recorded inputs
 func clear_recording():
 	recording.clear()
 	frame_index = 0
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("PhysicsObjects"):
-		body.collision_layer = 4
-		print("entered body")
-		body.collision_mask = 4
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("PhysicsObjects"):
-		body.collision_layer = 1
-		print("left body")
-		body.collision_mask = 1
