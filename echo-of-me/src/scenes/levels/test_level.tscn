@@ -686,6 +686,7 @@ position = Vector2(81, -89)
 
 [node name="RigidBox" parent="LevelController" instance=ExtResource("7_qkto2")]
 position = Vector2(354, 384)
+center_of_mass_mode = 1
 
 [connection signal="pressed" from="LevelController/Button" to="LevelController/ButtonPlatform" method="_on_button_pressed"]
 [connection signal="pressed" from="LevelController/button_momentary" to="LevelController/door-placeholder" method="_on_button_pressed"]
