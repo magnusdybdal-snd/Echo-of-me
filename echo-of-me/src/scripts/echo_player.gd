@@ -13,8 +13,7 @@ func _physics_process(delta: float) -> void:
 	
 		# Handle jump.
 		if jump_pressed and is_on_floor():
-			velocity.y = JUMP_VELOCITY
-			start_jump_animation()
+			start_jump()
 			
 		# Horizontal movement
 		velocity.x = direction * SPEED

@@ -15,9 +15,6 @@ var landing := false
 
 @onready var animated_sprite = %AnimatedSprite2D
 
-func _ready():
-	animated_sprite.animation_finished.connect(Callable(self, "_on_animated_sprite_2d_animation_finished"))
-
 func _physics_process(delta):
 	apply_gravity(delta)
 	update_animation(get_direction())
@@ -57,7 +54,8 @@ func update_animation(direction: float) -> void:
 			falling = true
 
 # Sets flags for animation control and plays jump animation
-func start_jump_animation():
+func start_jump():
+	velocity.y = JUMP_VELOCITY
 	jumping = true
 	falling = false
 	animated_sprite.play("jump")

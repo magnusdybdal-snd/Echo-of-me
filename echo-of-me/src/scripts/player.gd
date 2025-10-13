@@ -9,20 +9,20 @@ var frame_index := 0
 var is_recording := true
 
 func _ready():
+	# Stores spawn position for resets
 	spawn_position = global_position
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
 func _physics_process(delta: float) -> void:
-	 
 	# Echo recording system
 	if is_recording:
 		record_input()
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		start_jump()
 		velocity.y = JUMP_VELOCITY
-		start_jump_animation()
 
 	super._physics_process(delta)
 	
