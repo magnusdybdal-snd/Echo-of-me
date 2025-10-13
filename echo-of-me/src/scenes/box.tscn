@@ -10,6 +10,8 @@ size = Vector2(16, 16)
 size = Vector2(11, 12)
 
 [node name="Box" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_n7bkc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -34,6 +36,4 @@ position = Vector2(6, 0)
 shape = SubResource("RectangleShape2D_sg2is")
 
 [connection signal="body_entered" from="left" to="." method="_on_left_body_entered"]
-[connection signal="body_exited" from="left" to="." method="_on_left_body_exited"]
 [connection signal="body_entered" from="right" to="." method="_on_right_body_entered"]
-[connection signal="body_exited" from="right" to="." method="_on_right_body_exited"]
