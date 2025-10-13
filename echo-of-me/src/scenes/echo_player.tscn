@@ -253,7 +253,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fomcc"]
 height = 38.0
 
-[node name="Echo_player" type="CharacterBody2D" groups=["player"]]
+[node name="Echo_player" type="CharacterBody2D" groups=["echo"]]
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_jysbo")

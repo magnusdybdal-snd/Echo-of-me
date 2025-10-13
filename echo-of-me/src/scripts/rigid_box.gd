@@ -28,11 +28,11 @@ func _on_reset_level():
 	freeze = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") or body.is_in_group("echo"):
 		print("Body entered: ", body.name, " Groups: ", body.get_groups())
 		is_being_pushed = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") or body.is_in_group("echo"):
 		print("Body exited: ", body.name, " Groups: ", body.get_groups())
 		is_being_pushed = false
