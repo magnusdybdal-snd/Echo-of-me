@@ -8,6 +8,7 @@ extends StaticBody2D
 @onready var key: Area2D = $"../Key"
 
 var opened: bool = false
+@export var need_key: bool = true
 
 func _ready() -> void:
 	DoorSprite.play("closed")
@@ -34,10 +35,14 @@ func open():
 	collision_area_shape_bottom.set_deferred("disabled", true)
 
 func _on_trigger_body_entered(body: Node2D) -> void:
-	if key.has_been_picked_up and body.is_in_group("player"):
-		print("KEY: Key aquired -> door opening!")
-		lightrays.show()
-		lightrays.play("default")
-		call_deferred("open") # Defer calling open so we don't change physics in the same step
-	else: # TODO remove debug print
-		print("KEY: No key -> not opening")
+	if need_key: # Flag if key is needed.
+		print("DOOR: Key needed")
+		if key.has_been_picked_up and body.is_in_group("player"):
+			print("DOOR: Key aquired -> door opening!")
+			lightrays.show()
+			lightrays.play("default")
+			call_deferred("open") # Defer calling open so we don't change physics in the same step
+		else: # TODO remove debug print
+			print("DOOR: No key -> not opening")
+	else: 
+		print("DOOR: no key needed -> go ahead")
