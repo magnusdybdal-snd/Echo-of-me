@@ -6,12 +6,12 @@ class_name CharacterBase
 # Constants for player movement and forces
 const SPEED := 200.0
 const SPRINT_SPEED := 300.0
-const ACCELERATION := 1500.0
-const SPRINT_ACCELERATION := 2000.0
+const ACCELERATION := 800.0
+const SPRINT_ACCELERATION := 1000.0
 const FRICTION := 1000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
-const BOX_PUSH_SPEED := 100.0
+const BOX_PUSH_SPEED := 150.0
 
 # Used to control animations
 var jumping := false
@@ -40,10 +40,11 @@ func apply_gravity(delta: float) -> void:
 func apply_movement(delta: float) -> void:
 	var direction = get_direction()
 	
-	var target_speed = 0.0
+	var target_speed := 0.0
+	var is_pushing := false
+	
 	if direction != 0:
-		
-		var is_pushing = is_pushing_box(direction)
+		is_pushing = is_pushing_box(direction)
 		
 		if is_pushing:
 			# Cap speed to the speed of the box while pushing
@@ -151,7 +152,10 @@ func push_boxes() -> void:
 		
 		# Only push if we are moving towards the box
 		if sign(push_direction.x) == sign(direction):
-			box.linear_velocity.x = velocity.x
+			if box.has_method("set_target_velocity"):
+				box.set_target_velocity(velocity.x)
+			else:
+				box.linear_velocity.x = velocity.x
 			
 		print("Player velocity: ", velocity.x, " | Box velocity: ", box.linear_velocity.x)
 			

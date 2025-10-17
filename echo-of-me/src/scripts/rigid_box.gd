@@ -1,7 +1,5 @@
 extends RigidBody2D
 
-const BOX_PUSH_SPEED = 150.0
-
 var start_position : Vector2
 var beeing_pushed := false
 
@@ -22,7 +20,7 @@ func _physics_process(_delta: float) -> void:
 		physics_material_override.friction = 0.0
 	else:
 		physics_material_override.friction = 1.0
-
+			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
 	freeze = true
