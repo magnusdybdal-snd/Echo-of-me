@@ -17,9 +17,6 @@ func _physics_process(delta: float) -> void:
 		if abs(linear_velocity.x) < STOP_THRESHOLD:
 			linear_velocity.x = 0
 
-
-
-
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
 	freeze = true
@@ -32,9 +29,6 @@ func _on_reset_level():
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
 	freeze = false
-
-
-
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("enter")

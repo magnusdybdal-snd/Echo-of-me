@@ -2,7 +2,6 @@ extends CharacterBase
 
 var spawn_position: Vector2
 
-
 # Used to control the recording system for echoes
 var recording: Array = []
 var frame_index := 0
@@ -15,6 +14,9 @@ func _ready():
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
 func _physics_process(delta: float) -> void:
+	# Check sprint input
+	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
+	
 	# Echo recording system
 	if is_recording:
 		record_input()
@@ -22,17 +24,10 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		start_jump()
-		velocity.y = JUMP_VELOCITY
 
+	# Base class handles all movement
 	super._physics_process(delta)
 	
-	# Applies the movement
-	if get_direction():
-		velocity.x = get_direction() * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
-
 # Overridden function from master class. Gets the direction of player for animation control
 func get_direction() -> float:
 	return Input.get_axis("move_left", "move_right")
@@ -48,6 +43,7 @@ func reset_player():
 	jumping = false
 	falling = false
 	landing = false
+	is_sprinting = false
 	animated_sprite.play("idle")
 	clear_recording()
 
@@ -56,7 +52,8 @@ func record_input() -> void:
 	recording.append({
 		"frame": frame_index,
 		"direction": Input.get_axis("move_left", "move_right"),
-		"jump": Input.is_action_just_pressed("jump")
+		"jump": Input.is_action_just_pressed("jump"),
+		"sprint": Input.is_action_pressed("sprint")
 	})
 	frame_index += 1
 
