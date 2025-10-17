@@ -1,21 +1,21 @@
 [gd_scene load_steps=22 format=4 uid="uid://tnqqj4vt62kf"]
 
-[ext_resource type="Script" uid="uid://btoertrrg2u5x" path="res://src/scripts/level_01.gd" id="1_xxfat"]
-[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="2_4q3mc"]
-[ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="3_2trwd"]
-[ext_resource type="Texture2D" uid="uid://b8dppg74ut3yc" path="res://assets/Tilesets/Background/2_Mine_Tileset_2_Background.png" id="4_fbswq"]
-[ext_resource type="Texture2D" uid="uid://mdh6rxhhnlqf" path="res://assets/Tilesets/Background/2_Mine_Tileset_3_Background.png" id="5_j0fy4"]
-[ext_resource type="Texture2D" uid="uid://b2t2kq08xymqr" path="res://assets/Tilesets/Background/Mine_Tileset_1A_Background_.png" id="6_2tlhu"]
-[ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="7_urj2i"]
-[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="8_d6i4b"]
-[ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="9_qpapi"]
-[ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="10_byu6o"]
-[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="11_1mjfj"]
-[ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="12_etp7s"]
-[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="13_pdhic"]
+[ext_resource type="Script" uid="uid://btoertrrg2u5x" path="res://src/scripts/level_01.gd" id="1_0afxd"]
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="2_ctanu"]
+[ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="3_hhctk"]
+[ext_resource type="Texture2D" uid="uid://b8dppg74ut3yc" path="res://assets/Tilesets/Background/2_Mine_Tileset_2_Background.png" id="4_wbvwm"]
+[ext_resource type="Texture2D" uid="uid://mdh6rxhhnlqf" path="res://assets/Tilesets/Background/2_Mine_Tileset_3_Background.png" id="5_6xe2p"]
+[ext_resource type="Texture2D" uid="uid://b2t2kq08xymqr" path="res://assets/Tilesets/Background/Mine_Tileset_1A_Background_.png" id="6_883it"]
+[ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="7_xwimy"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="8_vaiti"]
+[ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="9_s325v"]
+[ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="10_sxj84"]
+[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="11_ril6c"]
+[ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="12_ck20o"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="13_53222"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q307b"]
-texture = ExtResource("3_2trwd")
+texture = ExtResource("3_hhctk")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -192,7 +192,7 @@ texture_region_size = Vector2i(32, 32)
 5:3/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l52lh"]
-texture = ExtResource("4_fbswq")
+texture = ExtResource("4_wbvwm")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 1
@@ -377,7 +377,7 @@ texture_region_size = Vector2i(32, 32)
 5:3/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ucyw"]
-texture = ExtResource("5_j0fy4")
+texture = ExtResource("5_6xe2p")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -405,7 +405,7 @@ texture_region_size = Vector2i(32, 32)
 5:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8gj0f"]
-texture = ExtResource("6_2tlhu")
+texture = ExtResource("6_883it")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -448,7 +448,7 @@ sources/2 = SubResource("TileSetAtlasSource_0ucyw")
 sources/3 = SubResource("TileSetAtlasSource_8gj0f")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46xxk"]
-texture = ExtResource("7_urj2i")
+texture = ExtResource("7_xwimy")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -635,9 +635,9 @@ sources/0 = SubResource("TileSetAtlasSource_46xxk")
 [sub_resource type="LabelSettings" id="LabelSettings_uqqpe"]
 
 [node name="Level02" type="Node2D"]
-script = ExtResource("1_xxfat")
+script = ExtResource("1_0afxd")
 
-[node name="LevelController" parent="." instance=ExtResource("2_4q3mc")]
+[node name="LevelController" parent="." instance=ExtResource("2_ctanu")]
 player_path = NodePath("")
 
 [node name="Tilemaps" type="Node2D" parent="LevelController"]
@@ -649,23 +649,23 @@ tile_map_data = PackedByteArray("AAAAABMAAAABAAEAAAABABMAAAABAAEAAAACABMAAAABAAE
 tile_set = SubResource("TileSet_kibtc")
 
 [node name="Middleground" type="TileMapLayer" parent="LevelController/Tilemaps"]
-tile_map_data = PackedByteArray("AAAGABAAAAAAAAEAAAAOABAAAAAEAAEAAAANABAAAAAAAAEAAAAMABAAAAAAAAEAAAALABAAAAAAAAEAAAAKABAAAAAAAAEAAAAJABAAAAAAAAEAAAAIABAAAAAAAAEAAAAHABAAAAAAAAEAAAAWABAAAAAAAAEAAAAXABAAAAAAAAEAAAAYABAAAAAAAAEAAAAZABAAAAAAAAEAAAAaABAAAAAAAAEAAAAbABAAAAAAAAEAAAAcABAAAAAAAAEAAAAdABAAAAAAAAEAAAAeABAAAAAAAAEAAAAFABAAAAAAAAEAAAAEABAAAAAAAAEAAAADABAAAAAAAAEAAAACABAAAAAAAAEAAAABABAAAAAAAAEAAAAAABAAAAAAAAEAAAAfABAAAAAAAAEAAAAgABAAAAAAAAEAAAAhABAAAAAAAAEAAAAiABAAAAAAAAEAAAAjABAAAAAAAAEAAAAOABEAAAABAAMAAAAOABIAAAABAAMAAAAOABMAAAAAAAAAADANABQAAAAAAAAAADANABMAAAACAAEAAAANABIAAAACAAEAAAANABEAAAACAAEAAAAMABEAAAACAAEAAAAMABIAAAACAAIAAAAAABEAAAACAAEAAAAAABIAAAACAAIAAAABABEAAAADAAEAAAABABIAAAADAAIAAAAAABMAAAACAAEAAAABABMAAAADAAEAAAACABEAAAACAAEAAAACABIAAAACAAIAAAADABEAAAADAAEAAAADABIAAAADAAIAAAACABMAAAACAAEAAAADABMAAAADAAEAAAAEABEAAAACAAEAAAAEABIAAAACAAIAAAAFABEAAAADAAEAAAAFABIAAAADAAIAAAAEABMAAAACAAEAAAAFABMAAAADAAEAAAAGABEAAAACAAEAAAAGABIAAAACAAIAAAAHABEAAAADAAEAAAAHABIAAAADAAIAAAAGABMAAAACAAEAAAAHABMAAAADAAEAAAAIABEAAAACAAEAAAAIABIAAAACAAIAAAAJABEAAAADAAEAAAAJABIAAAADAAIAAAAIABMAAAACAAEAAAAJABMAAAADAAEAAAAKABEAAAACAAEAAAAKABIAAAACAAIAAAALABEAAAADAAEAAAALABIAAAADAAIAAAAKABMAAAACAAEAAAALABMAAAADAAEAAAAMABMAAAACAAEAAAAWABEAAAACAAEAAAAWABIAAAACAAIAAAAXABEAAAADAAEAAAAXABIAAAADAAIAAAAXABMAAAADAAEAAAAYABEAAAACAAEAAAAYABIAAAACAAIAAAAZABEAAAADAAEAAAAZABIAAAADAAIAAAAYABMAAAACAAEAAAAZABMAAAADAAEAAAAaABEAAAACAAEAAAAaABIAAAACAAIAAAAaABMAAAACAAEAAAAbABEAAAADAAEAAAAbABIAAAADAAIAAAAbABMAAAADAAEAAAAcABEAAAACAAEAAAAcABIAAAACAAIAAAAdABEAAAADAAEAAAAdABIAAAADAAIAAAAcABMAAAACAAEAAAAdABMAAAADAAEAAAAeABEAAAACAAEAAAAeABIAAAACAAIAAAAfABEAAAADAAEAAAAfABIAAAADAAIAAAAeABMAAAACAAEAAAAfABMAAAADAAEAAAAgABEAAAACAAEAAAAgABIAAAACAAIAAAAhABEAAAADAAEAAAAhABIAAAADAAIAAAAgABMAAAACAAEAAAAhABMAAAADAAEAAAAiABEAAAACAAEAAAAiABIAAAACAAIAAAAjABEAAAADAAEAAAAjABIAAAADAAIAAAAiABMAAAACAAEAAAAjABMAAAADAAEAAAAAABQAAAAFAAMAAAABABQAAAAFAAMAAAACABQAAAAFAAMAAAADABQAAAAFAAMAAAAEABQAAAAFAAMAAAAFABQAAAAFAAMAAAAGABQAAAAFAAMAAAAHABQAAAAFAAMAAAAIABQAAAAFAAMAAAAJABQAAAAFAAMAAAAKABQAAAAFAAMAAAALABQAAAAFAAMAAAAMABQAAAAFAAMAAAAYABQAAAAFAAMAAAAZABQAAAAFAAMAAAAaABQAAAAFAAMAAAAbABQAAAAFAAMAAAAcABQAAAAFAAMAAAAdABQAAAAFAAMAAAAeABQAAAAFAAMAAAAfABQAAAAFAAMAAAAgABQAAAAFAAMAAAAhABQAAAAFAAMAAAAiABQAAAAFAAMAAAAjABQAAAAFAAMAAAAYABUAAAAAAAAAAGAZABUAAAAFAAMAAAAaABUAAAAFAAMAAAAbABUAAAAFAAMAAAAcABUAAAAFAAMAAAAdABUAAAAFAAMAAAAeABUAAAAFAAMAAAAfABUAAAAFAAMAAAAgABUAAAAFAAMAAAAhABUAAAAFAAMAAAAiABUAAAAFAAMAAAAjABUAAAAFAAMAAAAAABUAAAAFAAMAAAABABUAAAAFAAMAAAACABUAAAAFAAMAAAADABUAAAAFAAMAAAAEABUAAAAFAAMAAAAFABUAAAAFAAMAAAAGABUAAAAFAAMAAAAHABUAAAAFAAMAAAAIABUAAAAFAAMAAAAJABUAAAAFAAMAAAAKABUAAAAFAAMAAAALABUAAAAFAAMAAAAMABUAAAAAAAAAADAVABAAAAAAAAEAAAAUABAAAAAFAAEAAAAUABEAAAAAAAAAAGAVABIAAAAAAAAAAGAWABMAAAAAAAAAAGAXABQAAAAAAAAAAGAVABEAAAADAAEAAAA=")
+tile_map_data = PackedByteArray("AAAGABAAAAAAAAEAAAAOABAAAAAEAAEAAAANABAAAAAAAAEAAAAMABAAAAAAAAEAAAALABAAAAAAAAEAAAAKABAAAAAAAAEAAAAJABAAAAAAAAEAAAAIABAAAAAAAAEAAAAHABAAAAAAAAEAAAAWABAAAAAAAAEAAAAXABAAAAAAAAEAAAAYABAAAAAAAAEAAAAZABAAAAAAAAEAAAAaABAAAAAAAAEAAAAbABAAAAAAAAEAAAAcABAAAAAAAAEAAAAdABAAAAAAAAEAAAAeABAAAAAAAAEAAAAFABAAAAAAAAEAAAAEABAAAAAAAAEAAAADABAAAAAAAAEAAAACABAAAAAAAAEAAAABABAAAAAAAAEAAAAAABAAAAAAAAEAAAAfABAAAAAAAAEAAAAgABAAAAAAAAEAAAAhABAAAAAAAAEAAAAiABAAAAAAAAEAAAAjABAAAAAAAAEAAAAOABEAAAABAAMAAAAOABIAAAABAAMAAAAOABMAAAAAAAAAADANABQAAAAAAAAAADANABMAAAACAAEAAAANABIAAAACAAEAAAANABEAAAACAAEAAAAMABEAAAACAAEAAAAMABIAAAACAAIAAAAAABEAAAACAAEAAAAAABIAAAACAAIAAAABABEAAAADAAEAAAABABIAAAADAAIAAAAAABMAAAACAAEAAAABABMAAAADAAEAAAACABEAAAACAAEAAAACABIAAAACAAIAAAADABEAAAADAAEAAAADABIAAAADAAIAAAACABMAAAACAAEAAAADABMAAAADAAEAAAAEABEAAAACAAEAAAAEABIAAAACAAIAAAAFABEAAAADAAEAAAAFABIAAAADAAIAAAAEABMAAAACAAEAAAAFABMAAAADAAEAAAAGABEAAAACAAEAAAAGABIAAAACAAIAAAAHABEAAAADAAEAAAAHABIAAAADAAIAAAAGABMAAAACAAEAAAAHABMAAAADAAEAAAAIABEAAAACAAEAAAAIABIAAAACAAIAAAAJABEAAAADAAEAAAAJABIAAAADAAIAAAAIABMAAAACAAEAAAAJABMAAAADAAEAAAAKABEAAAACAAEAAAAKABIAAAACAAIAAAALABEAAAADAAEAAAALABIAAAADAAIAAAAKABMAAAACAAEAAAALABMAAAADAAEAAAAMABMAAAACAAEAAAAWABEAAAACAAEAAAAWABIAAAACAAIAAAAXABEAAAADAAEAAAAXABIAAAADAAIAAAAXABMAAAADAAEAAAAYABEAAAACAAEAAAAYABIAAAACAAIAAAAZABEAAAADAAEAAAAZABIAAAADAAIAAAAYABMAAAACAAEAAAAZABMAAAADAAEAAAAaABEAAAACAAEAAAAaABIAAAACAAIAAAAaABMAAAACAAEAAAAbABEAAAADAAEAAAAbABIAAAADAAIAAAAbABMAAAADAAEAAAAcABEAAAACAAEAAAAcABIAAAACAAIAAAAdABEAAAADAAEAAAAdABIAAAADAAIAAAAcABMAAAACAAEAAAAdABMAAAADAAEAAAAeABEAAAACAAEAAAAeABIAAAACAAIAAAAfABEAAAADAAEAAAAfABIAAAADAAIAAAAeABMAAAACAAEAAAAfABMAAAADAAEAAAAgABEAAAACAAEAAAAgABIAAAACAAIAAAAhABEAAAADAAEAAAAhABIAAAADAAIAAAAgABMAAAACAAEAAAAhABMAAAADAAEAAAAiABEAAAACAAEAAAAiABIAAAACAAIAAAAjABEAAAADAAEAAAAjABIAAAADAAIAAAAiABMAAAACAAEAAAAjABMAAAADAAEAAAAAABQAAAAFAAMAAAABABQAAAAFAAMAAAACABQAAAAFAAMAAAADABQAAAAFAAMAAAAEABQAAAAFAAMAAAAFABQAAAAFAAMAAAAGABQAAAAFAAMAAAAHABQAAAAFAAMAAAAIABQAAAAFAAMAAAAJABQAAAAFAAMAAAAKABQAAAAFAAMAAAALABQAAAAFAAMAAAAMABQAAAAFAAMAAAAYABQAAAAFAAMAAAAZABQAAAAFAAMAAAAaABQAAAAFAAMAAAAbABQAAAAFAAMAAAAcABQAAAAFAAMAAAAdABQAAAAFAAMAAAAeABQAAAAFAAMAAAAfABQAAAAFAAMAAAAgABQAAAAFAAMAAAAhABQAAAAFAAMAAAAiABQAAAAFAAMAAAAjABQAAAAFAAMAAAAYABUAAAAAAAAAAGAZABUAAAAFAAMAAAAaABUAAAAFAAMAAAAbABUAAAAFAAMAAAAcABUAAAAFAAMAAAAdABUAAAAFAAMAAAAeABUAAAAFAAMAAAAfABUAAAAFAAMAAAAgABUAAAAFAAMAAAAhABUAAAAFAAMAAAAiABUAAAAFAAMAAAAjABUAAAAFAAMAAAAAABUAAAAFAAMAAAABABUAAAAFAAMAAAACABUAAAAFAAMAAAADABUAAAAFAAMAAAAEABUAAAAFAAMAAAAFABUAAAAFAAMAAAAGABUAAAAFAAMAAAAHABUAAAAFAAMAAAAIABUAAAAFAAMAAAAJABUAAAAFAAMAAAAKABUAAAAFAAMAAAALABUAAAAFAAMAAAAMABUAAAAAAAAAADAVABAAAAAAAAEAAAAVABIAAAAAAAAAAGAWABMAAAAAAAAAAGAXABQAAAAAAAAAAGAVABEAAAADAAEAAAA=")
 tile_set = SubResource("TileSet_swe6p")
 
-[node name="Player" parent="LevelController" instance=ExtResource("8_d6i4b")]
+[node name="Player" parent="LevelController" instance=ExtResource("8_vaiti")]
 position = Vector2(170, 481)
 
 [node name="Camera2D" type="Camera2D" parent="LevelController"]
 position = Vector2(578, 324)
 zoom = Vector2(1.68, 1.68)
 
-[node name="Door" parent="LevelController" instance=ExtResource("9_qpapi")]
+[node name="Door" parent="LevelController" instance=ExtResource("9_s325v")]
 position = Vector2(944, 480)
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
 
-[node name="Lightrays" parent="LevelController/Door" instance=ExtResource("10_byu6o")]
+[node name="Lightrays" parent="LevelController/Door" instance=ExtResource("10_sxj84")]
 z_index = 9
 position = Vector2(-13.5, 1)
 scale = Vector2(1, 0.92424244)
@@ -674,7 +674,7 @@ scale = Vector2(1, 0.92424244)
 visible = false
 position = Vector2(798, 543)
 
-[node name="torch_glow" parent="LevelController/Torch-group" instance=ExtResource("11_1mjfj")]
+[node name="torch_glow" parent="LevelController/Torch-group" instance=ExtResource("11_ril6c")]
 position = Vector2(81, -89)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
@@ -700,10 +700,10 @@ text = "Press SHIFT TO RUN!"
 horizontal_alignment = 3
 justification_flags = 161
 
-[node name="Killzone" parent="LevelController" instance=ExtResource("12_etp7s")]
+[node name="Killzone" parent="LevelController" instance=ExtResource("12_ck20o")]
 position = Vector2(530, 674)
 
-[node name="level_end" parent="LevelController" instance=ExtResource("13_pdhic")]
+[node name="level_end" parent="LevelController" instance=ExtResource("13_53222")]
 position = Vector2(1039, 498)
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
