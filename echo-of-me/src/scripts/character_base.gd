@@ -19,6 +19,9 @@ var falling := false
 var landing := false
 var is_sprinting := false
 
+# Tracks boxes to apply push force to
+var nearby_boxes: Array = []
+
 @onready var animated_sprite = %AnimatedSprite2D
 
 func _physics_process(delta):
@@ -105,16 +108,34 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	elif animated_sprite.animation == "landing":
 		landing = false
 		animated_sprite.play("idle")
-
-# Controls how the character will interact with rigid bodies (boxes)
+				
 func push_boxes() -> void:
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody2D:
-			c.get_collider().apply_central_force(-c.get_normal() * PUSH_FORCE * 15)
-			if "signal_push" in c.get_collider():
-				c.get_collider().signal_push()
-
+	var direction = get_direction()
+	
+	# Only push if player is moving
+	if direction == 0 or nearby_boxes.is_empty():
+		return
+		
+	for box in nearby_boxes:
+		if not is_instance_valid(box):
+			nearby_boxes.erase(box)
+			
+		# Calculate the direction of push based on player position
+		var push_direction = (box.global_position - global_position).normalized()
+		
+		# Only push if we are moving towards the box
+		if sign(push_direction.x) == sign(direction):
+			var velocity_factor = abs(velocity.x) / SPEED
+			var push_strength = PUSH_FORCE * 15.0 * (1.0 + velocity_factor)
+			
+			box.apply_central_force(push_direction * push_strength)
+			
+func add_nearby_box(box: RigidBody2D) -> void:
+	if box not in nearby_boxes:
+		nearby_boxes.append(box)
+		
+func remove_nearby_box(box: RigidBody2D) -> void:
+	nearby_boxes.erase(box)
 
 # Abstract method overridden by children
 func get_direction() -> float:
