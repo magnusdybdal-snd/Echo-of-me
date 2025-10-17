@@ -5,6 +5,11 @@ class_name CharacterBase
 
 # Constants for player movement and forces
 const SPEED := 200.0
+const SPRINT_SPEED := 300.0
+const ACCELERATION := 1500.0
+const SPRINT_ACCELERATION := 2000.0
+const FRICTION := 1200.0
+const AIR_RESISTANCE := 400.0
 const JUMP_VELOCITY := -370.0
 const PUSH_FORCE := 100.0
 
@@ -12,19 +17,41 @@ const PUSH_FORCE := 100.0
 var jumping := false
 var falling := false
 var landing := false
+var is_sprinting := false
 
 @onready var animated_sprite = %AnimatedSprite2D
 
 func _physics_process(delta):
 	apply_gravity(delta)
+	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()
-	move_and_slide()	
-
+	move_and_slide()
+	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+# Acceleration based movement system
+func apply_movement(delta: float) -> void:
+	var direction = get_direction()
+	
+	var target_speed = 0.0
+	if direction != 0:
+		target_speed = SPRINT_ACCELERATION if (is_sprinting and is_on_floor()) else ACCELERATION
+		target_speed *= direction
+	
+	var accel_rate: float
+	if is_on_floor():
+		if direction != 0:
+			accel_rate = SPRINT_ACCELERATION if is_sprinting else ACCELERATION
+		else:
+			accel_rate = FRICTION
+	else:
+		accel_rate = AIR_RESISTANCE
+	
+	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
 
 # This function handles update of animations as the characters share a lot of animations
 func update_animation(direction: float) -> void:
@@ -44,7 +71,15 @@ func update_animation(direction: float) -> void:
 			animated_sprite.play("landing")
 		elif not jumping and not landing:
 			# On ground not jumping/falling -> play walk or idle
-			animated_sprite.play("idle" if direction == 0 else "walk")
+			if direction == 0 :
+				animated_sprite.play("idle")
+			
+			elif is_sprinting:
+				animated_sprite.play("run")
+			
+			else:
+				animated_sprite.play("walk")
+				
 	
 	else:
 		# In air

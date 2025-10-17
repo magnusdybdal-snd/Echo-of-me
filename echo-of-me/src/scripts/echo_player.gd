@@ -10,13 +10,15 @@ func _physics_process(delta: float) -> void:
 		var frame_data = recorded_inputs[frame_index]
 		direction  = frame_data["direction"]
 		var jump_pressed: bool = frame_data["jump"]
+		is_sprinting = frame_data.get("sprint", false)
 	
 		# Handle jump.
 		if jump_pressed and is_on_floor():
 			start_jump()
 			
 		# Horizontal movement
-		velocity.x = direction * SPEED
+		var current_speed = SPRINT_SPEED if is_sprinting and is_on_floor() else SPEED
+		velocity.x = direction * current_speed
 		
 		super._physics_process(delta)
 				
