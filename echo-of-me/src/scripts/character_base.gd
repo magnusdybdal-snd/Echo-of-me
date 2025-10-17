@@ -11,7 +11,7 @@ const SPRINT_ACCELERATION := 2000.0
 const FRICTION := 1000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
-const BOX_PUSH_SPEED := 130.0
+const BOX_PUSH_SPEED := 100.0
 
 # Used to control animations
 var jumping := false
@@ -151,7 +151,9 @@ func push_boxes() -> void:
 		
 		# Only push if we are moving towards the box
 		if sign(push_direction.x) == sign(direction):
-			box.linear_velocity.x = direction * BOX_PUSH_SPEED
+			box.linear_velocity.x = velocity.x
+			
+		print("Player velocity: ", velocity.x, " | Box velocity: ", box.linear_velocity.x)
 			
 func add_nearby_box(box: RigidBody2D) -> void:
 	if box not in nearby_boxes:
