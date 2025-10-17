@@ -8,8 +8,8 @@ const SPEED := 200.0
 const SPRINT_SPEED := 300.0
 const ACCELERATION := 1500.0
 const SPRINT_ACCELERATION := 2000.0
-const FRICTION := 1200.0
-const AIR_RESISTANCE := 400.0
+const FRICTION := 1000.0
+const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
 const PUSH_FORCE := 100.0
 
@@ -39,7 +39,7 @@ func apply_movement(delta: float) -> void:
 	
 	var target_speed = 0.0
 	if direction != 0:
-		target_speed = SPRINT_ACCELERATION if (is_sprinting and is_on_floor()) else ACCELERATION
+		target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
 		target_speed *= direction
 	
 	var accel_rate: float

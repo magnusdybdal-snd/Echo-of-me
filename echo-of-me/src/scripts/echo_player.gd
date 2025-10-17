@@ -15,11 +15,8 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if jump_pressed and is_on_floor():
 			start_jump()
-			
-		# Horizontal movement
-		var current_speed = SPRINT_SPEED if is_sprinting and is_on_floor() else SPEED
-		velocity.x = direction * current_speed
 		
+		# Physics handled in super class
 		super._physics_process(delta)
 				
 		frame_index += 1
