@@ -2,7 +2,7 @@ extends RigidBody2D
 
 const DAMP_FORCE = 800.0
 const STOP_THRESHOLD = 20.0
-const MAX_PUSH_SPEED = 220.0
+const MAX_PUSH_SPEED = 200.0
 
 var start_position : Vector2
 var beeing_pushed := false
@@ -22,15 +22,12 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	if beeing_pushed and is_instance_valid(pusher):
-		linear_damp = 4.5
-		mass = 1.0
+		linear_damp = 4.0
 		
-		var max_speed = abs(pusher.velocity.x) * 1.1
-		if abs(linear_velocity.x) > max_speed:
-			linear_velocity.x = sign(linear_velocity.x) * max_speed		
+		if abs(linear_velocity.x) > MAX_PUSH_SPEED:
+			linear_velocity.x = sign(linear_velocity.x) * MAX_PUSH_SPEED		
 	else:
 		linear_damp = 0.0
-		mass = 0.5
 		pusher = null
 
 # Handles reseting of position when level is reset with E or R

@@ -11,7 +11,7 @@ const SPRINT_ACCELERATION := 2000.0
 const FRICTION := 1000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
-const PUSH_FORCE := 100.0
+const BOX_PUSH_SPEED := 130.0
 
 # Used to control animations
 var jumping := false
@@ -42,8 +42,17 @@ func apply_movement(delta: float) -> void:
 	
 	var target_speed = 0.0
 	if direction != 0:
-		target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
-		target_speed *= direction
+		
+		var is_pushing = is_pushing_box(direction)
+		
+		if is_pushing:
+			# Cap speed to the speed of the box while pushing
+			target_speed = BOX_PUSH_SPEED * direction
+		
+		else:
+			# Normal movement speed
+			target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
+			target_speed *= direction
 	
 	var accel_rate: float
 	if is_on_floor():
@@ -55,6 +64,22 @@ func apply_movement(delta: float) -> void:
 		accel_rate = AIR_RESISTANCE
 	
 	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
+
+# Check if we're actively pushing a box in the given direction	
+func is_pushing_box(direction: float) -> bool:
+	if nearby_boxes.is_empty():
+		return false
+		
+	for box in nearby_boxes:
+		if not is_instance_valid(box):
+			continue
+			
+		# Check if box is in the direction we are moving
+		var to_box = box.global_position.x - global_position.x
+		if sign(to_box) == sign(direction):
+			return true
+			
+	return false
 
 # This function handles update of animations as the characters share a lot of animations
 func update_animation(direction: float) -> void:
@@ -119,16 +144,14 @@ func push_boxes() -> void:
 	for box in nearby_boxes:
 		if not is_instance_valid(box):
 			nearby_boxes.erase(box)
+			continue
 			
 		# Calculate the direction of push based on player position
 		var push_direction = (box.global_position - global_position).normalized()
 		
 		# Only push if we are moving towards the box
 		if sign(push_direction.x) == sign(direction):
-			var velocity_factor = abs(velocity.x) / SPEED
-			var push_strength = PUSH_FORCE * 15.0 * (1.0 + velocity_factor)
-			
-			box.apply_central_force(push_direction * push_strength)
+			box.linear_velocity.x = direction * BOX_PUSH_SPEED
 			
 func add_nearby_box(box: RigidBody2D) -> void:
 	if box not in nearby_boxes:
