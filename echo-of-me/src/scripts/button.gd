@@ -16,7 +16,8 @@ func _on_body_entered(_body: Node2D) -> void:
 		is_pressed = true
 		$AnimatedSprite2D.play("pressed")
 		emit_signal("pressed")
+
 		
 func _on_reset_level():
 	$AnimatedSprite2D.play("released")
-	is_pressed = false
+	is_pressed = false	
