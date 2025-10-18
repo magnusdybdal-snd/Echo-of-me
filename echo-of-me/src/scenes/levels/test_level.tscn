@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=32 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_ultnw"]

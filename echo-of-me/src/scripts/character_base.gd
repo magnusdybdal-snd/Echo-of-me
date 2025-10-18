@@ -6,18 +6,21 @@ class_name CharacterBase
 # Constants for player movement and forces
 const SPEED := 200.0
 const SPRINT_SPEED := 300.0
-const ACCELERATION := 1500.0
-const SPRINT_ACCELERATION := 2000.0
+const ACCELERATION := 800.0
+const SPRINT_ACCELERATION := 1000.0
 const FRICTION := 1000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
-const PUSH_FORCE := 100.0
+const BOX_PUSH_SPEED := 150.0
 
 # Used to control animations
 var jumping := false
 var falling := false
 var landing := false
 var is_sprinting := false
+
+# Tracks boxes to apply push force to
+var nearby_boxes: Array = []
 
 @onready var animated_sprite = %AnimatedSprite2D
 
@@ -37,10 +40,20 @@ func apply_gravity(delta: float) -> void:
 func apply_movement(delta: float) -> void:
 	var direction = get_direction()
 	
-	var target_speed = 0.0
+	var target_speed := 0.0
+	var is_pushing := false
+	
 	if direction != 0:
-		target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
-		target_speed *= direction
+		is_pushing = is_pushing_box(direction)
+		
+		if is_pushing:
+			# Cap speed to the speed of the box while pushing
+			target_speed = BOX_PUSH_SPEED * direction
+		
+		else:
+			# Normal movement speed
+			target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
+			target_speed *= direction
 	
 	var accel_rate: float
 	if is_on_floor():
@@ -52,6 +65,22 @@ func apply_movement(delta: float) -> void:
 		accel_rate = AIR_RESISTANCE
 	
 	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
+
+# Check if we're actively pushing a box in the given direction	
+func is_pushing_box(direction: float) -> bool:
+	if nearby_boxes.is_empty():
+		return false
+		
+	for box in nearby_boxes:
+		if not is_instance_valid(box):
+			continue
+			
+		# Check if box is in the direction we are moving
+		var to_box = box.global_position.x - global_position.x
+		if sign(to_box) == sign(direction):
+			return true
+			
+	return false
 
 # This function handles update of animations as the characters share a lot of animations
 func update_animation(direction: float) -> void:
@@ -105,16 +134,37 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	elif animated_sprite.animation == "landing":
 		landing = false
 		animated_sprite.play("idle")
-
-# Controls how the character will interact with rigid bodies (boxes)
+				
 func push_boxes() -> void:
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody2D:
-			c.get_collider().apply_central_force(-c.get_normal() * PUSH_FORCE * 15)
-			if "signal_push" in c.get_collider():
-				c.get_collider().signal_push()
-
+	var direction = get_direction()
+	
+	# Only push if player is moving
+	if direction == 0 or nearby_boxes.is_empty():
+		return
+		
+	for box in nearby_boxes:
+		if not is_instance_valid(box):
+			nearby_boxes.erase(box)
+			continue
+			
+		# Calculate the direction of push based on player position
+		var push_direction = (box.global_position - global_position).normalized()
+		
+		# Only push if we are moving towards the box
+		if sign(push_direction.x) == sign(direction):
+			if box.has_method("set_target_velocity"):
+				box.set_target_velocity(velocity.x)
+			else:
+				box.linear_velocity.x = velocity.x
+			
+		print("Player velocity: ", velocity.x, " | Box velocity: ", box.linear_velocity.x)
+			
+func add_nearby_box(box: RigidBody2D) -> void:
+	if box not in nearby_boxes:
+		nearby_boxes.append(box)
+		
+func remove_nearby_box(box: RigidBody2D) -> void:
+	nearby_boxes.erase(box)
 
 # Abstract method overridden by children
 func get_direction() -> float:

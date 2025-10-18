@@ -1,22 +1,26 @@
 extends RigidBody2D
 
-const DAMP_FORCE = 2000.0
-const STOP_THRESHOLD = 5.0
-
 var start_position : Vector2
 var beeing_pushed := false
 
 func _ready():
 	start_position = global_position
+	
+	if physics_material_override == null:
+		physics_material_override = PhysicsMaterial.new()
+		
+	physics_material_override.friction = 1.0
+	physics_material_override.bounce = 0.0
+	
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
-func _physics_process(delta: float) -> void:
-	if not beeing_pushed:
-		linear_velocity.x = move_toward(linear_velocity.x, 0, DAMP_FORCE * delta)
-		if abs(linear_velocity.x) < STOP_THRESHOLD:
-			linear_velocity.x = 0
-
+func _physics_process(_delta: float) -> void:
+	if beeing_pushed:
+		physics_material_override.friction = 0.0
+	else:
+		physics_material_override.friction = 1.0
+			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
 	freeze = true
@@ -29,12 +33,18 @@ func _on_reset_level():
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
 	freeze = false
+	beeing_pushed = false
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("enter")
-	beeing_pushed = true
-
+	if body.has_method("add_nearby_box"):
+		body.add_nearby_box(self)
+		beeing_pushed = true
+		linear_damp = 0.0
+		add_collision_exception_with(body)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	print("exit")
-	beeing_pushed = false
+	if body.has_method("remove_nearby_box"):
+		body.remove_nearby_box(self)
+		beeing_pushed = false
+		linear_velocity.x = 0.0
+		remove_collision_exception_with(body)
