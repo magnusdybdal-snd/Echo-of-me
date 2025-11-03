@@ -23,7 +23,7 @@ var current_level_index := 0
 # Powerups state manager
 var unlocked_powerups := {
 	"sprint": false,
-	"echo": false,
+	"single_echo": false,
 	"double_echo": false,
 	"unlimited_echo": false,
 	"wall_climp": false,
@@ -54,8 +54,25 @@ func check_level_powerups() -> void:
 	# Unlock sprinting at level 2
 	if current_level_index >= 2:
 		unlock_powerup("sprint")
-		unlock_powerup("echo")
+		unlock_powerup("single_echo")
+	if current_level_index >= 4:
+		unlock_powerup("double_echo")
 		
+# Chech how many echoes player can spawn
+func get_max_echoes() -> int:
+	if unlocked_powerups.get("echo_unlimited", false):
+		return 999
+	elif unlocked_powerups.get("echo_double", false):
+		return 2
+	elif unlocked_powerups.get("echo_single", false):
+		return 1
+	else:
+		return 0
+		
+# Check if player can use echoes
+func can_use_echoes() -> bool:
+		return get_max_echoes() > 0
+
 # Function to unlock powerups
 func unlock_powerup(powerup_name: String) -> void:
 	if powerup_name in unlocked_powerups:
