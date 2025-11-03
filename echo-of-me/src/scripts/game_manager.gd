@@ -9,6 +9,7 @@ func _ready() -> void:
 	# This runs once, when the project starts
 	print("GameManager loaded")
 
+# Level manager
 var levels := [
 	"res://src/scenes/levels/test_level.tscn",
 	"res://src/scenes/levels/level_01.tscn", 
@@ -17,6 +18,18 @@ var levels := [
 ]
 var index := 0
 
+# Powerups state manager
+var unlocked_powerups := {
+	"sprint": false,
+	"echo": false,
+	"double_echo": false,
+	"unlimited_echo": false,
+	"wall_climp": false,
+	"double_jump": false,
+	"dash": false
+}
+
+# Level loading
 func load_current() -> void:
 	get_tree().change_scene_to_file(levels[index])
 
@@ -28,3 +41,32 @@ func load_next() -> void:
 		print("Loaded level: " + levels[index])
 	else:
 		print("Out of levels — Hurray you won?")
+		
+# Function to unlock powerups
+func unlock_powerup(powerup_name: String) -> void:
+	if powerup_name in unlocked_powerups:
+		unlocked_powerups[powerup_name] = true
+		print("Unlocked powerup: " + powerup_name)
+	else:
+		print("Warning: Unknown powerup: " + powerup_name)
+
+# Function to lock powerups
+func lock_powerup(powerup_name: String) -> void:
+	if powerup_name in unlocked_powerups:
+		unlocked_powerups[powerup_name] = true
+		print("Locked powerup: " + powerup_name)
+	else:
+		print("Warning: Unknow powerup: " + powerup_name)
+	
+func has_powerup(powerup_name: String) -> void:
+	return unlocked_powerups.get(powerup_name, false)
+	
+func reset_powerups() -> void:
+	for key in unlocked_powerups.keys():
+		unlocked_powerups[key] = false
+	print("Reset all powerups")
+	
+func unlock_all_powerups() -> void:
+	for key in unlocked_powerups.keys():
+		unlocked_powerups[key] = true
+	print("Unlcoked all powerups")
