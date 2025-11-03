@@ -8,6 +8,7 @@ extends Node
 func _ready() -> void:
 	# This runs once, when the project starts
 	print("GameManager loaded")
+	check_level_powerups()
 
 # Level manager
 var levels := [
@@ -41,7 +42,7 @@ func load_next() -> void:
 	if current_level_index < levels.size():
 		check_level_powerups()
 		var error = get_tree().change_scene_to_file(levels[current_level_index])
-		if error == OK:		
+		if error == OK:
 			print(get_tree().change_scene_to_file(levels[current_level_index]))
 			print("Loaded level: " + levels[current_level_index])
 		else:
@@ -50,13 +51,24 @@ func load_next() -> void:
 		print("Out of levels — Hurray you won?")
 		
 # Auto unlocks powerups based on level progression
+# TODO: Levels are currently just for testing
 func check_level_powerups() -> void:
-	# Unlock sprinting at level 2
-	if current_level_index >= 2:
-		unlock_powerup("sprint")
-		unlock_powerup("single_echo")
-	if current_level_index >= 4:
-		unlock_powerup("double_echo")
+	print("DEBUG: current level index: " + str(current_level_index))
+	# Test level (level 0)
+	if current_level_index == 0:
+		unlock_powerup("unlimited_echo")
+		print("DEBUG: Should have unlimited echoes now")
+	else:
+		lock_powerup("unlimited_echo")
+		# Unlock sprinting at level 2
+		if current_level_index >= 2:
+			unlock_powerup("sprint")
+			unlock_powerup("single_echo")
+		if current_level_index >= 4:
+			unlock_powerup("double_echo")
+			
+	print("DEBUG: Max echoes = " + str(get_max_echoes()))
+	print("DEBUG: Can use echoes = " + str(can_use_echoes()))
 		
 # Chech how many echoes player can spawn
 func get_max_echoes() -> int:
@@ -85,7 +97,7 @@ func unlock_powerup(powerup_name: String) -> void:
 # Function to lock powerups
 func lock_powerup(powerup_name: String) -> void:
 	if powerup_name in unlocked_powerups:
-		unlocked_powerups[powerup_name] = true
+		unlocked_powerups[powerup_name] = false
 		print("Locked powerup: " + powerup_name)
 	else:
 		print("Warning: Unknow powerup: " + powerup_name)
