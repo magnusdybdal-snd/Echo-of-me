@@ -13,6 +13,7 @@ func _ready():
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
+
 func _physics_process(delta: float) -> void:
 	# Only record if echo mechanic is unlocked
 	is_recording = GameManager.can_use_echoes()
@@ -47,6 +48,7 @@ func reset_player():
 	falling = false
 	landing = false
 	is_sprinting = false
+	is_dead = false
 	animated_sprite.play("idle")
 	clear_recording()
 

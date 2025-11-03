@@ -9,10 +9,13 @@ var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
 func _input(event):
-	if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
-		soft_reset()
-	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
-		hard_reset()
+	if player.is_dead:
+		return
+	else:
+		if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
+			soft_reset()
+		elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
+			hard_reset()
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
 # Then resets the recording of the player for new recording
@@ -37,6 +40,16 @@ func hard_reset():
 	reset_level_state()
 	clear_echoes()
 	start_new_recording()
+	# Revive player
+	if player is CharacterBase:
+		player.revive()
+	else:	# Fallback unfreeze
+		ensure_unfreeze()			
+		if player.has_node("AnimatedSprite2D"):
+			player.get_node("AnimatedSprite2D").play()
+	
+	# Reset velocity completely
+	player.velocity = Vector2.ZERO
 	
 # Instantiates an echo scene and adds an echo with the players position and recordings
 func spawn_echo_from_player():
@@ -63,4 +76,14 @@ func reset_level_state():
 func start_new_recording():
 	player.recording.clear()
 	player.frame_index = 0
+	player.is_recording = true
 	player.is_recording = GameManager.can_use_echoes()
+
+func ensure_unfreeze():
+	# Unfreeze player
+	player.set_process_input(true)
+	player.set_process(true)
+	player.set_physics_process(true)
+	
+	# Reset velocity completely
+	player.velocity = Vector2.ZERO
