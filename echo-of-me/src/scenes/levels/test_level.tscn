@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://dcp17f2vr5fsn"]
+[gd_scene load_steps=33 format=4 uid="uid://dcp17f2vr5fsn"]
 
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="1_aeicj"]
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_ultnw"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="11_xvx1o"]
 [ext_resource type="PackedScene" uid="uid://7yvjftaq4tc3" path="res://src/scenes/torch.tscn" id="17_v7dnh"]
 [ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="18_qkto2"]
+[ext_resource type="PackedScene" uid="uid://6n518di60aig" path="res://src/scenes/spikes_static.tscn" id="19_4w60u"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="19_k2s2r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkto2"]
@@ -598,12 +599,10 @@ position = Vector2(568, 574)
 
 [node name="Static platform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(674, 544)
-collision_layer = 2
 collision_mask = 5
 
 [node name="Moving platform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(529, 473)
-collision_layer = 2
 collision_mask = 5
 script = ExtResource("4_wuimx")
 type = 1
@@ -616,7 +615,6 @@ autoplay = "move"
 
 [node name="ButtonPlatform" parent="LevelController" instance=ExtResource("3_aeicj")]
 position = Vector2(99, 589)
-collision_layer = 2
 collision_mask = 5
 script = ExtResource("4_wuimx")
 type = 2
@@ -643,7 +641,6 @@ collision_mask = 13
 [node name="door-placeholder" parent="LevelController" groups=["player"] instance=ExtResource("3_aeicj")]
 position = Vector2(950, 560)
 rotation = -1.5707964
-collision_layer = 2
 collision_mask = 5
 script = ExtResource("4_wuimx")
 type = 3
@@ -685,6 +682,10 @@ center_of_mass_mode = 1
 [node name="level_end" parent="LevelController" instance=ExtResource("19_k2s2r")]
 position = Vector2(921, 533)
 
+[node name="spikes_static" parent="LevelController" instance=ExtResource("19_4w60u")]
+position = Vector2(412, 592)
+
 [connection signal="pressed" from="LevelController/Button" to="LevelController/ButtonPlatform" method="_on_button_pressed"]
 [connection signal="pressed" from="LevelController/button_momentary" to="LevelController/door-placeholder" method="_on_button_pressed"]
 [connection signal="released" from="LevelController/button_momentary" to="LevelController/door-placeholder" method="_on_button_released"]
+[connection signal="body_entered" from="LevelController/spikes_static" to="LevelController/spikes_static" method="_on_body_entered"]
