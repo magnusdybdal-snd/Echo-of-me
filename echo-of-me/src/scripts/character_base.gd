@@ -8,7 +8,7 @@ const SPEED := 200.0
 const SPRINT_SPEED := 300.0
 const ACCELERATION := 800.0
 const SPRINT_ACCELERATION := 1000.0
-const FRICTION := 1000.0
+const FRICTION := 2000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
 const BOX_PUSH_SPEED := 150.0
@@ -19,17 +19,26 @@ var falling := false
 var landing := false
 var is_sprinting := false
 
+# Cached powerup states
+var can_sprint := false
+var can_double_jump := false
+
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
 
 @onready var animated_sprite = %AnimatedSprite2D
 
 func _physics_process(delta):
+	check_powerups()
 	apply_gravity(delta)
 	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()
 	move_and_slide()
+	
+func check_powerups() -> void:
+	can_sprint = GameManager.has_powerup("sprint")
+	can_double_jump = GameManager.has_powerup("double_jump")
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
@@ -52,13 +61,13 @@ func apply_movement(delta: float) -> void:
 		
 		else:
 			# Normal movement speed
-			target_speed = SPRINT_SPEED if (is_sprinting and is_on_floor()) else SPEED
+			target_speed = SPRINT_SPEED if (can_sprint and is_sprinting and is_on_floor()) else SPEED
 			target_speed *= direction
 	
 	var accel_rate: float
 	if is_on_floor():
 		if direction != 0:
-			accel_rate = SPRINT_ACCELERATION if is_sprinting else ACCELERATION
+			accel_rate = SPRINT_ACCELERATION if can_sprint and  is_sprinting else ACCELERATION
 		else:
 			accel_rate = FRICTION
 	else:
@@ -103,7 +112,7 @@ func update_animation(direction: float) -> void:
 			if direction == 0 :
 				animated_sprite.play("idle")
 			
-			elif is_sprinting:
+			elif can_sprint and is_sprinting:
 				animated_sprite.play("run")
 			
 			else:
