@@ -8,7 +8,9 @@ extends Node
 func _ready() -> void:
 	# This runs once, when the project starts
 	print("GameManager loaded")
+	check_level_powerups()
 
+# Level manager
 var levels := [
 	"res://src/scenes/levels/test_level.tscn",
 	"res://src/scenes/levels/level_01.tscn", 
@@ -17,18 +19,98 @@ var levels := [
 	"res://src/scenes/levels/level_04.tscn",
 	"res://src/scenes/levels/level_05.tscn",
 ]
+var current_level_index := 0
 
-var index := 0
+# Powerups state manager
+var unlocked_powerups := {
+	"sprint": false,
+	"single_echo": false,
+	"double_echo": false,
+	"unlimited_echo": false,
+	"wall_climp": false,
+	"double_jump": false,
+	"dash": false
+}
 
+# Level loading
 func load_current() -> void:
-	get_tree().change_scene_to_file(levels[index])
-	print(get_tree().change_scene_to_file(levels[index]))
+	check_level_powerups()	# Check powerups to use in level
+	get_tree().change_scene_to_file(levels[current_level_index])
 
 func load_next() -> void:
-	index += 1
-	if index < levels.size():
-		get_tree().change_scene_to_file(levels[index])
-		print(get_tree().change_scene_to_file(levels[index]))
-		print("Loaded level: " + levels[index])
+	current_level_index += 1
+	if current_level_index < levels.size():
+		check_level_powerups()
+		var error = get_tree().change_scene_to_file(levels[current_level_index])
+		if error == OK:
+			print(get_tree().change_scene_to_file(levels[current_level_index]))
+			print("Loaded level: " + levels[current_level_index])
+		else:
+			print("ERROR loading level " + str(error))
 	else:
 		print("Out of levels — Hurray you won?")
+		
+# Auto unlocks powerups based on level progression
+# TODO: Levels are currently just for testing
+func check_level_powerups() -> void:
+	print("DEBUG: current level index: " + str(current_level_index))
+	# Test level (level 0)
+	if current_level_index == 0:
+		unlock_powerup("unlimited_echo")
+		print("DEBUG: Should have unlimited echoes now")
+	else:
+		lock_powerup("unlimited_echo")
+		# Unlock sprinting at level 2
+		if current_level_index >= 2:
+			unlock_powerup("sprint")
+			unlock_powerup("single_echo")
+		if current_level_index >= 4:
+			unlock_powerup("double_echo")
+			
+	print("DEBUG: Max echoes = " + str(get_max_echoes()))
+	print("DEBUG: Can use echoes = " + str(can_use_echoes()))
+		
+# Chech how many echoes player can spawn
+func get_max_echoes() -> int:
+	if unlocked_powerups.get("unlimited_echo", false):
+		return 999
+	elif unlocked_powerups.get("double_echo", false):
+		return 2
+	elif unlocked_powerups.get("single_echo", false):
+		return 1
+	else:
+		return 0
+		
+# Check if player can use echoes
+func can_use_echoes() -> bool:
+		return get_max_echoes() > 0
+
+# Function to unlock powerups
+func unlock_powerup(powerup_name: String) -> void:
+	if powerup_name in unlocked_powerups:
+		if not unlocked_powerups[powerup_name]:
+			print("Unlocked powerup: " + powerup_name)
+		unlocked_powerups[powerup_name] = true
+	else:
+		print("Warning: Unknown powerup: " + powerup_name)
+
+# Function to lock powerups
+func lock_powerup(powerup_name: String) -> void:
+	if powerup_name in unlocked_powerups:
+		unlocked_powerups[powerup_name] = false
+		print("Locked powerup: " + powerup_name)
+	else:
+		print("Warning: Unknow powerup: " + powerup_name)
+	
+func has_powerup(powerup_name: String) -> bool:
+	return unlocked_powerups.get(powerup_name, false)
+	
+func reset_powerups() -> void:
+	for key in unlocked_powerups.keys():
+		unlocked_powerups[key] = false
+	print("Reset all powerups")
+	
+func unlock_all_powerups() -> void:
+	for key in unlocked_powerups.keys():
+		unlocked_powerups[key] = true
+	print("Unlcoked all powerups")
