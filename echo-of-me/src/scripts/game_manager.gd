@@ -13,12 +13,16 @@ var levels := [
 	"res://src/scenes/levels/test_level.tscn",
 	"res://src/scenes/levels/level_01.tscn", 
 	"res://src/scenes/levels/level_02.tscn",
-	"res://src/scenes/levels/level_03.tscn"
+	"res://src/scenes/levels/level_03.tscn",
+	"res://src/scenes/levels/level_04.tscn",
+	"res://src/scenes/levels/level_05.tscn",
 ]
+
 var index := 0
 
 func load_current() -> void:
 	get_tree().change_scene_to_file(levels[index])
+	print(get_tree().change_scene_to_file(levels[index]))
 
 func load_next() -> void:
 	index += 1
