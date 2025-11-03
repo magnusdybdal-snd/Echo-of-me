@@ -8,7 +8,7 @@ signal reset_level
 var echoes : Array = []
 
 func _input(event):
-	if event.is_action_pressed("soft_reset"): # E for echo spawn
+	if event.is_action_pressed("soft_reset") and GameManager.has_powerup("echo"): # E for echo spawn
 		soft_reset()
 	elif event.is_action_pressed("hard_reset"): # R for reset level and echos
 		hard_reset()

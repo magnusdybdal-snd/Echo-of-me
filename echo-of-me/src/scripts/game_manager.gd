@@ -54,6 +54,7 @@ func check_level_powerups() -> void:
 	# Unlock sprinting at level 2
 	if current_level_index >= 2:
 		unlock_powerup("sprint")
+		unlock_powerup("echo")
 		
 # Function to unlock powerups
 func unlock_powerup(powerup_name: String) -> void:

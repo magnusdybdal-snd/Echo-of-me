@@ -5,7 +5,7 @@ var spawn_position: Vector2
 # Used to control the recording system for echoes
 var recording: Array = []
 var frame_index := 0
-var is_recording := true
+var is_recording := false
 
 func _ready():
 	# Stores spawn position for resets
@@ -14,6 +14,9 @@ func _ready():
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
 func _physics_process(delta: float) -> void:
+	# Only record if echo mechanic is unlocked
+	is_recording = GameManager.has_powerup("echo")
+	
 	# Check sprint input
 	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
 	
@@ -23,8 +26,6 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		start_jump()
-	if Input.is_action_just_pressed("jump"):
 		start_jump()
 
 	# Base class handles all movement
