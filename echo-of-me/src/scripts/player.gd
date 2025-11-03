@@ -13,6 +13,7 @@ func _ready():
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 
+
 func _physics_process(delta: float) -> void:
 	# Check sprint input
 	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()

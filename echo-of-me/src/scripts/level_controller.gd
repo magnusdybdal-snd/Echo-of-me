@@ -26,6 +26,10 @@ func hard_reset():
 	reset_level_state()
 	clear_echoes()
 	start_new_recording()
+	ensure_unfreeze()
+	
+	# Reset velocity completely
+	player.velocity = Vector2.ZERO
 	
 # Instantiates an echo scene and adds an echo with the players position and recordings
 func spawn_echo_from_player():
@@ -53,3 +57,12 @@ func start_new_recording():
 	player.recording.clear()
 	player.frame_index = 0
 	player.is_recording = true
+
+func ensure_unfreeze():
+	# Unfreeze player
+	player.set_process_input(true)
+	player.set_process(true)
+	player.set_physics_process(true)
+	
+	# Reset velocity completely
+	player.velocity = Vector2.ZERO
