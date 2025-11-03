@@ -24,6 +24,8 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		start_jump()
+	if Input.is_action_just_pressed("jump"):
+		start_jump()
 
 	# Base class handles all movement
 	super._physics_process(delta)

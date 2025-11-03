@@ -21,6 +21,7 @@ var is_sprinting := false
 
 # Cached powerup states
 var can_sprint := false
+var can_double_jump := false
 
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
@@ -37,6 +38,7 @@ func _physics_process(delta):
 	
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
+	can_double_jump = GameManager.has_powerup("double_jump")
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
