@@ -6,21 +6,32 @@ signal reset_level
 @onready var player = get_node("Player")
 
 var echoes : Array = []
+var can_spawn_echoes = GameManager.can_use_echoes()
 
 func _input(event):
-	if event.is_action_pressed("soft_reset"): # E for echo spawn
+	if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
 		soft_reset()
-	elif event.is_action_pressed("hard_reset"): # R for reset level and echos
+	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
 		hard_reset()
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
 # Then resets the recording of the player for new recording
 func soft_reset():
-	if player.recording.size() > 0:
+	if can_spawn_echo():
 		spawn_echo_from_player()
+	else:
+		print("Echo spawn limitation reached: " + str(GameManager.get_max_echoes()))
+		
 	reset_level_state()
 	start_new_recording()
 	
+func can_spawn_echo() -> bool:
+	if player.recording.size() == 0:
+		return false
+	
+	var max_echoes = GameManager.get_max_echoes()
+	return echoes.size() < max_echoes
+
 # Resets the level, removes echoes and clears all recordings, like starting the level fresh
 func hard_reset():
 	reset_level_state()
@@ -52,4 +63,4 @@ func reset_level_state():
 func start_new_recording():
 	player.recording.clear()
 	player.frame_index = 0
-	player.is_recording = true
+	player.is_recording = GameManager.can_use_echoes()
