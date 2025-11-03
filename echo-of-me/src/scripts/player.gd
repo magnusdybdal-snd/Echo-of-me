@@ -25,8 +25,13 @@ func _physics_process(delta: float) -> void:
 		record_input()
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		start_jump()
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			start_jump()
+			used_double_jump = false
+		elif can_double_jump and not used_double_jump:
+			start_jump()
+			used_double_jump = true
 
 	# Base class handles all movement
 	super._physics_process(delta)
@@ -56,6 +61,7 @@ func record_input() -> void:
 		"frame": frame_index,
 		"direction": Input.get_axis("move_left", "move_right"),
 		"jump": Input.is_action_just_pressed("jump"),
+		"double_jump": Input.is_action_just_pressed("jump") and not used_double_jump,
 		"sprint": Input.is_action_pressed("sprint")
 	})
 	frame_index += 1

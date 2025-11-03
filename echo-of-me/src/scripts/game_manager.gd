@@ -55,8 +55,9 @@ func check_level_powerups() -> void:
 	# Test level (level 0)
 	if current_level_index == 0:
 		max_echoes = 999
-		print("DEBUG: Should have unlimited echoes now")
+		unlock_all_powerups()
 	else:
+		reset_powerups()   
 		max_echoes = 0
 		# Unlock sprinting at level 2
 		if current_level_index >= 2:

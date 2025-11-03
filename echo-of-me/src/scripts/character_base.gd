@@ -22,6 +22,7 @@ var is_sprinting := false
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
+var used_double_jump := false
 
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
@@ -65,6 +66,7 @@ func apply_movement(delta: float) -> void:
 			target_speed *= direction
 	
 	var accel_rate: float
+	
 	if is_on_floor():
 		if direction != 0:
 			accel_rate = SPRINT_ACCELERATION if can_sprint and  is_sprinting else ACCELERATION
