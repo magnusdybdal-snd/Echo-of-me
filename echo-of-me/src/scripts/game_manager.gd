@@ -60,11 +60,11 @@ func check_level_powerups() -> void:
 		
 # Chech how many echoes player can spawn
 func get_max_echoes() -> int:
-	if unlocked_powerups.get("echo_unlimited", false):
+	if unlocked_powerups.get("unlimited_echo", false):
 		return 999
-	elif unlocked_powerups.get("echo_double", false):
+	elif unlocked_powerups.get("double_echo", false):
 		return 2
-	elif unlocked_powerups.get("echo_single", false):
+	elif unlocked_powerups.get("single_echo", false):
 		return 1
 	else:
 		return 0

@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	# Only record if echo mechanic is unlocked
-	is_recording = GameManager.has_powerup("echo")
+	is_recording = GameManager.can_use_echoes()
 	
 	# Check sprint input
 	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
