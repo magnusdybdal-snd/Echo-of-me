@@ -20,7 +20,7 @@ func soft_reset():
 	if can_spawn_echo():
 		spawn_echo_from_player()
 	else:
-		print("Echo spawn limitation reached: " + str(GameManager.get_max_echoes()))
+		print("Echo spawn limitation reached: " + str(GameManager.max_echoes))
 		
 	reset_level_state()
 	start_new_recording()
@@ -28,8 +28,7 @@ func soft_reset():
 func can_spawn_echo() -> bool:
 	if player.recording.size() == 0:
 		return false
-	
-	var max_echoes = GameManager.get_max_echoes()
+	var max_echoes = GameManager.max_echoes
 	return echoes.size() < max_echoes
 
 # Resets the level, removes echoes and clears all recordings, like starting the level fresh
