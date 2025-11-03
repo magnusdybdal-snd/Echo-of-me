@@ -635,7 +635,7 @@ sources/0 = SubResource("TileSetAtlasSource_46xxk")
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqqpe"]
 
-[node name="Level03" type="Node2D"]
+[node name="Level04" type="Node2D"]
 
 [node name="LevelController" parent="." instance=ExtResource("1_cv71w")]
 player_path = NodePath("")

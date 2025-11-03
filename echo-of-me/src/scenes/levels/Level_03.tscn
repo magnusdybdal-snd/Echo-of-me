@@ -707,6 +707,6 @@ position = Vector2(530, 674)
 position = Vector2(1039, 498)
 
 [node name="Key" parent="LevelController" instance=ExtResource("13_k6hgu")]
-position = Vector2(742, 360)
+position = Vector2(385, 357)
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]

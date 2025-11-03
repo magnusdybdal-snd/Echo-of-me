@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cjbst0gj8qp6s"]
+[gd_scene load_steps=28 format=4 uid="uid://cjbst0gj8qp6s"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_yd0lt"]
 [ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="2_60462"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://hn4qpeibboil" path="res://src/scenes/key.tscn" id="13_5fx8b"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="15_60462"]
 [ext_resource type="Script" uid="uid://cnchy3s7it60o" path="res://src/scripts/platform.gd" id="15_vipsw"]
-[ext_resource type="PackedScene" uid="uid://blfestifyuj5q" path="res://src/scenes/button.tscn" id="16_vipsw"]
 [ext_resource type="PackedScene" uid="uid://bgofklnojcv7v" path="res://src/scenes/button_momentary.tscn" id="17_rrvwm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q307b"]
@@ -663,7 +662,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrvwm"]
 size = Vector2(96, 16)
 
-[node name="Level03" type="Node2D"]
+[node name="Level05" type="Node2D"]
 
 [node name="LevelController" parent="." instance=ExtResource("1_yd0lt")]
 player_path = NodePath("")
@@ -736,7 +735,7 @@ position = Vector2(530, 663)
 position = Vector2(1065, 212)
 
 [node name="Key" parent="LevelController" instance=ExtResource("13_5fx8b")]
-position = Vector2(1076, 490)
+position = Vector2(1061, 491)
 
 [node name="Platforms" type="Node2D" parent="LevelController"]
 
@@ -753,6 +752,7 @@ autoplay = "horisontal platform"
 
 [node name="AxisPlatform" parent="LevelController/Platforms" instance=ExtResource("15_60462")]
 position = Vector2(720, 520)
+collision_layer = 3
 script = ExtResource("15_vipsw")
 type = 4
 
@@ -762,14 +762,8 @@ collision_mask = 2
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelController/Platforms/AxisPlatform"]
 shape = SubResource("RectangleShape2D_rrvwm")
 
-[node name="Button" parent="LevelController/Platforms" instance=ExtResource("16_vipsw")]
-position = Vector2(626, 357)
-collision_layer = 8
-collision_mask = 13
-
 [node name="button_momentary" parent="LevelController/Platforms" instance=ExtResource("17_rrvwm")]
-position = Vector2(174, 504)
+position = Vector2(623, 506)
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
-[connection signal="pressed" from="LevelController/Platforms/Button" to="LevelController/Platforms/AxisPlatform" method="_on_button_pressed"]
 [connection signal="pressed" from="LevelController/Platforms/button_momentary" to="LevelController/Platforms/AxisPlatform" method="_on_button_momentary_pressed"]
