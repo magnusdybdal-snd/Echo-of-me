@@ -8,10 +8,13 @@ signal reset_level
 var echoes : Array = []
 
 func _input(event):
-	if event.is_action_pressed("soft_reset"): # E for echo spawn
-		soft_reset()
-	elif event.is_action_pressed("hard_reset"): # R for reset level and echos
-		hard_reset()
+	if player.is_dead:
+		return
+	else:
+		if event.is_action_pressed("soft_reset"): # E for echo spawn
+			soft_reset()
+		elif event.is_action_pressed("hard_reset"): # R for reset level and echos
+			hard_reset()
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
 # Then resets the recording of the player for new recording
@@ -26,7 +29,13 @@ func hard_reset():
 	reset_level_state()
 	clear_echoes()
 	start_new_recording()
-	ensure_unfreeze()
+	# Revive player
+	if player is CharacterBase:
+		player.revive()
+	else:	# Fallback unfreeze
+		ensure_unfreeze()			
+		if player.has_node("AnimatedSprite2D"):
+			player.get_node("AnimatedSprite2D").play()
 	
 	# Reset velocity completely
 	player.velocity = Vector2.ZERO

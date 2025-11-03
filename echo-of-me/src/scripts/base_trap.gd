@@ -22,23 +22,14 @@ func on_trap_triggered(player: Node2D) -> void:
 			level_controller.hard_reset()
 
 func freeze_player(player: Node2D) -> void:
-	# Disable player input processing
-	player.set_process_input(false)
-	player.set_process(false)
-	player.set_physics_process(false)
-	
-	# Stop all animations
-	if player.has_node("AnimatedSprite2D"):
-		var sprite = player.get_node("AnimatedSprite2D")
-		sprite.pause()
-	elif player.has_node("AnimationPlayer"):
-		var anim_player = player.get_node("AnimationPlayer")
-		anim_player.pause()
-	
-	# Freeze physics
-	if player is CharacterBody2D or player is RigidBody2D:
-		player.velocity = Vector2.ZERO
-		if player is RigidBody2D:
-			player.linear_velocity = Vector2.ZERO
-			player.angular_velocity = 0.0
-			player.freeze = true
+	if player is CharacterBase:
+		player.die()  # This handles everything cleanly
+	else:
+		# Fallback for non-CharacterBase nodes
+		player.set_process_input(false)
+		player.set_process(false)
+		player.set_physics_process(false)
+		
+		if player.has_node("AnimatedSprite2D"):
+			var sprite = player.get_node("AnimatedSprite2D")
+			sprite.pause()

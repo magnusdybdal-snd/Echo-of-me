@@ -45,6 +45,7 @@ func reset_player():
 	falling = false
 	landing = false
 	is_sprinting = false
+	is_dead = false
 	animated_sprite.play("idle")
 	clear_recording()
 

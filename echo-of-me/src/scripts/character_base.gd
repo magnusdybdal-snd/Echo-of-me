@@ -18,6 +18,7 @@ var jumping := false
 var falling := false
 var landing := false
 var is_sprinting := false
+var is_dead := false
 
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
@@ -25,6 +26,8 @@ var nearby_boxes: Array = []
 @onready var animated_sprite = %AnimatedSprite2D
 
 func _physics_process(delta):
+	if is_dead:
+		return  
 	apply_gravity(delta)
 	apply_movement(delta)
 	update_animation(get_direction())
@@ -169,3 +172,23 @@ func remove_nearby_box(box: RigidBody2D) -> void:
 # Abstract method overridden by children
 func get_direction() -> float:
 	return 0.0
+	
+func die() -> void:
+	if is_dead:
+		return # player is already dead
+	is_dead = true
+		
+	velocity = Vector2.ZERO
+	
+	# Play death animation if you have one
+	if animated_sprite.sprite_frames.has_animation("death"):
+		animated_sprite.play("death")
+	else:
+		animated_sprite.stop()
+
+func revive() -> void:
+	is_dead = false
+	velocity = Vector2.ZERO
+	
+	# Resume animations
+	animated_sprite.play("idle")
