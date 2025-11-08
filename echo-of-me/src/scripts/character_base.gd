@@ -6,9 +6,9 @@ class_name CharacterBase
 # Constants for player movement and forces
 const SPEED := 200.0
 const SPRINT_SPEED := 300.0
-const ACCELERATION := 800.0
+const ACCELERATION := 1800.0
 const SPRINT_ACCELERATION := 1000.0
-const FRICTION := 2000.0
+const FRICTION := 3000.0
 const AIR_RESISTANCE := 100.0
 const JUMP_VELOCITY := -370.0
 const BOX_PUSH_SPEED := 150.0
