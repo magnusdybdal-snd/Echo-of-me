@@ -10,17 +10,17 @@ var is_triggered: bool = false
 var original_position: Vector2
 var shake_timer: float = 0.0
 
-
 @onready var trigger_area = $TriggerArea
 @onready var damage_area = $DamageArea
 @onready var sprite = $Sprite2D
 
-
 func _ready():
 	# Store original position for respawn
 	original_position = global_position
+	
+	# Connect to level controller reset
 	var level_controller = get_tree().current_scene.get_node("LevelController")
-	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	level_controller.connect("reset_level", Callable(self, "_on_level_reset"))
 	
 	# Start as static (won't fall until triggered)
 	freeze = true
@@ -32,7 +32,7 @@ func _ready():
 
 func _on_trigger_area_entered(body):
 	# Trigger when player walks underneath
-	if body.is_in_group("player") and not is_triggered:
+	if (body.is_in_group("player") or body.collision_layer & 4) and not is_triggered:
 		trigger_fall()
 
 func trigger_fall():
@@ -40,6 +40,7 @@ func trigger_fall():
 	shake_timer = shake_duration
 
 func _process(delta):
+	#print(linear_velocity.length())
 	if shake_timer > 0:
 		# Shake before falling
 		shake_timer -= delta
@@ -56,31 +57,34 @@ func start_falling():
 	gravity_scale = 1.0
 
 func _on_damage_area_entered(body):
-	# Check if hit player while falling
-	if is_falling and body.is_in_group("player"):
+	# Only damage player if falling fast enough
+	# TODO: linear_velocity NEEDS TO BE TINKERED WITH OUTSIDE OF TEST LEVEL
+	if body.is_in_group("player") and linear_velocity.y > 7.0:  # Adjust threshold as needed
 		var level_controller = get_tree().current_scene.get_node("LevelController")
 		level_controller.hard_reset()
-		
-func _on_body_entered(body):
-	# Detect when stalactite hits the ground or any other object
-	if is_falling:
-		_on_level_reset()
+
 
 func _on_level_reset() -> void:
 	is_falling = false
 	is_triggered = false
 	
-	# Reset physics
+	# FIRST: Completely stop all physics
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0
 	freeze = true
 	gravity_scale = 0
+	
+	# Wait for physics to process the freeze
+	await get_tree().physics_frame
+	
+	# NOW reset position after physics has stopped
+	global_position = original_position
+	rotation = 0
+	sprite.position = Vector2.ZERO
+	
+	# Ensure velocity is still zero after position change
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	
-	# Reset position
-	global_position = original_position
-	rotation = 0
-	
-	# Optional: brief invisibility during respawn
-	visible = false
-	await get_tree().create_timer(respawn_time).timeout
+	# Show immediately
 	visible = true
