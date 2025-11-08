@@ -31,7 +31,7 @@ func _ready():
 	damage_area.body_entered.connect(_on_damage_area_entered)
 
 func _on_trigger_area_entered(body):
-	# Trigger when player walks underneath
+	# Trigger when player (or echo) walks underneath
 	if (body.is_in_group("player") or body.collision_layer & 4) and not is_triggered:
 		trigger_fall()
 
@@ -40,7 +40,6 @@ func trigger_fall():
 	shake_timer = shake_duration
 
 func _process(delta):
-	#print(linear_velocity.length())
 	if shake_timer > 0:
 		# Shake before falling
 		shake_timer -= delta
@@ -68,7 +67,7 @@ func _on_level_reset() -> void:
 	is_falling = false
 	is_triggered = false
 	
-	# FIRST: Completely stop all physics
+	# Completely stop all physics
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0
 	freeze = true
@@ -77,7 +76,7 @@ func _on_level_reset() -> void:
 	# Wait for physics to process the freeze
 	await get_tree().physics_frame
 	
-	# NOW reset position after physics has stopped
+	# Reset position after physics has stopped
 	global_position = original_position
 	rotation = 0
 	sprite.position = Vector2.ZERO
