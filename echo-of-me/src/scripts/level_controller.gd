@@ -1,4 +1,5 @@
 extends Node
+
 signal reset_level
 
 @export var player_path : NodePath
@@ -11,34 +12,48 @@ var can_spawn_echoes = GameManager.can_use_echoes()
 func _input(event):
 	if player.is_dead:
 		return
-	else:
-		if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
-			soft_reset()
-		elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
-			hard_reset()
+
+	if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
+		soft_reset()
+	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
+		hard_reset()
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
 # Then resets the recording of the player for new recording
 func soft_reset():
-	if can_spawn_echo():
+	if player.recording.size() > 0:
+		# If echo is at max limit, replace oldest echo
+		if echoes.size() >= GameManager.max_echoes:
+			remove_oldest_echo()
+			print("Echo spawn limitation reached: " + str(GameManager.max_echoes))
+		# Spawns new echo
 		spawn_echo_from_player()
-	else:
-		print("Echo spawn limitation reached: " + str(GameManager.max_echoes))
+		# Reset all echoes to original position
+		reset_all_echoes()
 		
 	reset_level_state()
 	start_new_recording()
 	
-func can_spawn_echo() -> bool:
-	if player.recording.size() == 0:
-		return false
-	var max_echoes = GameManager.max_echoes
-	return echoes.size() < max_echoes
-
+# Remove the oldest (first) echo
+func remove_oldest_echo() -> void:
+	if echoes.size() > 0:
+		var oldest_echo = echoes[0]
+		oldest_echo.queue_free()
+		echoes.remove_at(0)
+		print("Replaced oldest echo")
+		
+# Reset all echoes to recording frame 0 and spawn position
+func reset_all_echoes():
+	for echo in echoes:
+		if is_instance_valid(echo):
+			echo.reset_playback()
+			
 # Resets the level, removes echoes and clears all recordings, like starting the level fresh
 func hard_reset():
 	reset_level_state()
 	clear_echoes()
 	start_new_recording()
+	
 	# Revive player
 	if player is CharacterBase:
 		player.revive()
@@ -55,6 +70,7 @@ func spawn_echo_from_player():
 	var echo_scene = preload("res://src/scenes/echo_player.tscn")
 	var echo = echo_scene.instantiate()
 	
+	echo.spawn_position = player.spawn_position
 	echo.global_position = player.spawn_position
 	echo.recorded_inputs = player.recording.duplicate(true)
 	
@@ -64,7 +80,8 @@ func spawn_echo_from_player():
 # Clears all echoes for hard reset
 func clear_echoes():
 	for e in echoes:
-		e.queue_free()
+		if is_instance_valid(e):
+			e.queue_free()
 	echoes.clear()
 	
 func reset_level_state():
@@ -75,7 +92,6 @@ func reset_level_state():
 func start_new_recording():
 	player.recording.clear()
 	player.frame_index = 0
-	player.is_recording = true
 	player.is_recording = GameManager.can_use_echoes()
 
 func ensure_unfreeze():

@@ -6,10 +6,9 @@ class_name CharacterBase
 # Constants for player movement and forces
 const SPEED := 200.0
 const SPRINT_SPEED := 300.0
-const ACCELERATION := 1800.0
-const SPRINT_ACCELERATION := 1000.0
-const FRICTION := 3000.0
-const AIR_RESISTANCE := 100.0
+const ACCELERATION := 1300.0
+const FRICTION := 2000.0
+const AIR_RESISTANCE := 400
 const JUMP_VELOCITY := -370.0
 const BOX_PUSH_SPEED := 150.0
 
@@ -64,19 +63,27 @@ func apply_movement(delta: float) -> void:
 			target_speed = BOX_PUSH_SPEED * direction
 		
 		else:
-			# Normal movement speed
-			target_speed = SPRINT_SPEED if (can_sprint and is_sprinting and is_on_floor()) else SPEED
+			if is_on_floor():
+				# Normal movement speed
+				target_speed = SPRINT_SPEED if (can_sprint and is_sprinting) else SPEED
+			else:
+				if abs(velocity.x) > SPEED:
+					target_speed = SPRINT_SPEED
+				else:
+					target_speed = SPEED
+					
 			target_speed *= direction
+				
 	
 	var accel_rate: float
 	
-	if is_on_floor():
-		if direction != 0:
-			accel_rate = SPRINT_ACCELERATION if can_sprint and  is_sprinting else ACCELERATION
-		else:
-			accel_rate = FRICTION
+	if direction != 0:
+		accel_rate = ACCELERATION
 	else:
-		accel_rate = AIR_RESISTANCE
+		if is_on_floor():
+			accel_rate = FRICTION
+		else:
+			accel_rate = AIR_RESISTANCE
 	
 	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
 
