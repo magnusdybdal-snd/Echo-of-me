@@ -63,9 +63,17 @@ func apply_movement(delta: float) -> void:
 			target_speed = BOX_PUSH_SPEED * direction
 		
 		else:
-			# Normal movement speed
-			target_speed = SPRINT_SPEED if (can_sprint and is_sprinting and is_on_floor()) else SPEED
+			if is_on_floor():
+				# Normal movement speed
+				target_speed = SPRINT_SPEED if (can_sprint and is_sprinting) else SPEED
+			else:
+				if abs(velocity.x) > SPEED:
+					target_speed = SPRINT_SPEED
+				else:
+					target_speed = SPEED
+					
 			target_speed *= direction
+				
 	
 	var accel_rate: float
 	
