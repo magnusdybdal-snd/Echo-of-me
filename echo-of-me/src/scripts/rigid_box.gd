@@ -17,19 +17,24 @@ func _ready():
 	physics_material_override.friction = 1.0
 	physics_material_override.bounce = 0.0
 	
-	var level_controller = get_tree().current_scene.get_node("LevelController")
-	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	var level_controller = get_tree().current_scene.get_node_or_null("LevelController")
+	if level_controller != null:
+		level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	else:
+		print("Warning: LevelController not found - box reset won't work")
 
 func _physics_process(_delta: float) -> void:
 	# Adjust friction based on state
-	if beeing_pushed or beeing_carried:
+	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
 		physics_material_override.friction = 1.0
 		
 	# If box is carried, follow the carrier
 	if beeing_carried and is_instance_valid(carrier):
-		freeze = true # disable physics while carried
+		#freeze = true # disable physics while carried
+		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
+		freeze = true
 		global_position = carrier.global_position + CARRY_OFFSET
 	else:
 		freeze = false
@@ -98,18 +103,23 @@ func can_be_picked_up(character: CharacterBase) -> bool:
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
+	if is_instance_valid(carrier):
+		remove_collision_exception_with(carrier)
+	
+	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
 	freeze = true
 	PhysicsServer2D.body_set_state(
 	get_rid(),
 	PhysicsServer2D.BODY_STATE_TRANSFORM,
 	Transform2D.IDENTITY.translated(start_position)
 	)
+	freeze = false
+	
 	global_position = start_position
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
-	freeze = false
-	beeing_pushed = false
 	beeing_carried = false
+	beeing_pushed = false
 	carrier = null
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -117,13 +127,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		body.add_nearby_box(self)
 		beeing_pushed = true
 		linear_damp = 0.0
-		if not beeing_carried:
-			add_collision_exception_with(body)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.has_method("remove_nearby_box"):
 		body.remove_nearby_box(self)
 		beeing_pushed = false
 		linear_velocity.x = 0.0
-		if not beeing_carried:
-			remove_collision_exception_with(body)

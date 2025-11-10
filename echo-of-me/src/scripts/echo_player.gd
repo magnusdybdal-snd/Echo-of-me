@@ -36,6 +36,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		# Finished playback
 		if not is_dead:
+			
+			if carried_box != null:
+				carried_box.place_down(facing_direction)
+				carried_box = null
+			
 			animated_sprite.play("die")
 
 func get_direction() -> float:
@@ -55,12 +60,8 @@ func reset_playback():
 	
 	# Drop carried box if holding
 	if carried_box != null:
-		carried_box.place_down()
 		carried_box = null
 	
 	# Restart animation
 	if animated_sprite.sprite_frames.has_animation("idle"):
-		animated_sprite.play("idle")
-		
-	print("Echo reset to start position")
-				
+		animated_sprite.play("idle")				

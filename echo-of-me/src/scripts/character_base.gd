@@ -10,7 +10,7 @@ const ACCELERATION := 1300.0
 const FRICTION := 2000.0
 const AIR_RESISTANCE := 400
 const JUMP_VELOCITY := -370.0
-const BOX_PUSH_SPEED := 150.0
+const BOX_PUSH_SPEED := 300.0
 
 # Used to control animations
 var jumping := false
@@ -234,12 +234,13 @@ func get_direction() -> float:
 func die() -> void:
 	if is_dead:
 		return # player is already dead
-	is_dead = true
-	velocity = Vector2.ZERO
-	
+		
 	if carried_box != null:
 		carried_box.place_down(facing_direction)
 		carried_box = null
+		
+	is_dead = true
+	velocity = Vector2.ZERO
 	
 	# Play death animation if you have one
 	if animated_sprite.sprite_frames.has_animation("death"):
