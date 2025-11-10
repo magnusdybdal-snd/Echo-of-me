@@ -1,0 +1,294 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpqpuoot6vgph"]
+
+[ext_resource type="Script" uid="uid://bh5p40hym0ur8" path="res://src/scenes/menus/level_selector_menu.gd" id="1_n7m11"]
+[ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="1_rxr8q"]
+[ext_resource type="Texture2D" uid="uid://rkrtksvv4xem" path="res://assets/Art/select_level_text.png" id="2_a4y26"]
+[ext_resource type="Script" uid="uid://cy2djoxnjruln" path="res://src/scenes/menus/0.gd" id="3_a4y26"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n7m11"]
+texture = ExtResource("1_rxr8q")
+modulate_color = Color(0.8244924, 0.8244924, 0.8244924, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_js0ka"]
+texture = ExtResource("2_a4y26")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7m11"]
+bg_color = Color(3.3901503, 3.3901503, 3.3901503, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js0ka"]
+bg_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csrom"]
+bg_color = Color(0.8111275, 0.8111274, 0.8111274, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxunk"]
+
+[node name="LevelSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n7m11")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_n7m11")
+
+[node name="GameTitle" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -284.49878
+offset_right = 284.49878
+offset_bottom = 505.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_js0ka")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -602.0
+offset_top = -2.0
+offset_right = 603.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="0" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="1" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="3" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="4" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="5" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="6" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="7" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="8" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="9" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="10" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="11" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/0" to="." method="_on_level_0_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/1" to="VBoxContainer/HBoxContainer/0" method="_on_level_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/2" to="VBoxContainer/HBoxContainer/0" method="_on_level_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/3" to="VBoxContainer/HBoxContainer/0" method="_on_level_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/4" to="VBoxContainer/HBoxContainer/0" method="_on_level_4_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/5" to="VBoxContainer/HBoxContainer/0" method="_on_level_5_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/6" to="VBoxContainer/HBoxContainer/0" method="_on_level_6_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/7" to="." method="_on_level_7_pressed"]
