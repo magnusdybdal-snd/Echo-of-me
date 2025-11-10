@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 const THROW_FORCE := 400
-const CARRY_OFFSET := Vector2(0, -20) # Position above player's head
+const CARRY_OFFSET := Vector2(0, -40) # Position above player's head
 
 var start_position : Vector2
 var beeing_pushed := false
@@ -35,9 +35,12 @@ func _physics_process(_delta: float) -> void:
 		freeze = false
 		
 func pick_up(by_character: CharacterBase):
+	print("inside pickup before return")
 	if beeing_carried:
+		print("already carry lol")
 		return
 	
+	print("Inside pickup after return")
 	beeing_carried = true
 	carrier = by_character
 	linear_velocity = Vector2.ZERO

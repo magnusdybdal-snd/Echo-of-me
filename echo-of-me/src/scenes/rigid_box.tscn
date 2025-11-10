@@ -9,7 +9,7 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_474vp"]
 size = Vector2(38, 20)
 
-[node name="RigidBox" type="RigidBody2D" groups=["PhysicsObjects"]]
+[node name="RigidBox" type="RigidBody2D" groups=["boxes"]]
 collision_layer = 8
 collision_mask = 15
 mass = 0.1

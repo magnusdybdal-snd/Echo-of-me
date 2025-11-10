@@ -195,9 +195,9 @@ func handle_box_interraction():
 		carried_box = null
 	
 	else:
-		# Try to pick up nearby box
+		# Try to pick up nearby boxa 
 		var nearest_box = find_nearest_box()
-		if nearby_boxes != null and nearest_box.has_method("pick_up"):
+		if nearest_box != null and nearest_box.has_method("pick_up"):
 			nearest_box.pick_up(self)
 			carried_box = nearest_box
 						
