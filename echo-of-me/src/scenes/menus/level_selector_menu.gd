@@ -1,60 +1,23 @@
 extends Control
 
+func _ready():
+	_connect_level_buttons()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _connect_level_buttons() -> void:
+	for container in $VBoxContainer.get_children():
+		if container is HBoxContainer:
+			for button in container.get_children():
+				if button is Button:
+					button.pressed.connect(_on_level_button_pressed.bind(button))
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_level_0_pressed() -> void:
-	pass # Replace with function body.
+func _on_level_button_pressed(button: Button) -> void:
+	var level_path: String
 	
-
-
-func _on_level_7_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_8_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_9_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_10_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_11_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_1_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_2_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_3_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_4_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_5_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_level_6_pressed() -> void:
-	pass # Replace with function body.
+	if button.name == "test_level": # check if test level
+		level_path = "res://src/scenes/levels/test_level.tscn"
+	else:
+		var level_number = button.name  # Keep as string to preserve leading zeros
+		level_path = "res://src/scenes/levels/level_%s.tscn" % level_number
+		
+	print("Loading level: ", button.name)
+	get_tree().change_scene_to_file(level_path)
