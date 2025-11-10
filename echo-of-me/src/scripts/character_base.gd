@@ -5,11 +5,13 @@ class_name CharacterBase
 
 # Constants for player movement and forces
 const SPEED := 200.0
+const CARRY_SPEED := 130
 const SPRINT_SPEED := 300.0
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
 const AIR_RESISTANCE := 400
 const JUMP_VELOCITY := -370.0
+const CARRY_JUMP_VELOCITY := -270.0
 const BOX_PUSH_SPEED := 300.0
 
 # Used to control animations
@@ -45,7 +47,7 @@ func _physics_process(delta):
 	
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
-	can_double_jump = GameManager.has_powerup("double_jump")
+	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
@@ -69,10 +71,18 @@ func apply_movement(delta: float) -> void:
 		else:
 			if is_on_floor():
 				# Normal movement speed
-				target_speed = SPRINT_SPEED if (can_sprint and is_sprinting) else SPEED
-			else:
-				if abs(velocity.x) > SPEED:
+				if (can_sprint and is_sprinting and carried_box == null):
 					target_speed = SPRINT_SPEED
+				elif (carried_box != null):
+					target_speed = CARRY_SPEED
+				else:
+					target_speed = SPEED
+			# Air speed
+			else:
+				if abs(velocity.x) > SPEED and carried_box == null:
+					target_speed = SPRINT_SPEED
+				elif carried_box != null:
+					target_speed = CARRY_SPEED
 				else:
 					target_speed = SPEED
 					
@@ -130,7 +140,7 @@ func update_animation(direction: float) -> void:
 			if direction == 0 :
 				animated_sprite.play("idle")
 			
-			elif can_sprint and is_sprinting:
+			elif can_sprint and is_sprinting and carried_box == null:
 				animated_sprite.play("run")
 			
 			else:
@@ -144,7 +154,10 @@ func update_animation(direction: float) -> void:
 
 # Sets flags for animation control and plays jump animation
 func start_jump():
-	velocity.y = JUMP_VELOCITY
+	if (carried_box != null):
+		velocity.y = CARRY_JUMP_VELOCITY
+	else:
+		velocity.y = JUMP_VELOCITY
 	jumping = true
 	falling = false
 	animated_sprite.play("jump")
