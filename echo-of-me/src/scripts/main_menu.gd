@@ -16,7 +16,7 @@ func _on_start_game_pressed() -> void:
 
 
 func _on_select_level_pressed() -> void:
-	pass 
+	get_tree().change_scene_to_file("res://src/scenes/menus/level_selector_menu.tscn")
 
 
 func _on_quit_game_pressed() -> void:

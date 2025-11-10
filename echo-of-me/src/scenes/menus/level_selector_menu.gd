@@ -3,8 +3,6 @@ extends Control
 func _ready():
 	_connect_level_buttons()
 	_validate_level_buttons()
-	
-
 
 func _connect_level_buttons() -> void:
 	for container in $VBoxContainer.get_children():
@@ -24,7 +22,7 @@ func _on_level_button_pressed(button: Button) -> void:
 		
 	print("Loading level: ", button.name)
 	get_tree().change_scene_to_file(level_path)
-	
+
 ###--- Check if level exists---###
 func _validate_level_buttons() -> void:
 	for container in $VBoxContainer.get_children():

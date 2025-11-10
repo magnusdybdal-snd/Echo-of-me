@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Echo of Me"
-run/main_scene="uid://dcp17f2vr5fsn"
+run/main_scene="uid://c0n0uyeois5if"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
