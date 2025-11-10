@@ -2,6 +2,9 @@ extends Control
 
 func _ready():
 	_connect_level_buttons()
+	_validate_level_buttons()
+	
+
 
 func _connect_level_buttons() -> void:
 	for container in $VBoxContainer.get_children():
@@ -21,3 +24,23 @@ func _on_level_button_pressed(button: Button) -> void:
 		
 	print("Loading level: ", button.name)
 	get_tree().change_scene_to_file(level_path)
+	
+###--- Check if level exists---###
+func _validate_level_buttons() -> void:
+	for container in $VBoxContainer.get_children():
+		if container is HBoxContainer:
+			for button in container.get_children():
+				if button is Button:
+					var level_path = _get_level_path(button.name)
+					if not FileAccess.file_exists(level_path):
+						# Tint the button red if level doesn't exist
+						button.modulate = Color(1.0, 0.5, 0.5)  # Light red tint
+						# Optionally disable the button
+						button.disabled = true
+
+func _get_level_path(button_name: String) -> String:
+	if button_name.is_valid_int():
+		return "res://src/scenes/levels/level_%s.tscn" % button_name
+	else:
+		var safe_name = button_name.replace(" ", "_")
+		return "res://src/scenes/levels/%s.tscn" % safe_name
