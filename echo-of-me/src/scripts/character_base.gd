@@ -29,6 +29,7 @@ var nearby_boxes: Array = []
 
 # Box currently beeing carried
 var carried_box: RigidBody2D = null
+var facing_direction := 1.0 # -1.0 left, 1.0 right
 
 @onready var animated_sprite = %AnimatedSprite2D
 
@@ -112,8 +113,10 @@ func update_animation(direction: float) -> void:
 	# Flips sprite based on the direction the character is facing
 	if direction > 0:
 		animated_sprite.flip_h = false
+		facing_direction = 1.0
 	elif direction < 0:
 		animated_sprite.flip_h = true
+		facing_direction = -1.0
 
 	if is_on_floor():
 		# Just landed
@@ -190,7 +193,7 @@ func handle_box_interraction():
 			carried_box.throw_box(throw_dir, velocity)
 		else:
 			# Place down gently
-			carried_box.place_down()
+			carried_box.place_down(facing_direction)
 		# Reset state of carried box
 		carried_box = null
 	
@@ -235,7 +238,7 @@ func die() -> void:
 	velocity = Vector2.ZERO
 	
 	if carried_box != null:
-		carried_box.place_down()
+		carried_box.place_down(facing_direction)
 		carried_box = null
 	
 	# Play death animation if you have one

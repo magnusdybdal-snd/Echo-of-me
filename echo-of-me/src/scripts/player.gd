@@ -60,7 +60,7 @@ func reset_player():
 	is_dead = false
 	
 	if carried_box != null:
-		carried_box.place_down()
+		carried_box.place_down(facing_direction)
 		carried_box = null
 	
 	animated_sprite.play("idle")

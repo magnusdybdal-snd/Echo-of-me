@@ -50,13 +50,15 @@ func pick_up(by_character: CharacterBase):
 	add_collision_exception_with(carrier)
 	print("Picked up!")
 	
-func place_down():
+func place_down(direction: float):
 	if not beeing_carried:
 		return
 		
 	beeing_carried = false
 	freeze = false
 	linear_velocity = Vector2.ZERO
+	global_position.x += (direction * 30.0)
+	global_position.y -= CARRY_OFFSET.y
 	
 	# Reenable collision with carrier when placing box down
 	if is_instance_valid(carrier):
