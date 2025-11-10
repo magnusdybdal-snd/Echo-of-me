@@ -27,6 +27,9 @@ var used_double_jump := false
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
 
+# Box currently beeing carried
+var carried_box: RigidBody2D = null
+
 @onready var animated_sprite = %AnimatedSprite2D
 
 func _physics_process(delta):
@@ -129,8 +132,6 @@ func update_animation(direction: float) -> void:
 			
 			else:
 				animated_sprite.play("walk")
-				
-	
 	else:
 		# In air
 		if not jumping:
@@ -177,9 +178,45 @@ func push_boxes() -> void:
 				box.set_target_velocity(velocity.x)
 			else:
 				box.linear_velocity.x = velocity.x
-			
-		print("Player velocity: ", velocity.x, " | Box velocity: ", box.linear_velocity.x)
-			
+				
+func handle_box_interraction():
+	if carried_box != null:
+		# Already carrying, place or throw
+		var is_moving = abs(velocity.x) > 10
+		
+		if is_moving:
+			# Throw the box
+			var throw_dir = sign(velocity.x)
+			carried_box.throw_box(throw_dir, velocity)
+		else:
+			# Place down gently
+			carried_box.place_down()
+		# Reset state of carried box
+		carried_box = null
+	
+	else:
+		# Try to pick up nearby box
+		var nearest_box = find_nearest_box()
+		if nearby_boxes != null and nearest_box.has_method("pick_up"):
+			nearest_box.pick_up(self)
+			carried_box = nearest_box
+						
+# Function that finds the nearest box to the player
+func find_nearest_box() -> RigidBody2D:
+	var boxes = get_tree().get_nodes_in_group("boxes")
+	var nearest: RigidBody2D = null
+	var nearest_dist = 999999.0
+	
+	for box in boxes:
+		if box is RigidBody2D and box.has_method("can_be_picked_up"):
+			if box.can_be_picked_up(self):
+				var dist = global_position.distance_to(box.global_position)
+				if dist < nearest_dist:
+					nearest_dist = dist
+					nearest = box
+					
+	return nearest
+						
 func add_nearby_box(box: RigidBody2D) -> void:
 	if box not in nearby_boxes:
 		nearby_boxes.append(box)
@@ -195,8 +232,11 @@ func die() -> void:
 	if is_dead:
 		return # player is already dead
 	is_dead = true
-		
 	velocity = Vector2.ZERO
+	
+	if carried_box != null:
+		carried_box.place_down()
+		carried_box = null
 	
 	# Play death animation if you have one
 	if animated_sprite.sprite_frames.has_animation("death"):
