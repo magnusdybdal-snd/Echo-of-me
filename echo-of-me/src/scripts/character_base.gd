@@ -31,7 +31,11 @@ var nearby_boxes: Array = []
 
 func _physics_process(delta):
 	if is_dead:
-		return  
+		return 
+	if "in_cutscene" in self and self.in_cutscene:
+		move_and_slide()  # Still allow AnimationPlayer to move the character
+		return
+
 	check_powerups()
 	apply_gravity(delta)
 	apply_movement(delta)
