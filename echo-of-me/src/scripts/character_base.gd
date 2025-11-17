@@ -192,9 +192,6 @@ func start_jump():
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
 		velocity.y = JUMP_VELOCITY
 		
-		# Consume wall jump timer
-		wall_jump_timer = 0.0
-		
 		jumping = true
 		falling = false
 		animated_sprite.play("jump")
