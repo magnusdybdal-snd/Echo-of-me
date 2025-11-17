@@ -710,8 +710,8 @@ position = Vector2(737, 500)
 [node name="Key" parent="LevelController" instance=ExtResource("13_k6hgu")]
 position = Vector2(162, 390)
 
-[node name="RigidBox" parent="LevelController" instance=ExtResource("14_bbyjh")]
-position = Vector2(487, -59)
-center_of_mass_mode = 1
+[node name="RigidBox" parent="." instance=ExtResource("14_bbyjh")]
+position = Vector2(367, -22)
+mass = 1.0
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]

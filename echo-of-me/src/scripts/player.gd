@@ -21,6 +21,10 @@ func _physics_process(delta: float) -> void:
 	# Check sprint input
 	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
 	
+	# Q key to pick up / throw / place box
+	if Input.is_action_just_pressed("pick_up"):
+		handle_box_interraction()
+	
 	# Echo recording system
 	if is_recording:
 		record_input()
@@ -54,6 +58,11 @@ func reset_player():
 	landing = false
 	is_sprinting = false
 	is_dead = false
+	
+	if carried_box != null:
+		carried_box.place_down(facing_direction)
+		carried_box = null
+	
 	animated_sprite.play("idle")
 	clear_recording()
 
@@ -64,7 +73,8 @@ func record_input() -> void:
 		"direction": Input.get_axis("move_left", "move_right"),
 		"jump": Input.is_action_just_pressed("jump"),
 		"double_jump": Input.is_action_just_pressed("jump") and not used_double_jump,
-		"sprint": Input.is_action_pressed("sprint")
+		"sprint": Input.is_action_pressed("sprint"),
+		"pick_up": Input.is_action_just_pressed("pick_up")
 	})
 	frame_index += 1
 

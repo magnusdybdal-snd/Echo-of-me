@@ -31,7 +31,7 @@ shape = SubResource("RectangleShape2D_sg2is")
 
 [node name="right" type="Area2D" parent="."]
 
-[node name="CollisionShapeRight" type="CollisionShape2D" parent="right"]
+[node name="CollisionShapeRight" type="CollisionShape2D" parent="right" groups=["boxes"]]
 position = Vector2(6, 0)
 shape = SubResource("RectangleShape2D_sg2is")
 
