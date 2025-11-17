@@ -34,9 +34,11 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor():
 			start_jump()
 			used_double_jump = false
-		elif can_double_jump and not used_double_jump:
+		elif can_double_jump and not used_double_jump and not can_wall_jump():
 			start_jump()
 			used_double_jump = true
+		elif can_wall_jump():
+			start_jump()
 
 	# Base class handles all movement
 	super._physics_process(delta)
