@@ -14,6 +14,10 @@ const JUMP_VELOCITY := -370.0
 const CARRY_JUMP_VELOCITY := -270.0
 const BOX_PUSH_SPEED := 300.0
 
+# Wall climb constants
+const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
+const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
+
 # Used to control animations
 var jumping := false
 var falling := false
@@ -24,6 +28,7 @@ var is_dead := false
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
+var can_wall_climb := false
 var used_double_jump := false
 
 # Tracks boxes to apply push force to
@@ -48,9 +53,12 @@ func _physics_process(delta):
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
+	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
+	if is_on_wall_only() and velocity.y > 0:
+		velocity.y = WALL_SLIDE_GRAVITY
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
@@ -154,13 +162,18 @@ func update_animation(direction: float) -> void:
 
 # Sets flags for animation control and plays jump animation
 func start_jump():
-	if (carried_box != null):
-		velocity.y = CARRY_JUMP_VELOCITY
-	else:
+	if is_on_wall():
 		velocity.y = JUMP_VELOCITY
-	jumping = true
-	falling = false
-	animated_sprite.play("jump")
+		velocity.x = WALL_JUMP_FORCE * get_direction()
+		animated_sprite.play("jump")
+	else:	
+		if (carried_box != null):
+			velocity.y = CARRY_JUMP_VELOCITY
+		else:
+			velocity.y = JUMP_VELOCITY
+		jumping = true
+		falling = false
+		animated_sprite.play("jump")
 
 # Makes sure the jumping and landing animation finishes before playing the falling animation
 func _on_animated_sprite_2d_animation_finished() -> void:
