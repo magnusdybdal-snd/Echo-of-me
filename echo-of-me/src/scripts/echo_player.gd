@@ -24,6 +24,8 @@ func _physics_process(delta: float) -> void:
 			if is_on_floor():
 				start_jump()
 				used_double_jump = false
+			elif can_wall_jump():
+				start_jump()
 			elif double_jump and can_double_jump and not used_double_jump:
 				start_jump()
 				used_double_jump = true

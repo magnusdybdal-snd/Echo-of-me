@@ -14,6 +14,11 @@ const JUMP_VELOCITY := -370.0
 const CARRY_JUMP_VELOCITY := -270.0
 const BOX_PUSH_SPEED := 300.0
 
+# Wall climb constants
+const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
+const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
+const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
+
 # Used to control animations
 var jumping := false
 var falling := false
@@ -24,7 +29,12 @@ var is_dead := false
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
+var can_wall_climb := false
 var used_double_jump := false
+
+# Wall jump coyote time
+var wall_jump_timer := 0.0
+var last_wall_normal := Vector2.ZERO
 
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
@@ -39,6 +49,7 @@ func _physics_process(delta):
 	if is_dead:
 		return  
 	check_powerups()
+	update_wall_jump_timer(delta)
 	apply_gravity(delta)
 	apply_movement(delta)
 	update_animation(get_direction())
@@ -48,9 +59,31 @@ func _physics_process(delta):
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
+	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
+
+# Updates wall jump grace timer
+func update_wall_jump_timer(delta: float) -> void:
+	if is_on_wall_only() and can_wall_climb:
+		# Resets the timer if we are on the wall
+		wall_jump_timer = WALL_JUMP_GRACE_TIME
+		# Get the normal of the wall we are colliding with
+		var wall_col := get_slide_collision(0) if get_slide_collision_count() > 0 else null
+		if wall_col:
+			last_wall_normal = wall_col.get_normal()
+	# Just left the wall, start counting down the grace timer
+	elif wall_jump_timer > 0:
+		wall_jump_timer -= delta
+	
+# Check if player can wall jump -> Is on wall OR within wall jump grace period
+func can_wall_jump() -> bool:
+	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0)
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
+	# If player is in contact with a wall, apply sliding gravity
+	if is_on_wall_only() and velocity.y > 0:
+		velocity.y = WALL_SLIDE_GRAVITY
+	# Otherwise normal world gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
@@ -154,6 +187,15 @@ func update_animation(direction: float) -> void:
 
 # Sets flags for animation control and plays jump animation
 func start_jump():
+	if can_wall_jump():
+		# Use stored wall normal from last wall contact
+		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
+		velocity.y = JUMP_VELOCITY
+		
+		jumping = true
+		falling = false
+		animated_sprite.play("jump")
+			
 	if (carried_box != null):
 		velocity.y = CARRY_JUMP_VELOCITY
 	else:
