@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://dpqpuoot6vgph"]
 
-[ext_resource type="Script" uid="uid://bh5p40hym0ur8" path="res://src/scenes/menus/level_selector_menu.gd" id="1_n7m11"]
+[ext_resource type="Script" uid="uid://bh5p40hym0ur8" path="res://src/scripts/level_selector_menu.gd" id="1_n7m11"]
 [ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="1_rxr8q"]
 [ext_resource type="Texture2D" uid="uid://rkrtksvv4xem" path="res://assets/Art/select_level_text.png" id="2_a4y26"]
-[ext_resource type="Script" uid="uid://cy2djoxnjruln" path="res://src/scenes/menus/0.gd" id="3_a4y26"]
+[ext_resource type="Script" uid="uid://cy2djoxnjruln" path="res://src/scripts/0.gd" id="3_a4y26"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n7m11"]
 texture = ExtResource("1_rxr8q")
@@ -82,17 +82,17 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_js0ka")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -602.0
-offset_top = -2.0
-offset_right = 603.0
-offset_bottom = 260.0
+anchor_bottom = 1.0
+offset_left = -302.5
+offset_top = -202.0
+offset_right = 343.0
+offset_bottom = -42.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]

@@ -47,7 +47,11 @@ var facing_direction := 1.0 # -1.0 left, 1.0 right
 
 func _physics_process(delta):
 	if is_dead:
-		return  
+		return 
+	if "in_cutscene" in self and self.in_cutscene:
+		move_and_slide()  # Still allow AnimationPlayer to move the character
+		return
+
 	check_powerups()
 	update_wall_jump_timer(delta)
 	apply_gravity(delta)

@@ -683,10 +683,6 @@ tile_set = SubResource("TileSet_swe6p")
 [node name="Player" parent="LevelController" instance=ExtResource("7_ex0qx")]
 position = Vector2(83, 480)
 
-[node name="Camera2D" type="Camera2D" parent="LevelController"]
-position = Vector2(578, 324)
-zoom = Vector2(1.68, 1.68)
-
 [node name="Door" parent="LevelController" instance=ExtResource("8_55ror")]
 position = Vector2(1014, 198)
 scale = Vector2(2, 2)
