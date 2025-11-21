@@ -170,8 +170,10 @@ func update_animation(direction: float) -> void:
 			animated_sprite.play("landing")
 		elif not jumping and not landing:
 			# On ground not jumping/falling -> play walk or idle
-			if direction == 0 :
-				animated_sprite.play("idle")
+			if direction == 0 and carried_box:
+				animated_sprite.play("idle_carry_box")
+			elif direction == 0 and not carried_box:
+				animated_sprite.play("idle")	
 			
 			elif can_sprint and is_sprinting and carried_box == null:
 				animated_sprite.play("run")
