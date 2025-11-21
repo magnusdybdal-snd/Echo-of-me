@@ -25,7 +25,7 @@ var current_level_index := 0
 var max_echoes := 0
 var unlocked_powerups := {
 	"sprint": false,
-	"wall_climp": false,
+	"wall_climb": false,
 	"double_jump": false,
 	"dash": false
 }

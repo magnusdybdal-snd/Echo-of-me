@@ -15,13 +15,20 @@ func _physics_process(delta: float) -> void:
 		direction  = frame_data["direction"]
 		var jump_pressed: bool = frame_data["jump"]
 		var double_jump: bool = frame_data.get("double_jump", false)
+		var pick_up_pressed: bool = frame_data.get("pick_up", false)
 		is_sprinting = frame_data.get("sprint", false)
+	
+		# Handle box interaction
+		if pick_up_pressed:
+			handle_box_interraction()
 	
 		# Handle jump.
 		if jump_pressed:
 			if is_on_floor():
 				start_jump()
 				used_double_jump = false
+			elif can_wall_jump():
+				start_jump()
 			elif double_jump and can_double_jump and not used_double_jump:
 				start_jump()
 				used_double_jump = true
@@ -34,6 +41,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		# Finished playback
 		if not is_dead:
+			
+			if carried_box != null:
+				carried_box.place_down(facing_direction)
+				carried_box = null
+			
 			animated_sprite.play("die")
 
 func get_direction() -> float:
@@ -51,12 +63,13 @@ func reset_playback():
 	used_double_jump = false
 	is_dead = false
 	
+	# Drop carried box if holding
+	if carried_box != null:
+		carried_box = null
+	
 	# Restart animation
 	if animated_sprite.sprite_frames.has_animation("idle"):
-		animated_sprite.play("idle")
-		
-	print("Echo reset to start position")
-				
+		animated_sprite.play("idle")				
 func set_animation(anim_name: String):
 	animated_sprite.play(anim_name)
 	

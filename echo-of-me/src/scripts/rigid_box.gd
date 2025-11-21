@@ -1,7 +1,12 @@
 extends RigidBody2D
 
+const THROW_FORCE := 400
+const CARRY_OFFSET := Vector2(0, -40) # Position above player's head
+
 var start_position : Vector2
 var beeing_pushed := false
+var beeing_carried := false
+var carrier : CharacterBase = null # Who is carrying the box
 
 func _ready():
 	start_position = global_position
@@ -12,39 +17,119 @@ func _ready():
 	physics_material_override.friction = 1.0
 	physics_material_override.bounce = 0.0
 	
-	var level_controller = get_tree().current_scene.get_node("LevelController")
-	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	var level_controller = get_tree().current_scene.get_node_or_null("LevelController")
+	if level_controller != null:
+		level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	else:
+		print("Warning: LevelController not found - box reset won't work")
 
 func _physics_process(_delta: float) -> void:
+	# Adjust friction based on state
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
 		physics_material_override.friction = 1.0
+		
+	# If box is carried, follow the carrier
+	if beeing_carried and is_instance_valid(carrier):
+		#freeze = true # disable physics while carried
+		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
+		freeze = true
+		global_position = carrier.global_position + CARRY_OFFSET
+	else:
+		freeze = false
+		
+func pick_up(by_character: CharacterBase):
+	print("inside pickup before return")
+	if beeing_carried:
+		print("already carry lol")
+		return
+	
+	print("Inside pickup after return")
+	beeing_carried = true
+	carrier = by_character
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	
+	# Disable collision with carrier
+	add_collision_exception_with(carrier)
+	print("Picked up!")
+	
+func place_down(direction: float):
+	if not beeing_carried:
+		return
+		
+	beeing_carried = false
+	freeze = false
+	linear_velocity = Vector2.ZERO
+	global_position.x += (direction * 30.0)
+	global_position.y -= CARRY_OFFSET.y
+	
+	# Reenable collision with carrier when placing box down
+	if is_instance_valid(carrier):
+		remove_collision_exception_with(carrier)
+		
+	carrier = null
+	print("placed box")
+	
+# Throw the box
+func throw_box(direction: float, velocity: Vector2):
+	if not beeing_carried:
+		return
+		
+	beeing_carried = false
+	freeze = false
+	
+	# Apply throw force
+	linear_velocity = velocity
+	linear_velocity.x = direction * THROW_FORCE
+	
+	# Enable collision with carrier
+	if is_instance_valid(carrier):
+		remove_collision_exception_with(carrier)
+		
+	carrier = null
+	print("throw box")
+		
+# Check if box can be pixked up
+func can_be_picked_up(character: CharacterBase) -> bool:
+	if beeing_carried:
+		return false
+		
+	# Check distance to box
+	var distance = global_position.distance_to(character.global_position)
+	return distance < 40.0
+		
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
+	if is_instance_valid(carrier):
+		remove_collision_exception_with(carrier)
+	
+	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
 	freeze = true
 	PhysicsServer2D.body_set_state(
 	get_rid(),
 	PhysicsServer2D.BODY_STATE_TRANSFORM,
 	Transform2D.IDENTITY.translated(start_position)
 	)
+	freeze = false
+	
 	global_position = start_position
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
-	freeze = false
+	beeing_carried = false
 	beeing_pushed = false
+	carrier = null
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("add_nearby_box"):
 		body.add_nearby_box(self)
 		beeing_pushed = true
 		linear_damp = 0.0
-		add_collision_exception_with(body)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.has_method("remove_nearby_box"):
 		body.remove_nearby_box(self)
 		beeing_pushed = false
 		linear_velocity.x = 0.0
-		remove_collision_exception_with(body)
