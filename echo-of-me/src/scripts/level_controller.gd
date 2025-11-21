@@ -6,6 +6,10 @@ signal reset_level
 # Gets the player from the level it is controllingplayer_path
 @onready var player = get_node("Player")
 
+# Pause menu scene
+var pause_menu_scene = preload("res://src/scenes/menus/pause_menu.tscn")
+var pause_menu_instance = null
+
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
@@ -17,6 +21,20 @@ func _input(event):
 		soft_reset()
 	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
 		hard_reset()
+	
+	if event.is_action_pressed("ui_cancel"):
+		if pause_menu_instance == null:
+			# Create and show menu
+			pause_menu_instance = pause_menu_scene.instantiate()
+			pause_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+			add_child(pause_menu_instance)
+			get_tree().paused = true
+		else:
+			# Hide and remove menu
+			get_tree().paused = false
+			pause_menu_instance.queue_free()
+			pause_menu_instance = null
+	
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
 # Then resets the recording of the player for new recording
