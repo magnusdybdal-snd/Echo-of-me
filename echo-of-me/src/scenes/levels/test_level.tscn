@@ -626,10 +626,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_fklp7")
 }
 
-[node name="Camera2D" type="Camera2D" parent="LevelController"]
-position = Vector2(578, 324)
-zoom = Vector2(1.68, 1.68)
-
 [node name="Button" parent="LevelController" instance=ExtResource("5_3jmop")]
 position = Vector2(264, 601)
 collision_layer = 8

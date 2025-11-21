@@ -57,32 +57,29 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_jvln8")
 
 [node name="GameTitle" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -284.0
-offset_top = -394.0
-offset_right = 284.99756
-offset_bottom = 111.0
+offset_left = -163.09387
+offset_top = 75.0
+offset_right = 163.09387
+offset_bottom = 364.5
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
 
 [node name="MenuButtons" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -289.0
-offset_top = 123.0
-offset_right = 290.0
-offset_bottom = 395.0
+anchor_bottom = 1.0
+offset_left = -222.5
+offset_top = -250.0
+offset_right = 224.0
+offset_bottom = -80.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_constants/separation = 10
 
 [node name="StartGame" type="Button" parent="MenuButtons"]
