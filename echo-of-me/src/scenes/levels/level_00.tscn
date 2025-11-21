@@ -89,7 +89,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_5imsi"]
 resource_name = "cutscene"
-length = 30.0
+length = 14.5
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -119,7 +119,7 @@ tracks/2/path = NodePath("LevelController/Player")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.1666666, 29.6),
+"times": PackedFloat32Array(0, 1.1666666, 14.466666),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
@@ -139,7 +139,7 @@ tracks/3/path = NodePath("LevelController/Echo_player")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 29.7),
+"times": PackedFloat32Array(0, 14.466666),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -244,7 +244,7 @@ tracks/10/path = NodePath("LevelController/UI/Dialog")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 3.7666667, 6.1666665, 8.466666, 9.8, 11.833333),
+"times": PackedFloat32Array(0, 3.7666667, 6.1666665, 8.466666, 9.8, 13.533334),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "values": [{
 "args": ["", ""],
