@@ -1,15 +1,15 @@
 [gd_scene load_steps=10 format=3 uid="uid://ce21s62oslrob"]
 
-[ext_resource type="Script" uid="uid://jlhxir1w6u2c" path="res://src/scripts/main_menu.gd" id="1_2suwp"]
+[ext_resource type="Script" uid="uid://bstkiupe53cup" path="res://src/scripts/pause_menu.gd" id="1_2suwp"]
 [ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="2_bdmxr"]
-[ext_resource type="Texture2D" uid="uid://cn5pxiajvek62" path="res://assets/Art/echo_text.png" id="3_gehre"]
+[ext_resource type="Texture2D" uid="uid://bfsk3i7gv3ew" path="res://assets/Art/paused_text.png" id="3_2suwp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvln8"]
 texture = ExtResource("2_bdmxr")
 modulate_color = Color(0.8244924, 0.8244924, 0.8244924, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ksoms"]
-texture = ExtResource("3_gehre")
+texture = ExtResource("3_2suwp")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s84or"]
 bg_color = Color(3.3901503, 3.3901503, 3.3901503, 1)
@@ -49,7 +49,7 @@ grow_vertical = 2
 script = ExtResource("1_2suwp")
 
 [node name="Background" type="Panel" parent="PauseMenu"]
-modulate = Color(1, 1, 1, 0.827451)
+modulate = Color(1, 1, 1, 0.7764706)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,17 +58,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_jvln8")
 
-[node name="GameTitle" type="Panel" parent="PauseMenu"]
-visible = false
+[node name="PauseTitle" type="Panel" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -163.09387
-offset_top = 75.0
-offset_right = 163.09387
-offset_bottom = 364.5
+offset_left = -300.5
+offset_top = -4.9999695
+offset_right = 25.687744
+offset_bottom = 284.50003
 grow_horizontal = 2
+scale = Vector2(1.8730298, 1.8730298)
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
 
 [node name="MenuButtons" type="VBoxContainer" parent="PauseMenu"]
@@ -127,18 +127,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
 text = "Main menu"
-
-[node name="Label" type="Label" parent="PauseMenu"]
-layout_mode = 0
-offset_left = 330.0
-offset_top = 173.0
-offset_right = 414.0
-offset_bottom = 210.0
-scale = Vector2(6, 6)
-text = "Paused"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
 
 [connection signal="pressed" from="PauseMenu/MenuButtons/ContinueGame" to="PauseMenu" method="_on_continue_game_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuButtons/SelectLevel" to="PauseMenu" method="_on_select_level_pressed"]
