@@ -1,0 +1,133 @@
+[gd_scene load_steps=10 format=3 uid="uid://ce21s62oslrob"]
+
+[ext_resource type="Script" uid="uid://bstkiupe53cup" path="res://src/scripts/pause_menu.gd" id="1_2suwp"]
+[ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="2_bdmxr"]
+[ext_resource type="Texture2D" uid="uid://bfsk3i7gv3ew" path="res://assets/Art/paused_text.png" id="3_2suwp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvln8"]
+texture = ExtResource("2_bdmxr")
+modulate_color = Color(0.8244924, 0.8244924, 0.8244924, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ksoms"]
+texture = ExtResource("3_2suwp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s84or"]
+bg_color = Color(3.3901503, 3.3901503, 3.3901503, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmuqf"]
+bg_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovsfe"]
+bg_color = Color(0.8111275, 0.8111274, 0.8111274, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7yiml"]
+
+[node name="Pause Menu" type="CanvasLayer"]
+
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2suwp")
+
+[node name="Background" type="Panel" parent="PauseMenu"]
+modulate = Color(1, 1, 1, 0.7764706)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_jvln8")
+
+[node name="PauseTitle" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.5
+offset_top = -4.9999695
+offset_right = 25.687744
+offset_bottom = 284.50003
+grow_horizontal = 2
+scale = Vector2(1.8730298, 1.8730298)
+theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
+
+[node name="MenuButtons" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -222.5
+offset_top = -250.0
+offset_right = 224.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="ContinueGame" type="Button" parent="PauseMenu/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Continue game"
+
+[node name="SelectLevel" type="Button" parent="PauseMenu/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Select level"
+
+[node name="MainMenu" type="Button" parent="PauseMenu/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Main menu"
+
+[connection signal="pressed" from="PauseMenu/MenuButtons/ContinueGame" to="PauseMenu" method="_on_continue_game_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuButtons/SelectLevel" to="PauseMenu" method="_on_select_level_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuButtons/MainMenu" to="PauseMenu" method="_on_main_menu_pressed"]

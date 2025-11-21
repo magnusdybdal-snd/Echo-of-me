@@ -898,7 +898,7 @@ sources/0 = SubResource("TileSetAtlasSource_kj3gd")
 sources/1 = SubResource("TileSetAtlasSource_bf14f")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5imsi"]
-size = Vector2(1615, 96)
+size = Vector2(1713, 96)
 
 [sub_resource type="SystemFont" id="SystemFont_bf14f"]
 
@@ -972,7 +972,7 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelController/Ground"]
 light_mask = 7
 visibility_layer = 7
-position = Vector2(791.5, 626)
+position = Vector2(742.5, 626)
 shape = SubResource("RectangleShape2D_5imsi")
 
 [node name="UI" type="CanvasLayer" parent="LevelController"]
