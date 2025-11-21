@@ -126,7 +126,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
-text = "Quit game"
+text = "Main menu"
 
 [node name="Label" type="Label" parent="PauseMenu"]
 layout_mode = 0
