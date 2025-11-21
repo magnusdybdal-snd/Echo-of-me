@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://wj1tlue0nqj5"]
+
+[node name="GameInstructions" type="CanvasLayer"]
+
+[node name="Overlay Box" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 557.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Overlay Box"]
+layout_mode = 0
+offset_right = 1144.0
+offset_bottom = 62.0
+theme_override_constants/separation = 65
+alignment = 1
+
+[node name="Move" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "WASD / ARROW KEYS to move"
+
+[node name="Jump" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "SPACE to jump"
+
+[node name="Run" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "SHIFT to run"
+
+[node name="Reset" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "R to reset level"
+
+[node name="Echo" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "E to spawn an Echo"
