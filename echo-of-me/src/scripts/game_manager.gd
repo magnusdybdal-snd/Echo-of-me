@@ -61,30 +61,19 @@ func _ready() -> void:
 	pass
 
 # Level loading
-func load_current() -> void:
-	check_level_powerups()	# Check powerups to use in level
-	var level_data = levels[current_level_index]
-	get_tree().change_scene_to_file(level_data["scene"])
-	
 func load_level(level_index: int) -> void:
 	if level_index >= 0 and level_index < levels.size():
 		current_level_index = level_index
-		load_current()
+		check_level_powerups()
+		var level_data = levels[level_index]
+		var error = get_tree().change_scene_to_file(level_data["scene"])
+		if error != OK:
+			print("ERROR: Invalid level index " + str(level_index))
 	else:
-		print("ERROR: Invalid level index " + str(level_index))
+		print("Out of levels - Hurray you won?")
 
 func load_next() -> void:
-	current_level_index += 1
-	if current_level_index < levels.size():
-		check_level_powerups()
-		var level_data = levels[current_level_index]
-		var error = get_tree().change_scene_to_file(level_data["scene"])
-		if error == OK:
-			print("Loaded level: " + level_data["scene"])
-		else:
-			print("ERROR loading level " + str(error))
-	else:
-		print("Out of levels — Hurray you won?")
+	load_level(current_level_index + 1)
 		
 # Auto unlocks powerups based on level progression
 # TODO: Levels are currently just for testing
