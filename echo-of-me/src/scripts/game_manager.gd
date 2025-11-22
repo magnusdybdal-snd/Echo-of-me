@@ -5,20 +5,47 @@ extends Node
 # put global settings here later if you want
 # e.g. audio volume, keybindings, unlocked levels
 
-func _ready() -> void:
-	# This runs once, when the project starts
-	print("GameManager loaded")
-	check_level_powerups()
-
-# Level manager
+# Level manager with metadata
 var levels := [
-	"res://src/scenes/levels/test_level.tscn",
-	"res://src/scenes/levels/level_01.tscn", 
-	"res://src/scenes/levels/level_02.tscn",
-	"res://src/scenes/levels/level_03.tscn",
-	"res://src/scenes/levels/level_04.tscn",
-	"res://src/scenes/levels/level_05.tscn",
+	{
+		"name": "Test Level (Dev)",
+		"scene": "res://src/scenes/levels/test_level.tscn",
+		"is_test": true,
+		"max_echoes": 999,
+		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"]  
+	},
+	{
+		"name": "Level 1 - First Steps",
+		"scene": "res://src/scenes/levels/level_01.tscn",
+		"max_echoes": 0,
+		"available_powerups": []
+	},
+	{
+		"name": "Level 2 - Sprint Tutorial",
+		"scene": "res://src/scenes/levels/level_02.tscn",
+		"max_echoes": 0,
+		"available_powerups": ["sprint"]
+	},
+	{
+		"name": "Level 3 - Key",
+		"scene": "res://src/scenes/levels/level_03.tscn",
+		"max_echoes": 0,
+		"available_powerups": ["sprint"]
+	},
+	{
+		"name": "Level 4 - Box Intro",
+		"scene": "res://src/scenes/levels/level_04.tscn",
+		"max_echoes": 0,
+		"available_powerups": ["sprint"]
+	},
+	{
+		"name": "Level 5 - Platforms",
+		"scene": "res://src/scenes/levels/level_05.tscn",
+		"max_echoes": 0,
+		"available_powerups": ["sprint"]
+	},
 ]
+
 var current_level_index := 0
 
 # Powerups state manager
@@ -30,19 +57,24 @@ var unlocked_powerups := {
 	"dash": false
 }
 
+func _ready() -> void:
+	# This runs once, when the project starts
+	check_level_powerups()
+
 # Level loading
 func load_current() -> void:
 	check_level_powerups()	# Check powerups to use in level
-	get_tree().change_scene_to_file(levels[current_level_index])
+	var level_data = levels[current_level_index]
+	get_tree().change_scene_to_file(level_data["scene"])
 
 func load_next() -> void:
 	current_level_index += 1
 	if current_level_index < levels.size():
 		check_level_powerups()
-		var error = get_tree().change_scene_to_file(levels[current_level_index])
+		var level_data = levels[current_level_index]
+		var error = get_tree().change_scene_to_file(level_data["scene"])
 		if error == OK:
-			print(get_tree().change_scene_to_file(levels[current_level_index]))
-			print("Loaded level: " + levels[current_level_index])
+			print("Loaded level: " + level_data["scene"])
 		else:
 			print("ERROR loading level " + str(error))
 	else:
@@ -52,29 +84,22 @@ func load_next() -> void:
 # TODO: Levels are currently just for testing
 func check_level_powerups() -> void:
 	print("DEBUG: current level index: " + str(current_level_index))
-	# Test level (level 0)
-	if current_level_index == 0:
-		max_echoes = 999
-		unlock_all_powerups()
-	else:
-		reset_powerups()   
-		max_echoes = 0
-		# Unlock sprinting at level 2
-		if current_level_index >= 2:
-			unlock_powerup("sprint")
-			max_echoes = 1
-		if current_level_index >= 4:
-			max_echoes = 2
+	
+	var level_data = levels[current_level_index]
+	
+	reset_powerups()
+	max_echoes = level_data["max_echoes"]
+	for powerup in level_data["available_powerups"]:
+		unlock_powerup(powerup)
 			
+	# Debug output
+	print("DEBUG: Level name: " + level_data["name"])
 	print("DEBUG: Max echoes = " + str(max_echoes))
 	print("DEBUG: Can use echoes = " + str(can_use_echoes()))
-	print("DEBUG: Active powerups:")
+	print("DEBUG: Powerup status:")
 	for powerup_name in unlocked_powerups:
-		if unlocked_powerups[powerup_name]:
-			print(powerup_name + "  Unlocked")
-		else:
-			print(powerup_name + "  Locked")
-
+		var status = "✓" if unlocked_powerups[powerup_name] else "✗"
+		print("  " + status + " " + powerup_name)
 			
 # Check if player can use echoes
 func can_use_echoes() -> bool:
@@ -104,8 +129,3 @@ func reset_powerups() -> void:
 	for key in unlocked_powerups.keys():
 		unlocked_powerups[key] = false
 	print("Reset all powerups")
-	
-func unlock_all_powerups() -> void:
-	for key in unlocked_powerups.keys():
-		unlocked_powerups[key] = true
-	print("Unlcoked all powerups")
