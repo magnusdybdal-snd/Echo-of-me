@@ -6,15 +6,23 @@ var spawn_position: Vector2
 var recording: Array = []
 var frame_index := 0
 var is_recording := false
+var in_cutscene := false 
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+
+
+
 
 func _ready():
 	# Stores spawn position for resets
 	spawn_position = global_position
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
+	
 
 
 func _physics_process(delta: float) -> void:
+	if in_cutscene:
+		return
 	# Only record if echo mechanic is unlocked
 	is_recording = GameManager.can_use_echoes()
 	
@@ -84,3 +92,15 @@ func record_input() -> void:
 func clear_recording():
 	recording.clear()
 	frame_index = 0
+
+func set_animation(anim_name: String):
+	animated_sprite.play(anim_name)
+	
+func start_cutscene():
+	in_cutscene = true
+	velocity = Vector2.ZERO 
+	print("Start of cutscene")
+	
+func end_cutscene():
+	in_cutscene = false
+	print("end cutscene")

@@ -592,10 +592,6 @@ libraries = {
 }
 autoplay = "move"
 
-[node name="Camera2D" type="Camera2D" parent="LevelController"]
-position = Vector2(578, 324)
-zoom = Vector2(1.68, 1.68)
-
 [node name="button_momentary" parent="LevelController" instance=ExtResource("7_mrx7m")]
 position = Vector2(777, 601)
 collision_layer = 8

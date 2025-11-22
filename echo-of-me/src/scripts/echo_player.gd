@@ -4,8 +4,11 @@ var spawn_position: Vector2
 var recorded_inputs: Array = []
 var frame_index: int = 0
 var direction: float = 0.0
+var in_cutscene := false 
 
 func _physics_process(delta: float) -> void:
+	if in_cutscene: # no physics in cutscene
+		return
 	
 	if frame_index < recorded_inputs.size():
 		var frame_data = recorded_inputs[frame_index]
@@ -67,3 +70,14 @@ func reset_playback():
 	# Restart animation
 	if animated_sprite.sprite_frames.has_animation("idle"):
 		animated_sprite.play("idle")				
+func set_animation(anim_name: String):
+	animated_sprite.play(anim_name)
+	
+func start_cutscene():
+	in_cutscene = true
+	velocity = Vector2.ZERO 
+	print("Start of echo cutscene")
+	
+func end_cutscene():
+	in_cutscene = false
+	print("end echo cutscene")
