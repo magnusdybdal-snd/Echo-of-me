@@ -20,11 +20,11 @@ const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Used to control animations
-var jumping := false
 var falling := false
 var landing := false
 var is_sprinting := false
 var is_dead := false
+var anim_lock := false
 
 # Cached powerup states
 var can_sprint := false
@@ -163,15 +163,19 @@ func update_animation(direction: float) -> void:
 
 	if is_on_floor():
 		# Just landed
-		if falling:
-			jumping = false
+		if falling and !anim_lock:
 			falling = false
-			landing = true
+			anim_lock = true
 			animated_sprite.play("landing")
-		elif not jumping and not landing:
+		elif !anim_lock:
 			# On ground not jumping/falling -> play walk or idle
 			if direction == 0 and carried_box:
 				animated_sprite.play("idle_carry_box")
+				
+			elif Input.is_action_just_pressed("pick_up"):
+				animated_sprite.play("pick_up")
+				return
+				
 			elif direction == 0 and not carried_box:
 				animated_sprite.play("idle")	
 			
@@ -182,7 +186,7 @@ func update_animation(direction: float) -> void:
 				animated_sprite.play("walk")
 	else:
 		# In air
-		if not jumping:
+		if !anim_lock:
 			animated_sprite.play("in air")
 		if velocity.y > 0:
 			falling = true
@@ -194,7 +198,7 @@ func start_jump():
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
 		velocity.y = JUMP_VELOCITY
 		
-		jumping = true
+		anim_lock = true
 		falling = false
 		animated_sprite.play("jump")
 			
@@ -202,19 +206,16 @@ func start_jump():
 		velocity.y = CARRY_JUMP_VELOCITY
 	else:
 		velocity.y = JUMP_VELOCITY
-	jumping = true
+	anim_lock = true
 	falling = false
 	animated_sprite.play("jump")
 
 # Makes sure the jumping and landing animation finishes before playing the falling animation
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite.animation == "jump":
-		jumping = false
-		if not is_on_floor():
-			animated_sprite.play("in air")
-			
-	elif animated_sprite.animation == "landing":
-		landing = false
+	anim_lock = false
+	if not is_on_floor():
+		animated_sprite.play("in air")
+	else:
 		animated_sprite.play("idle")
 				
 func push_boxes() -> void:

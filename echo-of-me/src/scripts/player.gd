@@ -55,7 +55,7 @@ func _on_reset_level():
 func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
-	jumping = false
+	anim_lock = false
 	falling = false
 	landing = false
 	is_sprinting = false

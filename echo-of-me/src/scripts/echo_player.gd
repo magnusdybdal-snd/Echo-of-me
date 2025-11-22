@@ -53,7 +53,7 @@ func reset_playback():
 	frame_index = 0
 	global_position = spawn_position
 	velocity = Vector2.ZERO
-	jumping = false
+	anim_lock = false
 	falling = false
 	landing = false
 	is_sprinting = false

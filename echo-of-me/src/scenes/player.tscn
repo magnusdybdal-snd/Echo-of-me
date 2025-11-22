@@ -275,7 +275,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fumfe")
 }],
-"loop": true,
+"loop": false,
 "name": &"pick_up",
 "speed": 5.0
 }, {
