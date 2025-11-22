@@ -46,7 +46,7 @@ var levels := [
 	},
 ]
 
-var current_level_index := 0
+var current_level_index := 1 # 0 is test level
 
 # Powerups state manager
 var max_echoes := 0
@@ -58,8 +58,7 @@ var unlocked_powerups := {
 }
 
 func _ready() -> void:
-	# This runs once, when the project starts
-	check_level_powerups()
+	pass
 
 # Level loading
 func load_current() -> void:
