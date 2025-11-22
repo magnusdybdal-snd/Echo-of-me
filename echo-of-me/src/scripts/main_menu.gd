@@ -12,7 +12,8 @@ func _process(delta: float) -> void:
 
 
 func _on_start_game_pressed() -> void:
-	get_tree().change_scene_to_file("res://src/scenes/levels/level_01.tscn")
+	GameManager.current_level_index = 1
+	GameManager.load_current()
 
 
 func _on_select_level_pressed() -> void:
