@@ -12,20 +12,8 @@ func _connect_level_buttons() -> void:
 					button.pressed.connect(_on_level_button_pressed.bind(button))
 
 func _on_level_button_pressed(button: Button) -> void:
-	var target_index := -1
-	
-	if button.name == "test_level": # check if test level
-		target_index = 0
-	else:
-		var level_number = int(button.name)
-		target_index = level_number
-	
-	if target_index >= 0 and target_index < GameManager.levels.size():
-		print("Loading level: ", button.name)
-		GameManager.current_level_index = target_index
-		GameManager.load_current()
-	else:
-		print("ERROR: Invalid level index ", target_index)
+	var level_index = 0 if button.name == "test_level" else int(button.name)
+	GameManager.load_level(level_index)
 
 ###--- Check if level exists---###
 func _validate_level_buttons() -> void:

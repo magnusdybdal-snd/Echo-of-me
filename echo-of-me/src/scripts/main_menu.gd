@@ -12,8 +12,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_game_pressed() -> void:
-	GameManager.current_level_index = 1
-	GameManager.load_current()
+	GameManager.load_level(1)
 
 
 func _on_select_level_pressed() -> void:
