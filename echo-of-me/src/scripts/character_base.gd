@@ -84,7 +84,7 @@ func can_wall_jump() -> bool:
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
 	# If player is in contact with a wall, apply sliding gravity
-	if is_on_wall_only() and velocity.y > 0:
+	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
 		velocity.y = WALL_SLIDE_GRAVITY
 	# Otherwise normal world gravity
 	if not is_on_floor():
@@ -195,7 +195,7 @@ func update_animation(direction: float) -> void:
 		if !anim_lock:
 			if carried_box:
 				animated_sprite.play("in_air_carry_box")
-			elif is_on_wall_only():
+			elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
 				animated_sprite.play("wall_slide")
 			else:
 				animated_sprite.play("in air")
