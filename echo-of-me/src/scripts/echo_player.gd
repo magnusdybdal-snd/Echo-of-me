@@ -58,7 +58,6 @@ func reset_playback():
 	velocity = Vector2.ZERO
 	anim_lock = false
 	falling = false
-	landing = false
 	is_sprinting = false
 	used_double_jump = false
 	is_dead = false

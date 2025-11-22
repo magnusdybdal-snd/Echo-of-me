@@ -21,7 +21,6 @@ const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Used to control animations
 var falling := false
-var landing := false
 var is_sprinting := false
 var is_dead := false
 var anim_lock := false
@@ -247,15 +246,19 @@ func push_boxes() -> void:
 				box.linear_velocity.x = velocity.x
 				
 func handle_box_interraction():
+	# Cannot pick up again before animation is complete
+	if anim_lock:
+		return
+		
 	if carried_box != null:
 		# Already carrying, place or throw
 		var is_moving = abs(velocity.x) > 10
 		
 		if is_moving:
-			# Take the animation lock and ply the animation
-			if !anim_lock:
-				anim_lock = true
-				animated_sprite.play("throw")
+			# Take the animation lock and ply the animation. Throw and place animation 
+			# Always overgo other animations so we do not check lock
+			anim_lock = true
+			animated_sprite.play("throw")
 			# Throw the box
 			var throw_dir = sign(velocity.x)
 			carried_box.throw_box(throw_dir, velocity)
@@ -263,9 +266,8 @@ func handle_box_interraction():
 			# Place down gently
 			carried_box.place_down(facing_direction)
 			# Take the animation lock and play the animation
-			if !anim_lock:
-				anim_lock = true
-				animated_sprite.play("place_down")
+			anim_lock = true
+			animated_sprite.play("place_down")
 		# Reset state of carried box
 		carried_box = null
 	

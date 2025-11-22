@@ -65,7 +65,6 @@ func reset_player():
 	velocity = Vector2.ZERO
 	anim_lock = false
 	falling = false
-	landing = false
 	is_sprinting = false
 	is_dead = false
 	
