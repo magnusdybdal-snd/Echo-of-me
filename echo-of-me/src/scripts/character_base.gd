@@ -195,6 +195,8 @@ func update_animation(direction: float) -> void:
 		if !anim_lock:
 			if carried_box:
 				animated_sprite.play("in_air_carry_box")
+			elif is_on_wall_only():
+				animated_sprite.play("wall_slide")
 			else:
 				animated_sprite.play("in air")
 		if velocity.y > 0:
