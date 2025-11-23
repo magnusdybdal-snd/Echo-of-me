@@ -1,7 +1,27 @@
-[gd_scene load_steps=58 format=3 uid="uid://biihkc0s4fiab"]
+[gd_scene load_steps=63 format=3 uid="uid://biihkc0s4fiab"]
 
 [ext_resource type="Script" uid="uid://38x278i5tjkv" path="res://src/scripts/player.gd" id="1_v4rts"]
 [ext_resource type="Texture2D" uid="uid://usaen2fmiqmk" path="res://assets/Character animation/Hooded Protaganist/AnimationSheet_Character.png" id="4_l2v1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oric3"]
+atlas = ExtResource("4_l2v1k")
+region = Rect2(0, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryoa8"]
+atlas = ExtResource("4_l2v1k")
+region = Rect2(32, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gag4f"]
+atlas = ExtResource("4_l2v1k")
+region = Rect2(64, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exnyl"]
+atlas = ExtResource("4_l2v1k")
+region = Rect2(96, 544, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vavd7"]
+atlas = ExtResource("4_l2v1k")
+region = Rect2(128, 544, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l2v1k"]
 atlas = ExtResource("4_l2v1k")
@@ -217,6 +237,26 @@ region = Rect2(0, 512, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hwyk6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oric3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryoa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gag4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exnyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vavd7")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l2v1k")
@@ -476,7 +516,7 @@ script = ExtResource("1_v4rts")
 unique_name_in_owner = true
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_hwyk6")
-animation = &"wall_slide"
+animation = &"dash"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

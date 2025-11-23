@@ -19,21 +19,31 @@ const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
 const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
+# Dash constants
+const DASH_FORCE := 500.0 # Horizontal velocity applied when dashing
+const DASH_DURATION := 0.2 # How long the dash lasts in seconds
+
 # Used to control animations
 var falling := false
 var is_sprinting := false
 var is_dead := false
 var anim_lock := false
+var is_dashing := false
+var has_used_dash := false
 
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
 var can_wall_climb := false
 var used_double_jump := false
+var can_dash := false
 
 # Wall jump coyote time
 var wall_jump_timer := 0.0
 var last_wall_normal := Vector2.ZERO
+
+# Dash timer
+var dash_timer := 0.0
 
 # Tracks boxes to apply push force to
 var nearby_boxes: Array = []
@@ -53,6 +63,7 @@ func _physics_process(delta):
 
 	check_powerups()
 	update_wall_jump_timer(delta)
+	update_dash_timer(delta)
 	apply_gravity(delta)
 	apply_movement(delta)
 	update_animation(get_direction())
@@ -63,6 +74,7 @@ func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
 	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
+	can_dash = GameManager.has_powerup("dash")
 
 # Updates wall jump grace timer
 func update_wall_jump_timer(delta: float) -> void:
@@ -76,6 +88,18 @@ func update_wall_jump_timer(delta: float) -> void:
 	# Just left the wall, start counting down the grace timer
 	elif wall_jump_timer > 0:
 		wall_jump_timer -= delta
+
+# Updates dash timer and resets dash flags
+func update_dash_timer(delta: float) -> void:
+	# Reset dash availability when touching ground
+	if is_on_floor():
+		has_used_dash = false
+
+	# Count down dash duration
+	if dash_timer > 0:
+		dash_timer -= delta
+		if dash_timer <= 0:
+			is_dashing = false
 	
 # Check if player can wall jump -> Is on wall OR within wall jump grace period
 func can_wall_jump() -> bool:
@@ -83,6 +107,10 @@ func can_wall_jump() -> bool:
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
+	# Don't apply gravity while dashing
+	if is_dashing:
+		return
+
 	# If player is in contact with a wall, apply sliding gravity
 	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
 		velocity.y = WALL_SLIDE_GRAVITY
@@ -216,10 +244,22 @@ func start_jump():
 	elif carried_box:
 		animated_sprite.play("jump_carry_box")
 		velocity.y = CARRY_JUMP_VELOCITY
-		
+
 	else:
 		velocity.y = JUMP_VELOCITY
 		animated_sprite.play("jump")
+
+# Performs a dash in the direction the character is facing
+func perform_dash():
+	# Apply dash velocity in the facing direction (horizontal only)
+	velocity.x = DASH_FORCE * facing_direction
+	velocity.y = 0  # Cancel vertical velocity for horizontal dash
+	is_dashing = true
+	has_used_dash = true
+	dash_timer = DASH_DURATION
+	
+	anim_lock = true
+	animated_sprite.play("dash")
 
 # Makes sure animations finish before physics process takes over by toggeling animation lock
 func _on_animated_sprite_2d_animation_finished() -> void:
