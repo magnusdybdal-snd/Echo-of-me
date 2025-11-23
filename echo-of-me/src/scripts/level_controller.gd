@@ -10,6 +10,9 @@ signal reset_level
 var pause_menu_scene = preload("res://src/scenes/menus/pause_menu.tscn")
 var pause_menu_instance = null
 
+var control_menu_info = preload("res://src/scenes/UI/GameInstructions.tscn")
+var control_menu_instance = null
+
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
@@ -34,6 +37,12 @@ func _input(event):
 			get_tree().paused = false
 			pause_menu_instance.queue_free()
 			pause_menu_instance = null
+	
+	#if Input.is_key_pressed(KEY_I):
+		#info_menu_instance = info_menu_scene.instantiate()
+		#info_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+		#add_child(pause_menu_instance)
+		
 	
 		
 # Resets the player position to spawn and spawns an echo based on the players inputs
