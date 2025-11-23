@@ -16,12 +16,17 @@ func _physics_process(delta: float) -> void:
 		var jump_pressed: bool = frame_data["jump"]
 		var double_jump: bool = frame_data.get("double_jump", false)
 		var pick_up_pressed: bool = frame_data.get("pick_up", false)
+		var dash_pressed: bool = frame_data.get("dash", false)
 		is_sprinting = frame_data.get("sprint", false)
-	
+
 		# Handle box interaction
 		if pick_up_pressed:
 			handle_box_interraction()
-	
+
+		# Handle dash (only in air, not on ground or wall)
+		if dash_pressed and can_dash and not is_on_floor() and not is_on_wall_only() and not has_used_dash:
+			perform_dash()
+
 		# Handle jump.
 		if jump_pressed:
 			if is_on_floor():
@@ -61,11 +66,14 @@ func reset_playback():
 	is_sprinting = false
 	used_double_jump = false
 	is_dead = false
-	
+	is_dashing = false
+	has_used_dash = false
+	dash_timer = 0.0
+
 	# Drop carried box if holding
 	if carried_box != null:
 		carried_box = null
-	
+
 	# Restart animation
 	if animated_sprite.sprite_frames.has_animation("idle"):
 		animated_sprite.play("idle")				

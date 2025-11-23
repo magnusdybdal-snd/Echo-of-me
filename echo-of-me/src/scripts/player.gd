@@ -32,7 +32,11 @@ func _physics_process(delta: float) -> void:
 	# Q key to pick up / throw / place box
 	if Input.is_action_just_pressed("pick_up"):
 		handle_box_interraction()
-	
+
+	# S key to dash (only in air, not on ground or wall)
+	if Input.is_action_just_pressed("dash") and can_dash and not is_on_floor() and not is_on_wall_only() and not has_used_dash:
+		perform_dash()
+
 	# Echo recording system
 	if is_recording:
 		record_input()
@@ -67,11 +71,14 @@ func reset_player():
 	falling = false
 	is_sprinting = false
 	is_dead = false
-	
+	is_dashing = false
+	has_used_dash = false
+	dash_timer = 0.0
+
 	if carried_box != null:
 		carried_box.place_down(facing_direction)
 		carried_box = null
-	
+
 	animated_sprite.play("idle")
 	clear_recording()
 
@@ -83,7 +90,8 @@ func record_input() -> void:
 		"jump": Input.is_action_just_pressed("jump"),
 		"double_jump": Input.is_action_just_pressed("jump") and not used_double_jump,
 		"sprint": Input.is_action_pressed("sprint"),
-		"pick_up": Input.is_action_just_pressed("pick_up")
+		"pick_up": Input.is_action_just_pressed("pick_up"),
+		"dash": Input.is_action_just_pressed("dash")
 	})
 	frame_index += 1
 
