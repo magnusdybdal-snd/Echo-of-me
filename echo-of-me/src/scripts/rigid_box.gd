@@ -95,10 +95,10 @@ func throw_box(direction: float, velocity: Vector2):
 func can_be_picked_up(character: CharacterBase) -> bool:
 	if beeing_carried:
 		return false
-		
-	# Check distance to box
+
+	# Check distance to box (increased range for echo consistency)
 	var distance = global_position.distance_to(character.global_position)
-	return distance < 40.0
+	return distance < 60.0
 		
 			
 # Handles reseting of position when level is reset with E or R

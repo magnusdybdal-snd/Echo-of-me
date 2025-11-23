@@ -264,6 +264,7 @@ func perform_dash():
 # Makes sure animations finish before physics process takes over by toggeling animation lock
 func _on_animated_sprite_2d_animation_finished() -> void:
 	anim_lock = false
+	print("anim unlocked")
 				
 func push_boxes() -> void:
 	var direction = get_direction()
@@ -290,8 +291,9 @@ func push_boxes() -> void:
 func handle_box_interraction():
 	# Cannot pick up again before animation is complete
 	if anim_lock:
+		print("PICKUP BLOCKED - anim_lock is true, current animation: ", animated_sprite.animation)
 		return
-		
+
 	if carried_box != null:
 		# Already carrying, place or throw
 		var is_moving = abs(velocity.x) > 10
