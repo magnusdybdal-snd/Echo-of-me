@@ -44,6 +44,12 @@ var levels := [
 		"max_echoes": 0,
 		"available_powerups": ["sprint"]
 	},
+		{
+		"name": "Level 6 - Echo",
+		"scene": "res://src/scenes/levels/level_06.tscn",
+		"max_echoes": 2,
+		"available_powerups": ["sprint"]
+	},
 ]
 
 var current_level_index := 1 # 0 is test level
