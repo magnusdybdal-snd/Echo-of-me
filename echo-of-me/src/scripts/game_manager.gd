@@ -35,7 +35,7 @@ var levels := [
 	{
 		"name": "Level 4 - Box Intro",
 		"scene": "res://src/scenes/levels/level_04.tscn",
-		"max_echoes": 0,
+		"max_echoes": 1,
 		"available_powerups": ["sprint"]
 	},
 	{
