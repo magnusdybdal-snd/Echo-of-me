@@ -68,6 +68,13 @@ func check_level_powerups() -> void:
 			
 	print("DEBUG: Max echoes = " + str(max_echoes))
 	print("DEBUG: Can use echoes = " + str(can_use_echoes()))
+	print("DEBUG: Active powerups:")
+	for powerup_name in unlocked_powerups:
+		if unlocked_powerups[powerup_name]:
+			print(powerup_name + "  Unlocked")
+		else:
+			print(powerup_name + "  Locked")
+
 			
 # Check if player can use echoes
 func can_use_echoes() -> bool:

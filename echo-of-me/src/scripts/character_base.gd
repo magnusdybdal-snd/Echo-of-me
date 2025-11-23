@@ -20,11 +20,10 @@ const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Used to control animations
-var jumping := false
 var falling := false
-var landing := false
 var is_sprinting := false
 var is_dead := false
+var anim_lock := false
 
 # Cached powerup states
 var can_sprint := false
@@ -80,12 +79,12 @@ func update_wall_jump_timer(delta: float) -> void:
 	
 # Check if player can wall jump -> Is on wall OR within wall jump grace period
 func can_wall_jump() -> bool:
-	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0)
+	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0) and !carried_box
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
 	# If player is in contact with a wall, apply sliding gravity
-	if is_on_wall_only() and velocity.y > 0:
+	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
 		velocity.y = WALL_SLIDE_GRAVITY
 	# Otherwise normal world gravity
 	if not is_on_floor():
@@ -154,7 +153,7 @@ func is_pushing_box(direction: float) -> bool:
 			
 	return false
 
-# This function handles update of animations as the characters share a lot of animations
+# This function handles update of animations related to physics
 func update_animation(direction: float) -> void:
 
 	# Flips sprite based on the direction the character is facing
@@ -165,59 +164,66 @@ func update_animation(direction: float) -> void:
 		animated_sprite.flip_h = true
 		facing_direction = -1.0
 
+	# ON GROUND ANIMATIONS
 	if is_on_floor():
 		# Just landed
-		if falling:
-			jumping = false
+		if falling and !anim_lock:
 			falling = false
-			landing = true
-			animated_sprite.play("landing")
-		elif not jumping and not landing:
-			# On ground not jumping/falling -> play walk or idle
-			if direction == 0 :
-				animated_sprite.play("idle")
-			
-			elif can_sprint and is_sprinting and carried_box == null:
-				animated_sprite.play("run")
-			
+			anim_lock = true
+			if !carried_box:
+				animated_sprite.play("landing") 
 			else:
-				animated_sprite.play("walk")
+				animated_sprite.play("landing_carry_box")
+		# On ground not jumping/falling -> play walk or idle
+		elif !anim_lock:
+			# Animations when carrying a box
+			if carried_box:
+				if direction == 0:
+					animated_sprite.play("idle_carry_box")
+				else:
+					animated_sprite.play("walk_carry_box")
+			# Animations when not carrying a box
+			else:
+				if direction == 0:
+					animated_sprite.play("idle")	
+				elif can_sprint and is_sprinting:
+					animated_sprite.play("run")
+				else:
+					animated_sprite.play("walk")
 	else:
-		# In air
-		if not jumping:
-			animated_sprite.play("in air")
+		# IN AIR ANIMATIONS
+		if !anim_lock:
+			if carried_box:
+				animated_sprite.play("in_air_carry_box")
+			elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
+				animated_sprite.play("wall_slide")
+			else:
+				animated_sprite.play("in air")
 		if velocity.y > 0:
 			falling = true
 
 # Sets flags for animation control and plays jump animation
 func start_jump():
+	anim_lock = true
+	falling = false
 	if can_wall_jump():
 		# Use stored wall normal from last wall contact
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
 		velocity.y = JUMP_VELOCITY
-		
-		jumping = true
-		falling = false
+
 		animated_sprite.play("jump")
-			
-	if (carried_box != null):
+
+	elif carried_box:
+		animated_sprite.play("jump_carry_box")
 		velocity.y = CARRY_JUMP_VELOCITY
+		
 	else:
 		velocity.y = JUMP_VELOCITY
-	jumping = true
-	falling = false
-	animated_sprite.play("jump")
+		animated_sprite.play("jump")
 
-# Makes sure the jumping and landing animation finishes before playing the falling animation
+# Makes sure animations finish before physics process takes over by toggeling animation lock
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite.animation == "jump":
-		jumping = false
-		if not is_on_floor():
-			animated_sprite.play("in air")
-			
-	elif animated_sprite.animation == "landing":
-		landing = false
-		animated_sprite.play("idle")
+	anim_lock = false
 				
 func push_boxes() -> void:
 	var direction = get_direction()
@@ -242,17 +248,28 @@ func push_boxes() -> void:
 				box.linear_velocity.x = velocity.x
 				
 func handle_box_interraction():
+	# Cannot pick up again before animation is complete
+	if anim_lock:
+		return
+		
 	if carried_box != null:
 		# Already carrying, place or throw
 		var is_moving = abs(velocity.x) > 10
 		
 		if is_moving:
+			# Take the animation lock and ply the animation. Throw and place animation 
+			# Always overgo other animations so we do not check lock
+			anim_lock = true
+			animated_sprite.play("throw")
 			# Throw the box
 			var throw_dir = sign(velocity.x)
 			carried_box.throw_box(throw_dir, velocity)
 		else:
 			# Place down gently
 			carried_box.place_down(facing_direction)
+			# Take the animation lock and play the animation
+			anim_lock = true
+			animated_sprite.play("place_down")
 		# Reset state of carried box
 		carried_box = null
 	
