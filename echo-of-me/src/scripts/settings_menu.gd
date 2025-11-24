@@ -30,13 +30,9 @@ func _on_vol_slider_value_changed(value: float) -> void:
 
 func _on_back_pressed() -> void:
 	# Remove the settings menu overlay and show pause menu again
-	print("DEBUG: Settings back button pressed")
-
 	# Directly call pause menu to show itself BEFORE freeing
 	if pause_menu_ref != null:
-		print("DEBUG: Calling show_pause_menu() on pause menu")
 		pause_menu_ref.show_pause_menu()
 
-	print("DEBUG: Calling queue_free()")
 	queue_free()
 	

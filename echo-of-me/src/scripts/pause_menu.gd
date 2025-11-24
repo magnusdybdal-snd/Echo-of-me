@@ -32,7 +32,6 @@ func _on_select_level_pressed() -> void:
 func _on_settings_pressed() -> void:
 	# Instantiate and overlay settings menu instead of changing scenes
 	if settings_menu_instance == null:
-		print("DEBUG: Opening settings menu, hiding pause menu")
 		# Hide the pause menu but don't free it
 		visible = false
 
@@ -46,17 +45,12 @@ func _on_settings_pressed() -> void:
 		var settings_control = settings_menu_instance.get_node("SettingsMenu")
 		if settings_control != null:
 			settings_control.pause_menu_ref = self
-			print("DEBUG: Settings menu added, pause menu reference passed")
-		else:
-			print("ERROR: Could not find SettingsMenu Control node")
 		# Game stays paused, settings menu overlays on top
 
 func show_pause_menu() -> void:
 	# Called directly by settings menu when it closes
-	print("DEBUG: show_pause_menu() called, showing pause menu again")
 	visible = true
 	settings_menu_instance = null
-	print("DEBUG: Pause menu visibility set to: ", visible)
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
