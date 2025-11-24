@@ -1,0 +1,132 @@
+[gd_scene load_steps=15 format=4 uid="uid://dncssocf52gm8"]
+
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_hq3qp"]
+[ext_resource type="PackedScene" uid="uid://6n518di60aig" path="res://src/scenes/spikes_static.tscn" id="2_cjil0"]
+[ext_resource type="PackedScene" uid="uid://nocignd5huwf" path="res://src/scenes/tileMaps.tscn" id="2_mkjxr"]
+[ext_resource type="TileSet" uid="uid://b4070o0cwjifu" path="res://src/tilesets/mine_middleground_merged_tilesets.tres" id="3_cjil0"]
+[ext_resource type="TileSet" uid="uid://sqhq00vng6fx" path="res://src/tilesets/mine_background_merged_tilesets.tres" id="4_h8dqj"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="5_amm5i"]
+[ext_resource type="PackedScene" uid="uid://cq8rrfg4xhml1" path="res://src/scenes/rigid_box.tscn" id="6_w4lhp"]
+[ext_resource type="PackedScene" uid="uid://bgofklnojcv7v" path="res://src/scenes/button_momentary.tscn" id="7_tcufg"]
+[ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="8_mmjhh"]
+[ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="9_qrwvd"]
+[ext_resource type="Script" uid="uid://cnchy3s7it60o" path="res://src/scripts/platform.gd" id="10_cjil0"]
+[ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="10_h6wfc"]
+
+[sub_resource type="Animation" id="Animation_h8dqj"]
+resource_name = "move_up"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(408608.56, 1),
+"update": 0,
+"values": [Vector2(701, 448), Vector2(701, 136)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w4lhp"]
+_data = {
+&"move_up": SubResource("Animation_h8dqj")
+}
+
+[node name="Level 07" type="Node2D"]
+
+[node name="LevelController" parent="." instance=ExtResource("1_hq3qp")]
+
+[node name="Spikes" type="Node2D" parent="LevelController"]
+
+[node name="spikes_static" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(433, 592)
+
+[node name="spikes_static4" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(466, 592)
+
+[node name="spikes_static5" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(499, 592)
+
+[node name="spikes_static6" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(532, 592)
+
+[node name="spikes_static7" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(565, 592)
+
+[node name="spikes_static8" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(598, 592)
+
+[node name="spikes_static9" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(631, 592)
+
+[node name="spikes_static10" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(664, 592)
+
+[node name="spikes_static11" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(697, 592)
+
+[node name="spikes_static12" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(730, 592)
+
+[node name="spikes_static13" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(763, 592)
+
+[node name="spikes_static14" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(796, 592)
+
+[node name="spikes_static15" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(829, 592)
+
+[node name="spikes_static2" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(368, 592)
+
+[node name="spikes_static3" parent="LevelController/Spikes" instance=ExtResource("2_cjil0")]
+position = Vector2(401, 592)
+
+[node name="TileMaps" parent="LevelController" instance=ExtResource("2_mkjxr")]
+
+[node name="Middleground" type="TileMapLayer" parent="LevelController/TileMaps"]
+tile_map_data = PackedByteArray("AAAAAAQAKwAHAAEAAAABAAQAKwAHAAEAAAACAAQAKwAHAAEAAAADAAQAKwAHAAEAAAAEAAQAKwAHAAEAAAAFAAQAKwAHAAEAAAAGAAQAKwAHAAEAAAAHAAQAKwAHAAEAAAAIAAQAKwAHAAEAAAAJAAQAKwAHAAEAAAAKAAQAKwAHAAEAAAALAAQAKwAHAAEAAAAMAAQAKwAHAAEAAAANAAQAKwAHAAEAAAAOAAQAKwAHAAEAAAAPAAQAKwAHAAEAAAAQAAQAKwAHAAEAAAARAAQAKwAHAAEAAAASAAQAKwAIAAEAAAASAAUAKwAIAAIAAAASAAYAKwAIAAIAAAASAAcAKwAIAAIAAAASAAgAKwAIAAIAAAASAAkAKwAIAAIAAAASAAoAKwAIAAIAAAASAAsAKwAIAAIAAAAZABMAKwAHAAEAAAAYABMAKwAHAAEAAAAXABMAKwAHAAEAAAAWABMAKwAHAAEAAAAVABMAKwAHAAEAAAAUABMAKwAHAAEAAAATABMAKwAHAAEAAAASABMAKwAHAAEAAAARABMAKwAHAAEAAAAQABMAKwAHAAEAAAAPABMAKwAHAAEAAAAOABMAKwAHAAEAAAANABMAKwAHAAEAAAAMABMAKwAHAAEAAAALABMAKwAHAAEAAAAaAA8AKwAGAAEAAAAbAA8AKwAHAAEAAAAcAA8AKwAHAAEAAAAdAA8AKwAHAAEAAAAeAA8AKwAHAAEAAAAfAA8AKwAHAAEAAAAgAA8AKwAHAAEAAAAhAA8AKwAHAAEAAAAaABAAKwAGAAIAAAAaABEAKwAGAAIAAAAaABIAKwAGAAIAAAAaABMAKwALAAEAAAAbABAAKwAHAAIAAAAcABAAKwAHAAIAAAAdABAAKwAHAAIAAAAeABAAKwAHAAIAAAAfABAAKwAHAAIAAAAgABAAKwAHAAIAAAAhABAAKwAHAAIAAAAhABEAKwAHAAIAAAAhABIAKwAHAAIAAAAhABMAKwAHAAIAAAAgABMAKwAHAAIAAAAfABMAKwAHAAIAAAAeABMAKwAHAAIAAAAdABMAKwAHAAIAAAAcABMAKwAHAAIAAAAbABMAKwAHAAIAAAAbABIAKwAHAAIAAAAbABEAKwAHAAIAAAAcABEAKwAHAAIAAAAdABEAKwAHAAIAAAAeABEAKwAHAAIAAAAeABIAKwAHAAIAAAAfABIAKwAHAAIAAAAgABIAKwAHAAIAAAAgABEAKwAHAAIAAAAfABEAKwAHAAIAAAAdABIAKwAHAAIAAAAcABIAKwAHAAIAAAAKABIAKwAIAAIAAAAKABEAKwAIAAIAAAAKABAAKwAIAAIAAAAKAA8AKwAIAAEAAAAJAA8AKwAHAAEAAAAIAA8AKwAHAAEAAAAHAA8AKwAHAAEAAAAGAA8AKwAHAAEAAAAFAA8AKwAHAAEAAAAEAA8AKwAHAAEAAAADAA8AKwAHAAEAAAACAA8AKwAHAAEAAAABAA8AKwAHAAEAAAAAAA8AKwAHAAEAAAAKAA4AKwAHAAEAAAA=")
+tile_set = ExtResource("3_cjil0")
+
+[node name="Background2" type="TileMapLayer" parent="LevelController/TileMaps"]
+tile_set = ExtResource("4_h8dqj")
+
+[node name="Player" parent="LevelController" instance=ExtResource("5_amm5i")]
+position = Vector2(70, 452)
+
+[node name="RigidBox" parent="LevelController" instance=ExtResource("6_w4lhp")]
+position = Vector2(259, 456)
+
+[node name="RigidBox2" parent="LevelController" instance=ExtResource("6_w4lhp")]
+position = Vector2(299, 457)
+
+[node name="button_momentary" parent="LevelController" instance=ExtResource("7_tcufg")]
+position = Vector2(1047, 473)
+collision_mask = 13
+
+[node name="Platform" parent="LevelController" instance=ExtResource("8_mmjhh")]
+position = Vector2(701, 448)
+script = ExtResource("10_cjil0")
+type = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController/Platform"]
+libraries = {
+&"": SubResource("AnimationLibrary_w4lhp")
+}
+
+[node name="Door" parent="LevelController" instance=ExtResource("9_qrwvd")]
+position = Vector2(434, 96)
+rotation = -6.2831855
+scale = Vector2(-2, 2)
+collision_layer = 2
+collision_mask = 5
+need_key = false
+
+[node name="Lightrays" parent="LevelController/Door" instance=ExtResource("10_h6wfc")]
+position = Vector2(-14.5, 3.90212e-06)
+
+[connection signal="pressed" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_released"]

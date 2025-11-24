@@ -48,7 +48,7 @@ shape = SubResource("RectangleShape2D_sse73")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Trigger"]
 sprite_frames = SubResource("SpriteFrames_fiowe")
-animation = &"closed"
+animation = &"open"
 
 [node name="CollisionShapeDoor" type="CollisionShape2D" parent="Trigger"]
 position = Vector2(-4.5, 0)
