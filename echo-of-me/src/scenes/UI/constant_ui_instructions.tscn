@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://b5cp4xqcddk8k"]
+
+[ext_resource type="Texture2D" uid="uid://dipmeput8xgs7" path="res://assets/Art/keycap_I_edited.png" id="1_21yu1"]
+[ext_resource type="Script" uid="uid://d1177x4royl1l" path="res://src/scripts/constant_ui_instructions.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cc24gi6ex1t4f" path="res://assets/Art/keycap_E_edited.png" id="2_e_keycap"]
+[ext_resource type="Texture2D" uid="uid://ccneq43wey6qc" path="res://assets/Character animation/Echo Character/AnimationSheet_Character_v02.png" id="3_echo_sprite"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ar7ps"]
+texture = ExtResource("1_21yu1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e_key"]
+texture = ExtResource("2_e_keycap")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_echo"]
+atlas = ExtResource("3_echo_sprite")
+region = Rect2(0, 0, 32, 32)
+
+[node name="ConstantUIInstructions" type="Control"]
+z_index = 4096
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 60.0
+theme_override_constants/separation = 10
+
+[node name="i_keycap" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ar7ps")
+
+[node name="e_keycap" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_e_key")
+
+[node name="EchoSprite" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_echo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EchoCount" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "1/1"
+vertical_alignment = 1
