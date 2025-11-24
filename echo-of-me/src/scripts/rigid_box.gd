@@ -25,6 +25,7 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	# Adjust friction based on state
+	#print("Start position: ", start_position, " Current position: ", global_position)
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
@@ -35,17 +36,17 @@ func _physics_process(_delta: float) -> void:
 		#freeze = true # disable physics while carried
 		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		freeze = true
+		print("!!! BOX CARRIED by ", carrier.name, " beeing_carried=", beeing_carried, " moving to: ", carrier.global_position + CARRY_OFFSET)
 		global_position = carrier.global_position + CARRY_OFFSET
+	elif beeing_carried:
+		print("!!! ERROR: beeing_carried TRUE but carrier INVALID")
 	else:
 		freeze = false
 		
 func pick_up(by_character: CharacterBase):
-	print("inside pickup before return")
 	if beeing_carried:
-		print("already carry lol")
 		return
 	
-	print("Inside pickup after return")
 	beeing_carried = true
 	carrier = by_character
 	linear_velocity = Vector2.ZERO
@@ -53,7 +54,6 @@ func pick_up(by_character: CharacterBase):
 	
 	# Disable collision with carrier
 	add_collision_exception_with(carrier)
-	print("Picked up!")
 	
 func place_down(direction: float):
 	if not beeing_carried:
@@ -95,32 +95,54 @@ func throw_box(direction: float, velocity: Vector2):
 func can_be_picked_up(character: CharacterBase) -> bool:
 	if beeing_carried:
 		return false
-		
-	# Check distance to box
+
+	# Check distance to box (increased range for echo consistency)
 	var distance = global_position.distance_to(character.global_position)
-	return distance < 40.0
+	return distance < 60.0
 		
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
+	print("BOX RESET - Start position: ", start_position, " Current position: ", global_position)
+
 	if is_instance_valid(carrier):
 		remove_collision_exception_with(carrier)
-	
-	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
-	freeze = true
-	PhysicsServer2D.body_set_state(
-	get_rid(),
-	PhysicsServer2D.BODY_STATE_TRANSFORM,
-	Transform2D.IDENTITY.translated(start_position)
-	)
-	freeze = false
-	
-	global_position = start_position
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
+
+	# Reset state flags first
 	beeing_carried = false
 	beeing_pushed = false
 	carrier = null
+
+	# Freeze the body
+	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
+	freeze = true
+
+	# Clear velocities BEFORE unfreezing using physics server
+	PhysicsServer2D.body_set_state(
+		get_rid(),
+		PhysicsServer2D.BODY_STATE_LINEAR_VELOCITY,
+		Vector2.ZERO
+	)
+	PhysicsServer2D.body_set_state(
+		get_rid(),
+		PhysicsServer2D.BODY_STATE_ANGULAR_VELOCITY,
+		0.0
+	)
+
+	# Set position using physics server
+	PhysicsServer2D.body_set_state(
+		get_rid(),
+		PhysicsServer2D.BODY_STATE_TRANSFORM,
+		Transform2D.IDENTITY.translated(start_position)
+	)
+
+	# Now safe to unfreeze - velocities are already zero
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	global_position = start_position
+	freeze = false
+
+	print("BOX RESET COMPLETE - Position: ", global_position, " Carried: ", beeing_carried)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("add_nearby_box"):

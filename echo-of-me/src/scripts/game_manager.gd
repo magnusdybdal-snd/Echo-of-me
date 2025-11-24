@@ -15,6 +15,12 @@ var levels := [
 		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"]  
 	},
 	{
+		"name": "Level 0 - A Bad Friend",
+		"scene": "res://src/scenes/levels/level_00.tscn",
+		"max_echoes": 0,
+		"available_powerups": []
+	},
+	{
 		"name": "Level 1 - First Steps",
 		"scene": "res://src/scenes/levels/level_01.tscn",
 		"max_echoes": 0,
@@ -35,13 +41,19 @@ var levels := [
 	{
 		"name": "Level 4 - Box Intro",
 		"scene": "res://src/scenes/levels/level_04.tscn",
-		"max_echoes": 0,
+		"max_echoes": 1,
 		"available_powerups": ["sprint"]
 	},
 	{
 		"name": "Level 5 - Platforms",
 		"scene": "res://src/scenes/levels/level_05.tscn",
 		"max_echoes": 0,
+		"available_powerups": ["sprint"]
+	},
+		{
+		"name": "Level 6 - Echo",
+		"scene": "res://src/scenes/levels/level_06.tscn",
+		"max_echoes": 2,
 		"available_powerups": ["sprint"]
 	},
 ]
