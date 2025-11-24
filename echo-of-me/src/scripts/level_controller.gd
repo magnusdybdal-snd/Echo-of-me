@@ -1,6 +1,7 @@
 extends Node
 
 signal reset_level
+signal reset_player
 
 @export var player_path : NodePath
 # Gets the player from the level it is controllingplayer_path
@@ -121,6 +122,7 @@ func clear_echoes():
 	
 func reset_level_state():
 	# All objects to be reset should listen to this signal
+	emit_signal("reset_player")
 	emit_signal("reset_level")
 	
 # Clear all recorded moves from the player

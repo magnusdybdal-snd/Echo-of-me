@@ -3,6 +3,8 @@ extends RigidBody2D
 const THROW_FORCE := 400
 const CARRY_OFFSET := Vector2(0, -40) # Position above player's head
 
+@onready var box_collision_shape = $CollisionShape2D
+
 var start_position : Vector2
 var beeing_pushed := false
 var beeing_carried := false
@@ -33,6 +35,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.linear_velocity = Vector2.ZERO
 		state.angular_velocity = 0.0
 		state.transform.origin = start_position
+		
 		print("BOX RESET via _integrate_forces - Position: ", global_position)
 
 func _physics_process(_delta: float) -> void:
@@ -114,12 +117,9 @@ func can_be_picked_up(character: CharacterBase) -> bool:
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
-	print("BOX RESET REQUESTED - Start position: ", start_position, " Current position: ", global_position)
-
-	# CRITICAL: Clear collision exceptions FIRST while carrier is still valid
-	if is_instance_valid(carrier):
-		remove_collision_exception_with(carrier)
-
+	# We wait one frame to let any player/echo move away before messing with the box
+	await get_tree().physics_frame
+	
 	# Reset ALL state flags before any physics operations
 	beeing_carried = false
 	beeing_pushed = false
@@ -128,8 +128,6 @@ func _on_reset_level():
 	# Queue the physics reset to happen in _integrate_forces
 	sleeping = false
 	queue_reset = true
-
-	print("BOX RESET COMPLETE - Position: ", global_position, " Carried: ", beeing_carried)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("add_nearby_box"):
