@@ -17,25 +17,52 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 1144.0
 offset_bottom = 62.0
-theme_override_constants/separation = 65
+theme_override_constants/separation = 50
 alignment = 1
+
+[node name="INFO" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "Action:
+KEY(S):"
 
 [node name="Move" type="Label" parent="Overlay Box/HBoxContainer"]
 layout_mode = 2
-text = "WASD / ARROW KEYS to move"
+text = "- Move -
+WASD / ARROW KEYS"
+horizontal_alignment = 1
 
 [node name="Jump" type="Label" parent="Overlay Box/HBoxContainer"]
 layout_mode = 2
-text = "SPACE to jump"
+text = "- Jump-
+SPACEBAR"
+horizontal_alignment = 1
 
 [node name="Run" type="Label" parent="Overlay Box/HBoxContainer"]
 layout_mode = 2
-text = "SHIFT to run"
+text = "- Run -
+SHIFT"
+horizontal_alignment = 1
 
 [node name="Reset" type="Label" parent="Overlay Box/HBoxContainer"]
 layout_mode = 2
-text = "R to reset level"
+text = "- Reset level -
+R"
+horizontal_alignment = 1
 
 [node name="Echo" type="Label" parent="Overlay Box/HBoxContainer"]
 layout_mode = 2
-text = "E to spawn an Echo"
+text = "- Spawn an Echo -
+E"
+horizontal_alignment = 1
+
+[node name="PickUp" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Pick up item -
+Q/CTRL"
+horizontal_alignment = 1
+
+[node name="Dash" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Dash- 
+S"
+horizontal_alignment = 1
