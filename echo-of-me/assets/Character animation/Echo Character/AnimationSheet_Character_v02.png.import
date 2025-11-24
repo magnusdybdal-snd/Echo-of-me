@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://usaen2fmiqmk"
-path="res://.godot/imported/AnimationSheet_Character.png-7be942465f2c47f77b079e7adca3cddb.ctex"
+uid="uid://ccneq43wey6qc"
+path="res://.godot/imported/AnimationSheet_Character_v02.png-15af27568c5cbf073cb39af85445538e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Character animation/Hooded Protaganist/AnimationSheet_Character.png"
-dest_files=["res://.godot/imported/AnimationSheet_Character.png-7be942465f2c47f77b079e7adca3cddb.ctex"]
+source_file="res://assets/Character animation/Echo Character/AnimationSheet_Character_v02.png"
+dest_files=["res://.godot/imported/AnimationSheet_Character_v02.png-15af27568c5cbf073cb39af85445538e.ctex"]
 
 [params]
 
