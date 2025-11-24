@@ -24,22 +24,23 @@ func _ready():
 		print("Warning: LevelController not found - box reset won't work")
 
 func _physics_process(_delta: float) -> void:
+	# Safety clamp: prevent unrealistic velocities (catches any physics bugs)
+	const MAX_VELOCITY := 800.0  # Reasonable max for a thrown box
+	if linear_velocity.length() > MAX_VELOCITY:
+		print("WARNING: Box velocity clamped from ", linear_velocity.length(), " to ", MAX_VELOCITY)
+		linear_velocity = linear_velocity.normalized() * MAX_VELOCITY
+
 	# Adjust friction based on state
-	#print("Start position: ", start_position, " Current position: ", global_position)
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
 		physics_material_override.friction = 1.0
-		
+
 	# If box is carried, follow the carrier
 	if beeing_carried and is_instance_valid(carrier):
-		#freeze = true # disable physics while carried
 		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		freeze = true
-		print("!!! BOX CARRIED by ", carrier.name, " beeing_carried=", beeing_carried, " moving to: ", carrier.global_position + CARRY_OFFSET)
 		global_position = carrier.global_position + CARRY_OFFSET
-	elif beeing_carried:
-		print("!!! ERROR: beeing_carried TRUE but carrier INVALID")
 	else:
 		freeze = false
 		
@@ -70,7 +71,6 @@ func place_down(direction: float):
 		remove_collision_exception_with(carrier)
 		
 	carrier = null
-	print("placed box")
 	
 # Throw the box
 func throw_box(direction: float, velocity: Vector2):
@@ -89,7 +89,6 @@ func throw_box(direction: float, velocity: Vector2):
 		remove_collision_exception_with(carrier)
 		
 	carrier = null
-	print("throw box")
 		
 # Check if box can be pixked up
 func can_be_picked_up(character: CharacterBase) -> bool:
@@ -105,19 +104,21 @@ func can_be_picked_up(character: CharacterBase) -> bool:
 func _on_reset_level():
 	print("BOX RESET - Start position: ", start_position, " Current position: ", global_position)
 
+	# CRITICAL: Clear collision exceptions FIRST while carrier is still valid
 	if is_instance_valid(carrier):
 		remove_collision_exception_with(carrier)
 
-	# Reset state flags first
+	# Reset ALL state flags before any physics operations
 	beeing_carried = false
 	beeing_pushed = false
-	carrier = null
+	carrier = null  # Clear carrier reference BEFORE physics operations
 
-	# Freeze the body
+	# Set freeze mode to STATIC (prevents any physics simulation)
 	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
 	freeze = true
 
-	# Clear velocities BEFORE unfreezing using physics server
+	# Use PhysicsServer2D to atomically reset all physics state
+	# This ensures changes happen together in the physics engine
 	PhysicsServer2D.body_set_state(
 		get_rid(),
 		PhysicsServer2D.BODY_STATE_LINEAR_VELOCITY,
@@ -128,18 +129,17 @@ func _on_reset_level():
 		PhysicsServer2D.BODY_STATE_ANGULAR_VELOCITY,
 		0.0
 	)
-
-	# Set position using physics server
 	PhysicsServer2D.body_set_state(
 		get_rid(),
 		PhysicsServer2D.BODY_STATE_TRANSFORM,
 		Transform2D.IDENTITY.translated(start_position)
 	)
 
-	# Now safe to unfreeze - velocities are already zero
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	global_position = start_position
+	# Force physics sync BEFORE unfreezing
+	# This ensures the position and velocity changes are committed
+	await get_tree().physics_frame
+
+	# Now safe to unfreeze - all state is committed
 	freeze = false
 
 	print("BOX RESET COMPLETE - Position: ", global_position, " Carried: ", beeing_carried)

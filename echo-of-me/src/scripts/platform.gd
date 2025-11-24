@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 
-enum PlatformType { STATIC, AUTO_MOVE, MOVE_ON_BUTTON_PRESS, MOVE_ON_BUTTON_HOLD, SWITCH_X_AND_Y_POS }
+enum PlatformType { STATIC, AUTO_MOVE, MOVE_ON_BUTTON_PRESS, MOVE_ON_BUTTON_HOLD, SWITCH_X_AND_Y_POS, MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH }
 enum State { MOVE_X, MOVE_Y }
 
 # Exported variables (editable in Inspector)
@@ -143,7 +143,7 @@ func _on_reset_level():
 func _on_button_pressed():
 	print("Button pressed - platform activating")
 	match type:
-		PlatformType.MOVE_ON_BUTTON_PRESS, PlatformType.MOVE_ON_BUTTON_HOLD:
+		PlatformType.MOVE_ON_BUTTON_PRESS, PlatformType.MOVE_ON_BUTTON_HOLD, PlatformType.MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH:
 			if has_node("AnimationPlayer"):
 				var anims = $AnimationPlayer.get_animation_list()
 				if anims.size() > 0:
@@ -156,6 +156,11 @@ func _on_button_released():
 				var anims = $AnimationPlayer.get_animation_list()
 				if anims.size() > 0:
 					$AnimationPlayer.play_backwards(anims[0])
+		PlatformType.MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH:
+			if has_node("AnimationPlayer"):
+				var anims = $AnimationPlayer.get_animation_list()
+				if anims.size() > 0:
+					$AnimationPlayer.pause()
 
 func _on_button_momentary_pressed() -> void:
 	if state == State.MOVE_Y:

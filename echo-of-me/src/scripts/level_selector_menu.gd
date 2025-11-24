@@ -23,7 +23,7 @@ func _validate_level_buttons() -> void:
 				if button is Button:
 					var level_index = 0 if button.name == "test_level" else int(button.name)
 					
-					if level_index >= GameManager.levels.size():
+					if level_index >= GameManager.levels.size() - 1:
 						# Tint the button red if level doesn't exist
 						button.modulate = Color(1.0, 0.5, 0.5)  # Light red tint
 						# Optionally disable the button
