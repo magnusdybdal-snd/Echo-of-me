@@ -13,7 +13,7 @@ func _connect_level_buttons() -> void:
 
 func _on_level_button_pressed(button: Button) -> void:
 	var level_index = 0 if button.name == "test_level" else int(button.name)
-	GameManager.load_level(level_index)
+	GameManager.load_level(level_index+1)
 
 ###--- Check if level exists---###
 func _validate_level_buttons() -> void:

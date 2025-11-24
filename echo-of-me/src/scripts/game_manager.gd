@@ -15,6 +15,12 @@ var levels := [
 		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"]  
 	},
 	{
+		"name": "Level 0 - A bad friend",
+		"scene": "res://src/scenes/levels/level_00.tscn",
+		"max_echoes": 0,
+		"available_powerups": []
+	},
+	{
 		"name": "Level 1 - First Steps",
 		"scene": "res://src/scenes/levels/level_01.tscn",
 		"max_echoes": 0,
