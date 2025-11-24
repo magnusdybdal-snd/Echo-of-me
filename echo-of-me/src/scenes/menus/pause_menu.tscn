@@ -64,9 +64,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -300.5
-offset_top = -4.9999695
+offset_top = -57.999996
 offset_right = 25.687744
-offset_bottom = 284.50003
+offset_bottom = 231.5
 grow_horizontal = 2
 scale = Vector2(1.8730298, 1.8730298)
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
@@ -114,6 +114,20 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
 text = "Select level"
 
+[node name="Settings" type="Button" parent="PauseMenu/MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Settings"
+
 [node name="MainMenu" type="Button" parent="PauseMenu/MenuButtons"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -130,4 +144,5 @@ text = "Main menu"
 
 [connection signal="pressed" from="PauseMenu/MenuButtons/ContinueGame" to="PauseMenu" method="_on_continue_game_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuButtons/SelectLevel" to="PauseMenu" method="_on_select_level_pressed"]
+[connection signal="pressed" from="PauseMenu/MenuButtons/Settings" to="PauseMenu" method="_on_settings_pressed"]
 [connection signal="pressed" from="PauseMenu/MenuButtons/MainMenu" to="PauseMenu" method="_on_main_menu_pressed"]

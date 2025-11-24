@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0n0uyeois5if"]
+[gd_scene load_steps=14 format=3 uid="uid://c0n0uyeois5if"]
 
 [ext_resource type="Script" uid="uid://jlhxir1w6u2c" path="res://src/scripts/main_menu.gd" id="1_123ln"]
 [ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="1_ovsfe"]
@@ -37,6 +37,32 @@ shadow_size = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7yiml"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_123ln"]
+bg_color = Color(3.3901503, 3.3901503, 3.3901503, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvln8"]
+bg_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksoms"]
+bg_color = Color(0.8111275, 0.8111274, 0.8111274, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s84or"]
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -61,9 +87,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -163.09387
-offset_top = 75.0
+offset_top = 52.0
 offset_right = 163.09387
-offset_bottom = 364.5
+offset_bottom = 341.5
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
 
@@ -75,9 +101,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -222.5
-offset_top = -250.0
+offset_top = -281.0
 offset_right = 224.0
-offset_bottom = -80.0
+offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
@@ -110,6 +136,20 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
 text = "Select level"
 
+[node name="Settings" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_123ln")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jvln8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ksoms")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s84or")
+text = "Settings"
+
 [node name="QuitGame" type="Button" parent="MenuButtons"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -126,4 +166,5 @@ text = "Quit game"
 
 [connection signal="pressed" from="MenuButtons/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MenuButtons/SelectLevel" to="." method="_on_select_level_pressed"]
+[connection signal="pressed" from="MenuButtons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MenuButtons/QuitGame" to="." method="_on_quit_game_pressed"]
