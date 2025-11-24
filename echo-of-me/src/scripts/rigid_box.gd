@@ -25,7 +25,7 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	# Adjust friction based on state
-	print("Start position: ", start_position, " Current position: ", global_position)
+	#print("Start position: ", start_position, " Current position: ", global_position)
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
