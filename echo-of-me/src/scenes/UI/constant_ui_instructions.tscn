@@ -16,7 +16,7 @@ atlas = ExtResource("3_echo_sprite")
 region = Rect2(0, 0, 32, 32)
 
 [node name="ConstantUIInstructions" type="Control"]
-z_index = 200
+z_index = 4096
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
