@@ -4,8 +4,9 @@ extends Control
 @onready var vol_slider: HSlider = $MenuButtons/Volume/HBoxContainer/vol_slider
 @onready var vol_num_value: Label = $MenuButtons/Volume/HBoxContainer/vol_num_value
 
-# Reference to pause menu (set by pause_menu.gd)
+# References to menus (set by pause_menu.gd or main_menu.gd)
 var pause_menu_ref = null
+var main_menu_ref = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,10 +30,12 @@ func _on_vol_slider_value_changed(value: float) -> void:
 
 
 func _on_back_pressed() -> void:
-	# Remove the settings menu overlay and show pause menu again
-	# Directly call pause menu to show itself BEFORE freeing
+	# Remove the settings menu overlay and show the previous menu
+	# Check which menu we came from and show it
 	if pause_menu_ref != null:
 		pause_menu_ref.show_pause_menu()
+	elif main_menu_ref != null:
+		main_menu_ref.show_main_menu()
 
 	queue_free()
 	
