@@ -58,7 +58,7 @@ var levels := [
 	},
 ]
 
-var current_level_index := 1 # 0 is test level
+var current_level_index := 0
 
 # Powerups state manager
 var max_echoes := 0
@@ -90,23 +90,12 @@ func load_next() -> void:
 # Auto unlocks powerups based on level progression
 # TODO: Levels are currently just for testing
 func check_level_powerups() -> void:
-	print("DEBUG: current level index: " + str(current_level_index))
-	
 	var level_data = levels[current_level_index]
 	
 	reset_powerups()
 	max_echoes = level_data["max_echoes"]
 	for powerup in level_data["available_powerups"]:
 		unlock_powerup(powerup)
-			
-	# Debug output
-	print("DEBUG: Level name: " + level_data["name"])
-	print("DEBUG: Max echoes = " + str(max_echoes))
-	print("DEBUG: Can use echoes = " + str(can_use_echoes()))
-	print("DEBUG: Powerup status:")
-	for powerup_name in unlocked_powerups:
-		var status = "✓" if unlocked_powerups[powerup_name] else "✗"
-		print("  " + status + " " + powerup_name)
 			
 # Check if player can use echoes
 func can_use_echoes() -> bool:
