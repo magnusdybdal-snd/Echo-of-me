@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://wj1tlue0nqj5"]
+
+[ext_resource type="Script" uid="uid://bktojwtviu64a" path="res://src/scripts/game_instructions.gd" id="1_1f137"]
+
+[node name="GameInstructions" type="CanvasLayer"]
+script = ExtResource("1_1f137")
+
+[node name="Overlay Box" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 557.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Overlay Box"]
+layout_mode = 0
+offset_right = 1144.0
+offset_bottom = 62.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="INFO" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "Action:
+KEY(S):"
+
+[node name="Move" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Move -
+WASD / ARROW KEYS"
+horizontal_alignment = 1
+
+[node name="Jump" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Jump-
+SPACEBAR"
+horizontal_alignment = 1
+
+[node name="Run" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Run -
+SHIFT"
+horizontal_alignment = 1
+
+[node name="Reset" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Reset level -
+R"
+horizontal_alignment = 1
+
+[node name="Echo" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Spawn an Echo -
+E"
+horizontal_alignment = 1
+
+[node name="PickUp" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Pick up item -
+Q/CTRL"
+horizontal_alignment = 1
+
+[node name="Dash" type="Label" parent="Overlay Box/HBoxContainer"]
+layout_mode = 2
+text = "- Dash- 
+S"
+horizontal_alignment = 1
