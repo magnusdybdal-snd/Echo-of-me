@@ -8,6 +8,9 @@ var beeing_pushed := false
 var beeing_carried := false
 var carrier : CharacterBase = null # Who is carrying the box
 
+# Physics reset flag for resetting the box. processed in _integrate_forces
+var queue_reset:= false
+
 func _ready():
 	start_position = global_position
 	
@@ -22,6 +25,15 @@ func _ready():
 		level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
 	else:
 		print("Warning: LevelController not found - box reset won't work")
+		
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if queue_reset:
+		queue_reset = false
+		# Reset velocity and position directly in physics state
+		state.linear_velocity = Vector2.ZERO
+		state.angular_velocity = 0.0
+		state.transform.origin = start_position
+		print("BOX RESET via _integrate_forces - Position: ", global_position)
 
 func _physics_process(_delta: float) -> void:
 	# Safety clamp: prevent unrealistic velocities (catches any physics bugs)
@@ -102,7 +114,7 @@ func can_be_picked_up(character: CharacterBase) -> bool:
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
-	print("BOX RESET - Start position: ", start_position, " Current position: ", global_position)
+	print("BOX RESET REQUESTED - Start position: ", start_position, " Current position: ", global_position)
 
 	# CRITICAL: Clear collision exceptions FIRST while carrier is still valid
 	if is_instance_valid(carrier):
@@ -112,35 +124,10 @@ func _on_reset_level():
 	beeing_carried = false
 	beeing_pushed = false
 	carrier = null  # Clear carrier reference BEFORE physics operations
-
-	# Set freeze mode to STATIC (prevents any physics simulation)
-	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
-	freeze = true
-
-	# Use PhysicsServer2D to atomically reset all physics state
-	# This ensures changes happen together in the physics engine
-	PhysicsServer2D.body_set_state(
-		get_rid(),
-		PhysicsServer2D.BODY_STATE_LINEAR_VELOCITY,
-		Vector2.ZERO
-	)
-	PhysicsServer2D.body_set_state(
-		get_rid(),
-		PhysicsServer2D.BODY_STATE_ANGULAR_VELOCITY,
-		0.0
-	)
-	PhysicsServer2D.body_set_state(
-		get_rid(),
-		PhysicsServer2D.BODY_STATE_TRANSFORM,
-		Transform2D.IDENTITY.translated(start_position)
-	)
-
-	# Force physics sync BEFORE unfreezing
-	# This ensures the position and velocity changes are committed
-	await get_tree().physics_frame
-
-	# Now safe to unfreeze - all state is committed
-	freeze = false
+	
+	# Queue the physics reset to happen in _integrate_forces
+	sleeping = false
+	queue_reset = true
 
 	print("BOX RESET COMPLETE - Position: ", global_position, " Carried: ", beeing_carried)
 

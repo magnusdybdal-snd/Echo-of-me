@@ -398,14 +398,13 @@ position = Vector2(368, 592)
 position = Vector2(401, 592)
 
 [node name="Player" parent="LevelController" instance=ExtResource("5_amm5i")]
-position = Vector2(70, 452)
+position = Vector2(70, 484)
 
 [node name="RigidBox" parent="LevelController" instance=ExtResource("6_w4lhp")]
-position = Vector2(273, 496)
-mass = 2.0
+position = Vector2(267, 496)
 
 [node name="RigidBox2" parent="LevelController" instance=ExtResource("6_w4lhp")]
-position = Vector2(305, 496)
+position = Vector2(302, 496)
 
 [node name="button_momentary" parent="LevelController" instance=ExtResource("7_tcufg")]
 position = Vector2(965, 505)
