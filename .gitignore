@@ -5,3 +5,6 @@ affinity/
 # Claude Code files
 CLAUDE.md
 .claude/
+
+# Marius folder for audoi before loaded into project
+audio/
