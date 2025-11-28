@@ -51,7 +51,6 @@ func _ready():
 				print("Warning: RayCast2D not found on platform - SWITCH_X_AND_Y_POS won't work properly")
 
 func _physics_process(delta: float) -> void:
-	print("Platform - Start position: ", start_position, " Current position: ", global_position)
 	# Don't move if we're in the middle of resetting
 	if is_resetting:
 		return
@@ -132,8 +131,6 @@ func _on_reset_level():
 			
 			is_resetting = false
 			
-			print("Platform reset complete - Position: ", global_position, " State: ", state, " X_dir: ", x_dir, " Y_dir: ", y_dir)
-		
 		_:
 			# For other types, just reset position
 			global_position = start_position
