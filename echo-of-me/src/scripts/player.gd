@@ -9,9 +9,6 @@ var is_recording := false
 var in_cutscene := false 
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
-
-
-
 func _ready():
 	# Stores spawn position for resets
 	spawn_position = global_position
@@ -45,6 +42,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			start_jump()
+			
 			used_double_jump = false
 		elif can_double_jump and not used_double_jump and not can_wall_jump():
 			start_jump()
