@@ -202,7 +202,7 @@ func update_animation(direction: float) -> void:
 		if falling and !anim_lock:
 			falling = false
 			anim_lock = true
-			AudioPlayer.play_sfx("landing", global_position)
+			AudioPlayer.play_sfx("landing")
 			if !carried_box:
 				animated_sprite.play("landing")
 			else:
@@ -241,7 +241,7 @@ func start_jump():
 		return
 	anim_lock = true
 	falling = false
-	AudioPlayer.play_sfx("jump", global_position)
+	AudioPlayer.play_sfx("jump")
 	if can_wall_jump():
 		# Use stored wall normal from last wall contact
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
@@ -268,7 +268,7 @@ func perform_dash():
 
 	anim_lock = true
 	animated_sprite.play("dash")
-	AudioPlayer.play_sfx("dash", global_position)
+	AudioPlayer.play_sfx("dash")
 
 # Makes sure animations finish before physics process takes over by toggeling animation lock
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -368,7 +368,7 @@ func die() -> void:
 		
 	is_dead = true
 	velocity = Vector2.ZERO
-	AudioPlayer.play_sfx("die", global_position)
+	AudioPlayer.play_sfx("die")
 
 	# Play death animation if you have one
 	if animated_sprite.sprite_frames.has_animation("death"):

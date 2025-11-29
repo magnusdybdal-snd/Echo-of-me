@@ -117,8 +117,8 @@ func stop_ambience():
 		print("DEBUG: stopped ambience")
 
 # Plays a random SFX from the collection
-# position: Vector2.ZERO for global sound, or world position for positional audio
-func play_sfx(sfx_name: String, position: Vector2 = Vector2.ZERO, volume_db: float = 0.0):
+# Uses global audio (non-positional) since camera follows player
+func play_sfx(sfx_name: String, volume_db: float = 0.0):
 	if sfx_name not in sfx_collections:
 		push_warning("Unknown SFX: " + sfx_name)
 		return
@@ -132,22 +132,10 @@ func play_sfx(sfx_name: String, position: Vector2 = Vector2.ZERO, volume_db: flo
 	var random_sound = sounds[randi() % sounds.size()]
 
 	# Create one-shot audio player that deletes itself after playing
-	if position == Vector2.ZERO:
-		# Global audio (non-positional)
-		var player = AudioStreamPlayer.new()
-		player.stream = random_sound
-		player.volume_db = volume_db
-		player.bus = sfx_buses.get(sfx_name, "Master")
-		get_tree().current_scene.add_child(player)
-		player.play()
-		player.finished.connect(player.queue_free)
-	else:
-		# Positional audio in 2D space
-		var player_2d = AudioStreamPlayer2D.new()
-		player_2d.global_position = position
-		player_2d.stream = random_sound
-		player_2d.volume_db = volume_db
-		player_2d.bus = sfx_buses.get(sfx_name, "Master")
-		get_tree().current_scene.add_child(player_2d)
-		player_2d.play()
-		player_2d.finished.connect(player_2d.queue_free)
+	var player = AudioStreamPlayer.new()
+	player.stream = random_sound
+	player.volume_db = volume_db
+	player.bus = sfx_buses.get(sfx_name, "Master")
+	add_child(player)
+	player.play()
+	player.finished.connect(player.queue_free)
