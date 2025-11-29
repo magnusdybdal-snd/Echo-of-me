@@ -76,7 +76,7 @@ var unlocked_powerups := {
 }
 
 func _ready() -> void:
-	pass
+		AudioPlayer.play_music_level(current_level_index)
 
 # Level loading
 func load_level(level_index: int) -> void:
