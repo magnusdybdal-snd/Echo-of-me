@@ -77,7 +77,7 @@ func play_music(track_name: String, volume = DEFAULT_MUSIC_VOLUME):
 	if stream == music:
 		print("DEBUG: stream = music, dont play another track.")
 		return
-
+		
 	stream = music
 	volume_db = volume
 	play()
