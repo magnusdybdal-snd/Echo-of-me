@@ -73,11 +73,11 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 275.0
-offset_top = 421.0
-offset_right = 577.0
-offset_bottom = 444.0
-text = "Press SHIFT TO RUN!"
+offset_left = 16.0
+offset_top = 412.0
+offset_right = 318.0
+offset_bottom = 435.0
+text = "Hold SHIFT To Run!"
 horizontal_alignment = 3
 justification_flags = 161
 
