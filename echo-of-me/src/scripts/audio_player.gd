@@ -67,6 +67,9 @@ const sfx_collections = {
 	],
 	"box_drag": [
 		preload("res://assets/audio/freesound_org/sfx/614678__secondbody__friction-grinding-looped.wav")
+	],
+	"box_impact": [
+		preload("res://assets/audio/freesound_org/sfx/741579__myliejoemoss1996__myles-moss-quick-metal-hit.wav")
 	]
 }
 
@@ -81,7 +84,8 @@ const sfx_buses = {
 	"key_pickup": "reverb",
 	"walk": "reverb",
 	"run": "reverb",
-	"box_drag": "reverb"
+	"box_drag": "reverb",
+	"box_impact": "reverb"
 }
 
 # Separate player for ambience that plays alongside music

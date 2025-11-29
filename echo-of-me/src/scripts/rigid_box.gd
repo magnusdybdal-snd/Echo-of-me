@@ -16,6 +16,10 @@ var queue_reset:= false
 # Drag sound player (persistent for looping)
 var drag_player: AudioStreamPlayer
 
+# Impact detection
+var last_collision_time := 0.0
+const IMPACT_COOLDOWN := 0.3  # Minimum time between impact sounds
+
 func _ready():
 	start_position = global_position
 
@@ -24,6 +28,10 @@ func _ready():
 
 	physics_material_override.friction = 1.0
 	physics_material_override.bounce = 0.0
+
+	# Enable contact monitoring for collision detection
+	contact_monitor = true
+	max_contacts_reported = 4
 
 	var level_controller = get_tree().current_scene.get_node_or_null("LevelController")
 	if level_controller != null:
@@ -35,6 +43,9 @@ func _ready():
 	drag_player = AudioStreamPlayer.new()
 	drag_player.bus = "reverb"
 	add_child(drag_player)
+
+	# Connect to body_entered signal for impact detection
+	body_entered.connect(_on_body_entered_impact)
 		
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if queue_reset:
@@ -173,3 +184,18 @@ func play_drag_sound():
 func stop_drag_sound():
 	if drag_player != null and drag_player.playing:
 		drag_player.stop()
+
+# Detects impacts with world/objects
+func _on_body_entered_impact(body: Node):
+	# Ignore impacts when being carried or pushed (only play on throw/fall impacts)
+	if beeing_carried or beeing_pushed:
+		return
+
+	# Check cooldown to avoid spam
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - last_collision_time < IMPACT_COOLDOWN:
+		return
+
+	# Play impact sound
+	AudioPlayer.play_sfx("box_impact", -10.0)
+	last_collision_time = current_time

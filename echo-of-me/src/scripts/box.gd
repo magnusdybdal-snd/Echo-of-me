@@ -8,6 +8,7 @@ var direction = 0
 const SPEED = 7000
 
 var start_position : Vector2
+var was_in_air := false  # Track if box was in air last frame
 
 # Drag sound player (persistent for looping)
 var drag_player: AudioStreamPlayer
@@ -32,6 +33,13 @@ func _on_reset_level():
 
 
 func _physics_process(delta: float) -> void:
+	# Detect landing
+	if was_in_air and is_on_floor():
+		AudioPlayer.play_sfx("box_impact", -10.0)
+
+	# Update air state
+	was_in_air = not is_on_floor()
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if push:
