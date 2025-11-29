@@ -97,6 +97,8 @@ func load_level(level_index: int) -> void:
 		# Play birds ambience for outdoor levels
 		if music_track == "outside":
 			AudioPlayer.play_ambience("birds")
+		elif music_track == "cave":
+			AudioPlayer.play_ambience("cave_atmos")
 		else:
 			AudioPlayer.stop_ambience()
 

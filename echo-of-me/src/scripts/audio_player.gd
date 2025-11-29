@@ -11,10 +11,17 @@ const music_tracks = {
 
 const ambience_tracks = {
 	"birds": preload("res://assets/audio/freesound_org/ambience/799439__sadiquecat__250418_10h28-gergueil-west-ortf.wav"),
+	"cave_atmos": preload("res://assets/audio/freesound_org/ambience/613175__tferrino__construction-site-air-hammer-extday-amb-atmo-st-48k24b.wav"),
+}
+
+# Maps ambience track names to their audio buses
+const ambience_buses = {
+	"birds": "nature",
+	"cave_atmos": "cave_ambience"
 }
 
 const DEFAULT_MUSIC_VOLUME = -18.0
-const DEFAULT_AMBIENCE_VOLUME = -32.0
+const DEFAULT_AMBIENCE_VOLUME = -0.0
 
 # Separate player for ambience that plays alongside music
 var ambience_player: AudioStreamPlayer
@@ -42,6 +49,8 @@ func play_music(track_name: String, volume = DEFAULT_MUSIC_VOLUME):
 	play()
 	print("DEBUG: started playing music: " + track_name)
 
+
+
 # Plays ambience by track name (e.g., "birds")
 func play_ambience(track_name: String, volume = DEFAULT_AMBIENCE_VOLUME):
 	if track_name not in ambience_tracks:
@@ -57,9 +66,12 @@ func play_ambience(track_name: String, volume = DEFAULT_AMBIENCE_VOLUME):
 
 	ambience_player.stream = ambience
 	ambience_player.volume_db = volume
-	ambience_player.bus = "reverb"
+
+	# Set audio bus from mapping, default to "Master" if not specified
+	ambience_player.bus = ambience_buses.get(track_name, "Master")
+
 	ambience_player.play()
-	print("DEBUG: started playing ambience: " + track_name)
+	print("DEBUG: started playing ambience: " + track_name + " on bus: " + ambience_player.bus)
 
 # Stops ambience playback
 func stop_ambience():
