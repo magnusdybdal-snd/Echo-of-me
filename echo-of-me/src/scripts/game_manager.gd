@@ -90,7 +90,16 @@ func load_level(level_index: int) -> void:
 		current_level_index = level_index
 		var level_data = levels[level_index]
 		check_level_powerups()
-		AudioPlayer.play_music(level_data.get("music", "outside"))
+
+		var music_track = level_data.get("music", "outside")
+		AudioPlayer.play_music(music_track)
+
+		# Play birds ambience for outdoor levels
+		if music_track == "outside":
+			AudioPlayer.play_ambience("birds")
+		else:
+			AudioPlayer.stop_ambience()
+
 		var error = get_tree().change_scene_to_file(level_data["scene"])
 		if error != OK:
 			print("ERROR: Invalid level index " + str(level_index))

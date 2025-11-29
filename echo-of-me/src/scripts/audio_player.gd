@@ -9,8 +9,23 @@ const music_tracks = {
 	"test_level": preload("res://assets/audio/freesound_org/music/811735__cvltiv8r__tweaker-pad-pluck-melody-loop-in-d-and-a-110bpm.wav")
 }
 
+const ambience_tracks = {
+	"birds": preload("res://assets/audio/freesound_org/ambience/799439__sadiquecat__250418_10h28-gergueil-west-ortf.wav"),
+}
+
+const DEFAULT_MUSIC_VOLUME = -18.0
+const DEFAULT_AMBIENCE_VOLUME = -32.0
+
+# Separate player for ambience that plays alongside music
+var ambience_player: AudioStreamPlayer
+
+func _ready() -> void:
+	# Create ambience player as a child node
+	ambience_player = AudioStreamPlayer.new()
+	add_child(ambience_player)
+
 # Plays music by track name (e.g., "outside", "cave"...)
-func play_music(track_name: String, volume = -12.0):
+func play_music(track_name: String, volume = DEFAULT_MUSIC_VOLUME):
 	if track_name not in music_tracks:
 		push_warning("Unknown music track: " + track_name)
 		return
@@ -22,12 +37,32 @@ func play_music(track_name: String, volume = -12.0):
 		print("DEBUG: stream = music, dont play another track.")
 		return
 
-	# Duplicate and enable looping for WAV files to avoid modifying shared resource
-	if music is AudioStreamWAV:
-		music = music.duplicate()
-		music.loop_mode = AudioStreamWAV.LOOP_FORWARD
-
 	stream = music
 	volume_db = volume
 	play()
-	print("DEBUG: started playing " + track_name)
+	print("DEBUG: started playing music: " + track_name)
+
+# Plays ambience by track name (e.g., "birds")
+func play_ambience(track_name: String, volume = DEFAULT_AMBIENCE_VOLUME):
+	if track_name not in ambience_tracks:
+		push_warning("Unknown ambience track: " + track_name)
+		return
+
+	var ambience = ambience_tracks[track_name]
+
+	# Ensures that ambience plays continuously if already playing
+	if ambience_player.stream == ambience:
+		print("DEBUG: ambience already playing, skipping.")
+		return
+
+	ambience_player.stream = ambience
+	ambience_player.volume_db = volume
+	ambience_player.bus = "reverb"
+	ambience_player.play()
+	print("DEBUG: started playing ambience: " + track_name)
+
+# Stops ambience playback
+func stop_ambience():
+	if ambience_player.playing:
+		ambience_player.stop()
+		print("DEBUG: stopped ambience")

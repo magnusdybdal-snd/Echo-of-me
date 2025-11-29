@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://drys8y3y78e5i"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://drys8y3y78e5i"]
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
 resource_name = "Compressor"
@@ -9,16 +9,17 @@ release_ms = 190.0
 resource_name = "PitchShift"
 pitch_scale = 1.05
 
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
+resource_name = "Chorus"
+
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_j3pel"]
 resource_name = "Reverb"
-room_size = 0.2
-damping = 0.28
-spread = 0.69
-hipass = 0.16
-dry = 0.43
-wet = 0.32
+damping = 0.42
+spread = 0.36
+dry = 0.6
+wet = 0.17
 
-[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_g28q7"]
 resource_name = "Chorus"
 
 [resource]
@@ -29,10 +30,18 @@ bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = &"Master"
 bus/1/effect/0/effect = SubResource("AudioEffectCompressor_j3pel")
-bus/1/effect/0/enabled = true
+bus/1/effect/0/enabled = false
 bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_j3pel")
 bus/1/effect/1/enabled = true
-bus/1/effect/2/effect = SubResource("AudioEffectReverb_j3pel")
-bus/1/effect/2/enabled = true
-bus/1/effect/3/effect = SubResource("AudioEffectChorus_j3pel")
+bus/1/effect/2/effect = SubResource("AudioEffectChorus_j3pel")
+bus/1/effect/2/enabled = false
+bus/1/effect/3/effect = SubResource("AudioEffectReverb_j3pel")
 bus/1/effect/3/enabled = true
+bus/2/name = &"nature"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectChorus_g28q7")
+bus/2/effect/0/enabled = true
