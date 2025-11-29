@@ -46,6 +46,9 @@ const sfx_collections = {
 	"dash": [
 		preload("res://assets/audio/player-sounds_v01/dash-01.mp3"),
 		preload("res://assets/audio/player-sounds_v01/dash-02.mp3")
+	],
+	"door_open":[
+		preload("res://assets/audio/freesound_org/sfx/607911__ienba__wooden-door-open.mp3")
 	]
 }
 
@@ -54,7 +57,8 @@ const sfx_buses = {
 	"jump": "reverb",
 	"landing": "reverb",
 	"die": "reverb",
-	"dash": "reverb"
+	"dash": "reverb",
+	"door_open": "Master"
 }
 
 # Separate player for ambience that plays alongside music
@@ -137,4 +141,5 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0):
 	player.bus = sfx_buses.get(sfx_name, "Master")
 	add_child(player)
 	player.play()
+	print("DEBUG: played sfx " + sfx_name)
 	player.finished.connect(player.queue_free)
