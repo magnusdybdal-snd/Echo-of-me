@@ -243,7 +243,7 @@ func start_jump():
 		return
 	anim_lock = true
 	falling = false
-	audio_jump.play()
+	audio_jump.play() # TODO crashes when echo jumps
 	if can_wall_jump():
 		# Use stored wall normal from last wall contact
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
