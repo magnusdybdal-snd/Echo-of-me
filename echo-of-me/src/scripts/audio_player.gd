@@ -22,8 +22,9 @@ func play_music(track_name: String, volume = -12.0):
 		print("DEBUG: stream = music, dont play another track.")
 		return
 
-	# Enable looping for WAV files
+	# Duplicate and enable looping for WAV files to avoid modifying shared resource
 	if music is AudioStreamWAV:
+		music = music.duplicate()
 		music.loop_mode = AudioStreamWAV.LOOP_FORWARD
 
 	stream = music
