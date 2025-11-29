@@ -57,6 +57,15 @@ var facing_direction := 1.0 # -1.0 left, 1.0 right
 # Audio is now managed by AudioPlayer singleton
 # (Old audio nodes in player.tscn can be removed)
 
+# Footstep audio player (persistent for looping)
+var footstep_player: AudioStreamPlayer
+var current_footstep_sound: String = ""
+
+func _ready():
+	# Create footstep audio player
+	footstep_player = AudioStreamPlayer.new()
+	footstep_player.bus = "reverb"
+	add_child(footstep_player)
 
 func _physics_process(delta):
 	if is_dead:
@@ -213,18 +222,24 @@ func update_animation(direction: float) -> void:
 			if carried_box:
 				if direction == 0:
 					animated_sprite.play("idle_carry_box")
+					stop_footsteps()
 				else:
 					animated_sprite.play("walk_carry_box")
+					play_footsteps("walk")
 			# Animations when not carrying a box
 			else:
 				if direction == 0:
-					animated_sprite.play("idle")	
+					animated_sprite.play("idle")
+					stop_footsteps()
 				elif can_sprint and is_sprinting:
 					animated_sprite.play("run")
+					play_footsteps("run")
 				else:
 					animated_sprite.play("walk")
+					play_footsteps("walk")
 	else:
 		# IN AIR ANIMATIONS
+		stop_footsteps()  # Stop footsteps when in air
 		if !anim_lock:
 			if carried_box:
 				animated_sprite.play("in_air_carry_box")
@@ -368,6 +383,7 @@ func die() -> void:
 		
 	is_dead = true
 	velocity = Vector2.ZERO
+	stop_footsteps()  # Stop footsteps when dead
 	AudioPlayer.play_sfx("die")
 
 	# Play death animation if you have one
@@ -380,6 +396,34 @@ func die() -> void:
 func revive() -> void:
 	is_dead = false
 	velocity = Vector2.ZERO
-	
+
 	# Resume animations
 	animated_sprite.play("idle")
+
+# Plays footstep sounds (looping)
+func play_footsteps(sound_type: String):
+	# Lazy initialization if _ready() wasn't called
+	if footstep_player == null:
+		footstep_player = AudioStreamPlayer.new()
+		footstep_player.bus = "reverb"
+		add_child(footstep_player)
+
+	# Only change if different sound needed
+	if current_footstep_sound == sound_type and footstep_player.playing:
+		return
+
+	current_footstep_sound = sound_type
+
+	# Get the sound from AudioPlayer's sfx_collections
+	if sound_type in AudioPlayer.sfx_collections:
+		var sounds = AudioPlayer.sfx_collections[sound_type]
+		if sounds.size() > 0:
+			footstep_player.stream = sounds[0]  # Use first sound in collection
+			if not footstep_player.playing:
+				footstep_player.play()
+
+# Stops footstep sounds
+func stop_footsteps():
+	if footstep_player != null and footstep_player.playing:
+		footstep_player.stop()
+	current_footstep_sound = ""

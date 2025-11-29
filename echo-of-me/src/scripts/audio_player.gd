@@ -55,6 +55,12 @@ const sfx_collections = {
 	],
 	"key_pickup":[
 		preload("res://assets/audio/freesound_org/sfx/454610__richcraftstudios__richcraft-chime-4-20181219.wav")
+	],
+	"walk": [
+		preload("res://assets/audio/player-sounds_v01/walking.mp3")
+	],
+	"run": [
+		preload("res://assets/audio/player-sounds_v01/running.mp3")
 	]
 }
 
@@ -66,7 +72,9 @@ const sfx_buses = {
 	"dash": "reverb",
 	"door_open": "reverb",
 	"door_locked": "reverb",
-	"key_pickup": "reverb"
+	"key_pickup": "reverb",
+	"walk": "reverb",
+	"run": "reverb"
 }
 
 # Separate player for ambience that plays alongside music

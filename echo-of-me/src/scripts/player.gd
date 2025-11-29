@@ -10,6 +10,7 @@ var in_cutscene := false
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
 func _ready():
+	super._ready()  # Call parent class initialization
 	# Stores spawn position for resets
 	spawn_position = global_position
 	var level_controller = get_tree().current_scene.get_node("LevelController")
