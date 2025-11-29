@@ -10,7 +10,7 @@ const music_tracks = {
 }
 
 # Plays music by track name (e.g., "outside", "cave"...)
-func play_music(track_name: String, volume = 0.0):
+func play_music(track_name: String, volume = -12.0):
 	if track_name not in music_tracks:
 		push_warning("Unknown music track: " + track_name)
 		return

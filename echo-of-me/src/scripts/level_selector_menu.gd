@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	AudioPlayer.play_music("menu")
+	AudioPlayer.play_music("menu", -2.0)
 	_connect_level_buttons()
 	_validate_level_buttons()
 
