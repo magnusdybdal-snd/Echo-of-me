@@ -117,7 +117,6 @@ func stop_ambience():
 		print("DEBUG: stopped ambience")
 
 # Plays a random SFX from the collection
-# Uses global audio (non-positional) since camera follows player
 func play_sfx(sfx_name: String, volume_db: float = 0.0):
 	if sfx_name not in sfx_collections:
 		push_warning("Unknown SFX: " + sfx_name)
