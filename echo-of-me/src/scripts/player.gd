@@ -78,6 +78,8 @@ func reset_player():
 		carried_box.place_down(facing_direction)
 		carried_box = null
 
+	stop_footsteps()
+	stop_push_sound()
 	animated_sprite.play("idle")
 	clear_recording()
 

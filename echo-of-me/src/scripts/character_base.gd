@@ -61,11 +61,20 @@ var facing_direction := 1.0 # -1.0 left, 1.0 right
 var footstep_player: AudioStreamPlayer
 var current_footstep_sound: String = ""
 
+# Push sound player (persistent for looping)
+var push_player: AudioStreamPlayer
+
 func _ready():
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
 	footstep_player.bus = "reverb"
 	add_child(footstep_player)
+
+	# Create push sound player
+	push_player = AudioStreamPlayer.new()
+	push_player.bus = "reverb"
+	push_player.volume_db = -10.0
+	add_child(push_player)
 
 func _physics_process(delta):
 	if is_dead:
@@ -140,11 +149,11 @@ func apply_movement(delta: float) -> void:
 	
 	if direction != 0:
 		is_pushing = is_pushing_box(direction)
-		
+
 		if is_pushing:
 			# Cap speed to the speed of the box while pushing
 			target_speed = BOX_PUSH_SPEED * direction
-		
+			play_push_sound()
 		else:
 			if is_on_floor():
 				# Normal movement speed
@@ -175,8 +184,12 @@ func apply_movement(delta: float) -> void:
 			accel_rate = FRICTION
 		else:
 			accel_rate = AIR_RESISTANCE
-	
+
 	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
+
+	# Stop push sound when not pushing
+	if not is_pushing:
+		stop_push_sound()
 
 # Check if we're actively pushing a box in the given direction	
 func is_pushing_box(direction: float) -> bool:
@@ -256,7 +269,7 @@ func start_jump():
 		return
 	anim_lock = true
 	falling = false
-	AudioPlayer.play_sfx("jump")
+	AudioPlayer.play_sfx("jump", -6.0)
 	if can_wall_jump():
 		# Use stored wall normal from last wall contact
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
@@ -376,14 +389,15 @@ func get_direction() -> float:
 func die() -> void:
 	if is_dead:
 		return # player is already dead
-		
+
 	if carried_box != null:
 		carried_box.place_down(facing_direction)
 		carried_box = null
-		
+
 	is_dead = true
 	velocity = Vector2.ZERO
 	stop_footsteps()  # Stop footsteps when dead
+	stop_push_sound()  # Stop push sound when dead
 	AudioPlayer.play_sfx("die")
 
 	# Play death animation if you have one
@@ -427,3 +441,25 @@ func stop_footsteps():
 	if footstep_player != null and footstep_player.playing:
 		footstep_player.stop()
 	current_footstep_sound = ""
+
+# Plays push sound (looping)
+func play_push_sound():
+	# Lazy initialization if _ready() wasn't called
+	if push_player == null:
+		push_player = AudioStreamPlayer.new()
+		push_player.bus = "reverb"
+		push_player.volume_db = -10.0
+		add_child(push_player)
+
+	# Only start if not already playing
+	if not push_player.playing:
+		if "push" in AudioPlayer.sfx_collections:
+			var sounds = AudioPlayer.sfx_collections["push"]
+			if sounds.size() > 0:
+				push_player.stream = sounds[0]
+				push_player.play()
+
+# Stops push sound
+func stop_push_sound():
+	if push_player != null and push_player.playing:
+		push_player.stop()

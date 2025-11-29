@@ -70,6 +70,9 @@ const sfx_collections = {
 	],
 	"box_impact": [
 		preload("res://assets/audio/freesound_org/sfx/741579__myliejoemoss1996__myles-moss-quick-metal-hit.wav")
+	],
+	"push": [
+		preload("res://assets/audio/player-sounds_v01/echo-pushing.mp3")
 	]
 }
 
@@ -85,7 +88,8 @@ const sfx_buses = {
 	"walk": "reverb",
 	"run": "reverb",
 	"box_drag": "reverb",
-	"box_impact": "reverb"
+	"box_impact": "reverb",
+	"push": "reverb"
 }
 
 # Separate player for ambience that plays alongside music
