@@ -54,11 +54,8 @@ var facing_direction := 1.0 # -1.0 left, 1.0 right
 
 @onready var animated_sprite = %AnimatedSprite2D
 
-# Audio variables player
-@onready var audio_jump: AudioStreamPlayer = $Audio/Jump
-@onready var audio_landing: AudioStreamPlayer = $Audio/Landing
-@onready var audio_die: AudioStreamPlayer = $Audio/die
-@onready var audio_dash: AudioStreamPlayer = $Audio/dash
+# Audio is now managed by AudioPlayer singleton
+# (Old audio nodes in player.tscn can be removed)
 
 
 func _physics_process(delta):
@@ -205,8 +202,9 @@ func update_animation(direction: float) -> void:
 		if falling and !anim_lock:
 			falling = false
 			anim_lock = true
+			AudioPlayer.play_sfx("landing", global_position)
 			if !carried_box:
-				animated_sprite.play("landing") 
+				animated_sprite.play("landing")
 			else:
 				animated_sprite.play("landing_carry_box")
 		# On ground not jumping/falling -> play walk or idle
@@ -243,7 +241,7 @@ func start_jump():
 		return
 	anim_lock = true
 	falling = false
-	audio_jump.play() # TODO crashes when echo jumps
+	AudioPlayer.play_sfx("jump", global_position)
 	if can_wall_jump():
 		# Use stored wall normal from last wall contact
 		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
@@ -267,10 +265,10 @@ func perform_dash():
 	is_dashing = true
 	has_used_dash = true
 	dash_timer = DASH_DURATION
-	
+
 	anim_lock = true
 	animated_sprite.play("dash")
-	audio_dash.play()
+	AudioPlayer.play_sfx("dash", global_position)
 
 # Makes sure animations finish before physics process takes over by toggeling animation lock
 func _on_animated_sprite_2d_animation_finished() -> void:
@@ -370,8 +368,8 @@ func die() -> void:
 		
 	is_dead = true
 	velocity = Vector2.ZERO
-	audio_die.play()
-	
+	AudioPlayer.play_sfx("die", global_position)
+
 	# Play death animation if you have one
 	if animated_sprite.sprite_frames.has_animation("death"):
 		animated_sprite.play("death")

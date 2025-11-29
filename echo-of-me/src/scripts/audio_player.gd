@@ -20,8 +20,42 @@ const ambience_buses = {
 	"cave_atmos": "cave_ambience"
 }
 
+# Maps ambience track names to their pitch scale (1.0 = normal speed/pitch)
+const ambience_pitch_scales = {
+	"cave_atmos": 0.25
+}
+
 const DEFAULT_MUSIC_VOLUME = -18.0
-const DEFAULT_AMBIENCE_VOLUME = -0.0
+const DEFAULT_AMBIENCE_VOLUME = -24.0
+
+# SFX collections - arrays of sounds for random selection
+const sfx_collections = {
+	"jump": [
+		preload("res://assets/audio/player-sounds_v01/jump-01.mp3"),
+		preload("res://assets/audio/player-sounds_v01/jump-02.mp3"),
+		preload("res://assets/audio/player-sounds_v01/jump-03.mp3"),
+		preload("res://assets/audio/player-sounds_v01/jump-04.mp3"),
+		preload("res://assets/audio/player-sounds_v01/jump-05.mp3")
+	],
+	"landing": [
+		preload("res://assets/audio/player-sounds_v01/landing-01.mp3")
+	],
+	"die": [
+		preload("res://assets/audio/player-sounds_v01/die-03.mp3")
+	],
+	"dash": [
+		preload("res://assets/audio/player-sounds_v01/dash-01.mp3"),
+		preload("res://assets/audio/player-sounds_v01/dash-02.mp3")
+	]
+}
+
+# Maps SFX names to their audio buses
+const sfx_buses = {
+	"jump": "reverb",
+	"landing": "reverb",
+	"die": "reverb",
+	"dash": "reverb"
+}
 
 # Separate player for ambience that plays alongside music
 var ambience_player: AudioStreamPlayer
@@ -69,12 +103,51 @@ func play_ambience(track_name: String, volume = DEFAULT_AMBIENCE_VOLUME):
 
 	# Set audio bus from mapping, default to "Master" if not specified
 	ambience_player.bus = ambience_buses.get(track_name, "Master")
-
+	
+	# Set pitch scale from mapping, default to 1.0 (normal speed/pitch)
+	ambience_player.pitch_scale = ambience_pitch_scales.get(track_name, 1.0)
+	
 	ambience_player.play()
-	print("DEBUG: started playing ambience: " + track_name + " on bus: " + ambience_player.bus)
+	print("DEBUG: started playing ambience: " + track_name + " on bus: " + ambience_player.bus + " at pitch: " + str(ambience_player.pitch_scale))
 
 # Stops ambience playback
 func stop_ambience():
 	if ambience_player.playing:
 		ambience_player.stop()
 		print("DEBUG: stopped ambience")
+
+# Plays a random SFX from the collection
+# position: Vector2.ZERO for global sound, or world position for positional audio
+func play_sfx(sfx_name: String, position: Vector2 = Vector2.ZERO, volume_db: float = 0.0):
+	if sfx_name not in sfx_collections:
+		push_warning("Unknown SFX: " + sfx_name)
+		return
+
+	var sounds = sfx_collections[sfx_name]
+	if sounds.is_empty():
+		push_warning("No sounds in SFX collection: " + sfx_name)
+		return
+
+	# Pick random sound from collection
+	var random_sound = sounds[randi() % sounds.size()]
+
+	# Create one-shot audio player that deletes itself after playing
+	if position == Vector2.ZERO:
+		# Global audio (non-positional)
+		var player = AudioStreamPlayer.new()
+		player.stream = random_sound
+		player.volume_db = volume_db
+		player.bus = sfx_buses.get(sfx_name, "Master")
+		get_tree().current_scene.add_child(player)
+		player.play()
+		player.finished.connect(player.queue_free)
+	else:
+		# Positional audio in 2D space
+		var player_2d = AudioStreamPlayer2D.new()
+		player_2d.global_position = position
+		player_2d.stream = random_sound
+		player_2d.volume_db = volume_db
+		player_2d.bus = sfx_buses.get(sfx_name, "Master")
+		get_tree().current_scene.add_child(player_2d)
+		player_2d.play()
+		player_2d.finished.connect(player_2d.queue_free)

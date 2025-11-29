@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=8 format=3 uid="uid://drys8y3y78e5i"]
+[gd_resource type="AudioBusLayout" load_steps=9 format=3 uid="uid://drys8y3y78e5i"]
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
 resource_name = "Compressor"
@@ -22,12 +22,23 @@ wet = 0.17
 [sub_resource type="AudioEffectChorus" id="AudioEffectChorus_g28q7"]
 resource_name = "Chorus"
 
-[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_g28q7"]
-resource_name = "Reverb"
-
 [sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_j3pel"]
 resource_name = "HighPassFilter"
-cutoff_hz = 700.0
+cutoff_hz = 200.0
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_g28q7"]
+resource_name = "Reverb"
+hipass = 0.6
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_n8wo2"]
+resource_name = "Chorus"
+voice_count = 3
+voice/3/delay_ms = 12.0
+voice/3/rate_hz = 1.0
+voice/3/depth_ms = 0.0
+voice/3/level_db = 0.0
+voice/3/cutoff_hz = 16000.0
+voice/3/pan = 0.0
 
 [resource]
 bus/1/name = &"reverb"
@@ -58,7 +69,9 @@ bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
 bus/3/send = &"Master"
-bus/3/effect/0/effect = SubResource("AudioEffectReverb_g28q7")
+bus/3/effect/0/effect = SubResource("AudioEffectHighPassFilter_j3pel")
 bus/3/effect/0/enabled = true
-bus/3/effect/1/effect = SubResource("AudioEffectHighPassFilter_j3pel")
+bus/3/effect/1/effect = SubResource("AudioEffectReverb_g28q7")
 bus/3/effect/1/enabled = true
+bus/3/effect/2/effect = SubResource("AudioEffectChorus_n8wo2")
+bus/3/effect/2/enabled = true

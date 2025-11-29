@@ -1,11 +1,15 @@
-[gd_scene load_steps=67 format=3 uid="uid://biihkc0s4fiab"]
+[gd_scene load_steps=72 format=3 uid="uid://biihkc0s4fiab"]
 
 [ext_resource type="Script" uid="uid://38x278i5tjkv" path="res://src/scripts/player.gd" id="1_v4rts"]
 [ext_resource type="AudioStream" uid="uid://qt8olf7huyd3" path="res://assets/audio/player-sounds_v01/jump-01.mp3" id="3_hwyk6"]
+[ext_resource type="AudioStream" uid="uid://bnr5awldl6m5x" path="res://assets/audio/player-sounds_v01/jump-02.mp3" id="4_0hlw3"]
 [ext_resource type="AudioStream" uid="uid://dwcm8mvcxp4g6" path="res://assets/audio/player-sounds_v01/landing-01.mp3" id="4_0qy4j"]
 [ext_resource type="Texture2D" uid="uid://usaen2fmiqmk" path="res://assets/Character animation/Hooded Protaganist/AnimationSheet_Character.png" id="4_l2v1k"]
+[ext_resource type="AudioStream" uid="uid://tii6lf1fncb4" path="res://assets/audio/player-sounds_v01/jump-03.mp3" id="5_4vu8n"]
 [ext_resource type="AudioStream" uid="uid://c4p8eisis6h5j" path="res://assets/audio/player-sounds_v01/die-03.mp3" id="5_8v6aa"]
 [ext_resource type="AudioStream" uid="uid://di6pj8pb3xblw" path="res://assets/audio/player-sounds_v01/dash-01.mp3" id="6_4pcbe"]
+[ext_resource type="AudioStream" uid="uid://cwfd05fal4d6l" path="res://assets/audio/player-sounds_v01/jump-04.mp3" id="6_kc20y"]
+[ext_resource type="AudioStream" uid="uid://c6tirge56a8f0" path="res://assets/audio/player-sounds_v01/jump-05.mp3" id="7_lsi8j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oric3"]
 atlas = ExtResource("4_l2v1k")
@@ -511,6 +515,16 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cusn3"]
 height = 38.0
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_hhiii"]
+shuffle = true
+loop = false
+stream_count = 5
+stream_0 = ExtResource("3_hwyk6")
+stream_1 = ExtResource("4_0hlw3")
+stream_2 = ExtResource("5_4vu8n")
+stream_3 = ExtResource("6_kc20y")
+stream_4 = ExtResource("7_lsi8j")
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 collision_mask = 10
@@ -530,7 +544,7 @@ shape = SubResource("CapsuleShape2D_cusn3")
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="Jump" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("3_hwyk6")
+stream = SubResource("AudioStreamPlaylist_hhiii")
 bus = &"reverb"
 
 [node name="Landing" type="AudioStreamPlayer" parent="Audio"]
