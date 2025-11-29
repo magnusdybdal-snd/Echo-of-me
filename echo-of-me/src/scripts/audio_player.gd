@@ -30,23 +30,26 @@ const DEFAULT_AMBIENCE_VOLUME = -24.0
 
 # SFX collections - arrays of sounds for random selection
 const sfx_collections = {
+	# Player voice sounds
 	"jump": [
 		preload("res://assets/audio/player-sounds_v01/jump-01.mp3"),
 		preload("res://assets/audio/player-sounds_v01/jump-02.mp3"),
 		preload("res://assets/audio/player-sounds_v01/jump-03.mp3"),
 		preload("res://assets/audio/player-sounds_v01/jump-04.mp3"),
 		preload("res://assets/audio/player-sounds_v01/jump-05.mp3")
+	],	
+	"die": [
+		preload("res://assets/audio/player-sounds_v01/die-03.mp3")
 	],
 	"landing": [
 		preload("res://assets/audio/player-sounds_v01/landing-01.mp3")
 	],
-	"die": [
-		preload("res://assets/audio/player-sounds_v01/die-03.mp3")
-	],
+
 	"dash": [
 		preload("res://assets/audio/player-sounds_v01/dash-01.mp3"),
 		preload("res://assets/audio/player-sounds_v01/dash-02.mp3")
 	],
+	# Other sounds related to environment/player actions
 	"door_open":[
 		preload("res://assets/audio/freesound_org/sfx/607911__ienba__wooden-door-open.mp3")
 	],
@@ -61,6 +64,9 @@ const sfx_collections = {
 	],
 	"run": [
 		preload("res://assets/audio/player-sounds_v01/running.mp3")
+	],
+	"box_drag": [
+		preload("res://assets/audio/freesound_org/sfx/614678__secondbody__friction-grinding-looped.wav")
 	]
 }
 
@@ -74,7 +80,8 @@ const sfx_buses = {
 	"door_locked": "reverb",
 	"key_pickup": "reverb",
 	"walk": "reverb",
-	"run": "reverb"
+	"run": "reverb",
+	"box_drag": "reverb"
 }
 
 # Separate player for ambience that plays alongside music
