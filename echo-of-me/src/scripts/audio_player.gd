@@ -5,7 +5,8 @@ extends AudioStreamPlayer
 const music_tracks = {
 	"outside": preload("res://assets/audio/freesound_org/music/832628__jadis0x__calm-ambient-piano-loop.wav"),
 	"cave": preload("res://assets/audio/freesound_org/music/829069__boatlanman__deep-ambient-bass-loop-160bpm.wav"),
-	"menu": preload("res://assets/audio/freesound_org/music/833915__bassimat__atonal-ambient-texture-004-try-it-now.wav")
+	"menu": preload("res://assets/audio/freesound_org/music/833915__bassimat__atonal-ambient-texture-004-try-it-now.wav"),
+	"test_level": preload("res://assets/audio/freesound_org/music/811735__cvltiv8r__tweaker-pad-pluck-melody-loop-in-d-and-a-110bpm.wav")
 }
 
 # Plays music by track name (e.g., "outside", "cave"...)

@@ -13,7 +13,7 @@ var levels := [
 		"is_test": true,
 		"max_echoes": 999,
 		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"],
-		"music": "outside"
+		"music": "test_level"
 	},
 	{
 		"name": "Level 0 - A Bad Friend",
