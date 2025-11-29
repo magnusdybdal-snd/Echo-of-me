@@ -50,6 +50,8 @@ func _on_trigger_body_entered(body: Node2D) -> void:
 	# Unlock if key requirement is met
 	if need_key and key.has_been_picked_up:
 		unlock_door()
+	else:
+		AudioPlayer.play_sfx("door_locked", -6.0)
 		
 # Locks the door, preventing player passage
 func lock_door() -> void:

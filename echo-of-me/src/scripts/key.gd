@@ -17,6 +17,7 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		has_been_picked_up = true
+		AudioPlayer.play_sfx("key_pickup", -12.0)
 		hide()
 		monitoring = false            # stop detecting overlaps
 

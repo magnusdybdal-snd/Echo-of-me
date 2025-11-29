@@ -49,6 +49,12 @@ const sfx_collections = {
 	],
 	"door_open":[
 		preload("res://assets/audio/freesound_org/sfx/607911__ienba__wooden-door-open.mp3")
+	],
+	"door_locked":[
+		preload("res://assets/audio/freesound_org/sfx/321087__benjaminnelan__door-locked.wav")
+	],
+	"key_pickup":[
+		preload("res://assets/audio/freesound_org/sfx/454610__richcraftstudios__richcraft-chime-4-20181219.wav")
 	]
 }
 
@@ -58,7 +64,9 @@ const sfx_buses = {
 	"landing": "reverb",
 	"die": "reverb",
 	"dash": "reverb",
-	"door_open": "Master"
+	"door_open": "reverb",
+	"door_locked": "reverb",
+	"key_pickup": "reverb"
 }
 
 # Separate player for ambience that plays alongside music
