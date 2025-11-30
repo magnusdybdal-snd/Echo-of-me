@@ -17,6 +17,7 @@ var control_menu_show = false
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
+
 func _input(event):
 	if player.is_dead:
 		return

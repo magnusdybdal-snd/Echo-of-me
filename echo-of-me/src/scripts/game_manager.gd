@@ -12,56 +12,65 @@ var levels := [
 		"scene": "res://src/scenes/levels/test_level.tscn",
 		"is_test": true,
 		"max_echoes": 999,
-		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"]  
+		"available_powerups": ["sprint", "wall_climb", "double_jump", "dash"],
+		"music": "test_level"
 	},
 	{
 		"name": "Level 0 - A Bad Friend",
 		"scene": "res://src/scenes/levels/level_00.tscn",
 		"max_echoes": 0,
-		"available_powerups": []
+		"available_powerups": [],
+		"music": "outside"
 	},
 	{
 		"name": "Level 1 - First Steps",
 		"scene": "res://src/scenes/levels/level_01.tscn",
 		"max_echoes": 0,
-		"available_powerups": []
+		"available_powerups": [],
+		"music": "cave"
 	},
 	{
 		"name": "Level 2 - Sprint Tutorial",
 		"scene": "res://src/scenes/levels/level_02.tscn",
 		"max_echoes": 0,
-		"available_powerups": ["sprint"]
+		"available_powerups": ["sprint"],
+		"music": "cave"
 	},
 	{
 		"name": "Level 3 - Key",
 		"scene": "res://src/scenes/levels/level_03.tscn",
 		"max_echoes": 0,
-		"available_powerups": ["sprint"]
+		"available_powerups": ["sprint"],
+		"music": "cave"
 	},
 	{
 		"name": "Level 4 - Box Intro",
 		"scene": "res://src/scenes/levels/level_04.tscn",
 		"max_echoes": 1,
-		"available_powerups": ["sprint"]
+		"available_powerups": ["sprint"],
+		"music": "cave"
 	},
 	{
 		"name": "Level 5 - Platforms",
 		"scene": "res://src/scenes/levels/level_05.tscn",
 		"max_echoes": 0,
-		"available_powerups": ["sprint"]
+		"available_powerups": ["sprint"],
+		"music": "cave"
 	},
 	{
 		"name": "Level 6 - Echo",
 		"scene": "res://src/scenes/levels/level_06.tscn",
 		"max_echoes": 2,
-		"available_powerups": ["sprint"]
+		"available_powerups": ["sprint"],
+		"music": "cave"
 	},
 	{
 		"name": "Level 7 - Spikes",
 		"scene": "res://src/scenes/levels/level_07.tscn",
 		"max_echoes": 1,
-		"available_powerups": ["sprint"]
-	}	
+		"available_powerups": ["sprint"],
+		"music": "cave"
+	}
 ]
 
 var current_level_index := 0
@@ -75,15 +84,24 @@ var unlocked_powerups := {
 	"dash": false
 }
 
-func _ready() -> void:
-	pass
-
 # Level loading
 func load_level(level_index: int) -> void:
 	if level_index >= 0 and level_index < levels.size():
 		current_level_index = level_index
-		check_level_powerups()
 		var level_data = levels[level_index]
+		check_level_powerups()
+
+		var music_track = level_data.get("music", "outside")
+		AudioPlayer.play_music(music_track)
+
+		# Play birds ambience for outdoor levels
+		if music_track == "outside":
+			AudioPlayer.play_ambience("birds")
+		elif music_track == "cave":
+			AudioPlayer.play_ambience("cave_atmos")
+		else:
+			AudioPlayer.stop_ambience()
+
 		var error = get_tree().change_scene_to_file(level_data["scene"])
 		if error != OK:
 			print("ERROR: Invalid level index " + str(level_index))
