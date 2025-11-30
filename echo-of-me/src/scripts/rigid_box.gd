@@ -21,6 +21,7 @@ var last_collision_time := 0.0
 const IMPACT_COOLDOWN := 0.3  # Minimum time between impact sounds
 
 func _ready():
+	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	start_position = global_position
 
 	if physics_material_override == null:
@@ -58,13 +59,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		print("BOX RESET via _integrate_forces - Position: ", global_position)
 
 func _physics_process(_delta: float) -> void:
-	# Safety clamp: prevent unrealistic velocities (catches any physics bugs)
-	const MAX_VELOCITY := 800.0  # Reasonable max for a thrown box
-	if linear_velocity.length() > MAX_VELOCITY:
-		print("WARNING: Box velocity clamped from ", linear_velocity.length(), " to ", MAX_VELOCITY)
-		linear_velocity = linear_velocity.normalized() * MAX_VELOCITY
-
 	# Adjust friction based on state
+	print("freeze_mode: " + str(freeze_mode))
+	print("beeing_carried: " + str(beeing_carried))
+	print("freeze: " + str(freeze))
+	print("sleeping: " + str(sleeping))
+	print("linear_velocity: " + str(linear_velocity))
+	print("gravity_scale: " + str(gravity_scale))
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
 	else:
@@ -72,7 +73,6 @@ func _physics_process(_delta: float) -> void:
 
 	# If box is carried, follow the carrier
 	if beeing_carried and is_instance_valid(carrier):
-		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		freeze = true
 		global_position = carrier.global_position + CARRY_OFFSET
 		stop_drag_sound()  # Stop drag sound when carried
@@ -102,6 +102,7 @@ func place_down(direction: float):
 	if not beeing_carried:
 		return
 
+	print("PLACE_DOWN called - freeze_mode before: ", freeze_mode)
 	beeing_carried = false
 	freeze = false
 	linear_velocity = Vector2.ZERO
@@ -114,6 +115,7 @@ func place_down(direction: float):
 
 	carrier = null
 	stop_drag_sound()  # Stop drag sound when placed down
+	print("PLACE_DOWN done - freeze_mode after: ", freeze_mode)
 	
 # Throw the box
 func throw_box(direction: float, velocity: Vector2):
@@ -146,18 +148,35 @@ func can_be_picked_up(character: CharacterBase) -> bool:
 			
 # Handles reseting of position when level is reset with E or R
 func _on_reset_level():
+	print("====== BOX RESET CALLED ======")
+	print("  Before - beeing_carried: ", beeing_carried)
+	print("  Before - freeze: ", freeze)
+	print("  Before - freeze_mode: ", freeze_mode)
+
 	# We wait one frame to let any player/echo move away before messing with the box
 	await get_tree().physics_frame
+
+	# Clear all collision exceptions
+	var exceptions = get_collision_exceptions()
+	print("  Clearing ", exceptions.size(), " collision exceptions")
+	for exception in exceptions:
+		remove_collision_exception_with(exception)
 
 	# Reset ALL state flags before any physics operations
 	beeing_carried = false
 	beeing_pushed = false
 	carrier = null  # Clear carrier reference BEFORE physics operations
+	freeze = false
 	stop_drag_sound()  # Stop drag sound when resetting
 
 	# Queue the physics reset to happen in _integrate_forces
 	sleeping = false
 	queue_reset = true
+
+	print("  After - beeing_carried: ", beeing_carried)
+	print("  After - freeze: ", freeze)
+	print("  After - freeze_mode: ", freeze_mode)
+	print("==============================")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("add_nearby_box"):

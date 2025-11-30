@@ -70,6 +70,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
+visible = false
 offset_left = 915.0
 offset_top = 517.0
 offset_right = 1113.0

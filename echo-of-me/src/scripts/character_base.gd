@@ -390,7 +390,10 @@ func die() -> void:
 	if is_dead:
 		return # player is already dead
 
+	print("DIE() called - carried_box: ", carried_box)
 	if carried_box != null:
+		print("  Calling place_down on box before dying")
+		carried_box.freeze = false
 		carried_box.place_down(facing_direction)
 		carried_box = null
 
