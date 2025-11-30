@@ -6,5 +6,5 @@ affinity/
 CLAUDE.md
 .claude/
 
-# Marius folder for audoi before loaded into project
-audio/
+# Marius folder for audio before loaded into project
+audio-temp/
