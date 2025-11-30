@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var door: StaticBody2D = $LevelController/Door
 @onready var key: Area2D = $Levelcontroller/Key
-@onready var collision_shape_door: CollisionShape2D = $Trigger/CollisionShapeDoor
-@onready var trigger: Area2D = $Trigger
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -9,10 +9,8 @@ var is_recording := false
 var in_cutscene := false 
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
-
-
-
 func _ready():
+	super._ready()  # Call parent class initialization
 	# Stores spawn position for resets
 	spawn_position = global_position
 	var level_controller = get_tree().current_scene.get_node("LevelController")
@@ -45,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			start_jump()
+			
 			used_double_jump = false
 		elif can_double_jump and not used_double_jump and not can_wall_jump():
 			start_jump()
@@ -79,6 +78,8 @@ func reset_player():
 		carried_box.place_down(facing_direction)
 		carried_box = null
 
+	stop_footsteps()
+	stop_push_sound()
 	animated_sprite.play("idle")
 	clear_recording()
 

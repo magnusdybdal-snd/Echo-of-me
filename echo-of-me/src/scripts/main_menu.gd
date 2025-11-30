@@ -6,7 +6,8 @@ var settings_menu_instance = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	AudioPlayer.play_music("menu", -2.0) # volume in db
+	AudioPlayer.stop_ambience()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,6 +16,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_game_pressed() -> void:
+	AudioPlayer.stop()
 	GameManager.load_level(1) # Index 0 is test level
 
 

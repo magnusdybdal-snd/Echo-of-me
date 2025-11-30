@@ -50,6 +50,8 @@ func _on_trigger_body_entered(body: Node2D) -> void:
 	# Unlock if key requirement is met
 	if need_key and key.has_been_picked_up:
 		unlock_door()
+	else:
+		AudioPlayer.play_sfx("door_locked", -6.0)
 		
 # Locks the door, preventing player passage
 func lock_door() -> void:
@@ -63,6 +65,7 @@ func lock_door() -> void:
 func unlock_door() -> void:
 	DoorSprite.play("open")
 	lightrays.show()
+	AudioPlayer.play_sfx("door_open")
 	opened = true
 	collision_area_shape_top.set_deferred("disabled", true) # Disable collision (allows passage)
 	collision_area_shape_bottom.set_deferred("disabled", true)
