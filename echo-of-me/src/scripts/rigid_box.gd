@@ -173,11 +173,6 @@ func _on_reset_level():
 	sleeping = false
 	queue_reset = true
 
-	print("  After - beeing_carried: ", beeing_carried)
-	print("  After - freeze: ", freeze)
-	print("  After - freeze_mode: ", freeze_mode)
-	print("==============================")
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("add_nearby_box"):
 		body.add_nearby_box(self)
@@ -205,7 +200,7 @@ func stop_drag_sound():
 		drag_player.stop()
 
 # Detects impacts with world/objects
-func _on_body_entered_impact(body: Node):
+func _on_body_entered_impact(_body: Node):
 	# Ignore impacts when being carried or pushed (only play on throw/fall impacts)
 	if beeing_carried or beeing_pushed:
 		return
