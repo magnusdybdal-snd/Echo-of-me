@@ -58,10 +58,10 @@ var levels := [
 		"music": "cave"
 	},
 	{
-		"name": "Level 6 - Echo",
+		"name": "Level 14 - Echo Simulation",
 		"scene": "res://src/scenes/levels/level_06.tscn",
 		"max_echoes": 2,
-		"available_powerups": ["sprint"],
+		"available_powerups": ["sprint", "double_jump", "wall_climb", "dash"],
 		"music": "cave"
 	},
 	{
