@@ -8,15 +8,39 @@ extends Control
 
 var level_controller: Node = null
 
+# Visual feedback constants
+const NORMAL_COLOR = Color(1.0, 1.0, 1.0, 1.0)  # White (normal)
+const PRESSED_COLOR = Color(0.6, 0.6, 0.6, 1.0)  # Darker gray when pressed
+
 
 func _ready() -> void:
 	# I button should always be visible
 	i_keycap.visible = true
 	update_echo_display()
 
+	# Set initial colors
+	i_keycap.modulate = NORMAL_COLOR
+	e_keycap.modulate = NORMAL_COLOR
+
 
 func _process(delta: float) -> void:
 	update_echo_display()
+	update_key_visuals()
+
+
+func update_key_visuals() -> void:
+	# Update I key visual feedback
+	if Input.is_key_pressed(KEY_I):
+		i_keycap.modulate = PRESSED_COLOR
+	else:
+		i_keycap.modulate = NORMAL_COLOR
+
+	# Update E key visual feedback (only if echoes are enabled)
+	if GameManager.can_use_echoes():
+		if Input.is_action_pressed("soft_reset"):  # E key
+			e_keycap.modulate = PRESSED_COLOR
+		else:
+			e_keycap.modulate = NORMAL_COLOR
 
 
 func update_echo_display() -> void:
