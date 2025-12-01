@@ -10,6 +10,11 @@ signal reset_level
 var pause_menu_scene = preload("res://src/scenes/menus/pause_menu.tscn")
 var pause_menu_instance = null
 
+# Death screen 
+var death_screen_scene = preload("res://src/scenes/deathscreen.tscn")
+var death_screen_instance = null
+
+# Control menu info
 var control_menu_info = preload("res://src/scenes/UI/GameInstructions.tscn")
 var control_menu_instance = null
 var control_menu_show = false
@@ -17,15 +22,54 @@ var control_menu_show = false
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
+func _ready():
+	# Allow level controller to process input even when game is paused
+	# (needed for pause menu toggle and death screen reset)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Ensure player pauses normally despite parent's PROCESS_MODE_ALWAYS
+	player.process_mode = Node.PROCESS_MODE_PAUSABLE
+
+func _process(_delta):
+	# Show death screen immediately when player dies
+	if player.is_dead and death_screen_instance == null:
+		AudioPlayer.play_sfx("death_sound", -3.0)
+		death_screen_instance = death_screen_scene.instantiate()
+		death_screen_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+		add_child(death_screen_instance)
+		get_tree().paused = true
+
+		# Fade in the death screen elements
+		var panel = death_screen_instance.get_node("PanelContainer")
+		var vbox = death_screen_instance.get_node("VBoxContainer")
+
+		# Start invisible
+		panel.modulate.a = 0.0
+		vbox.modulate.a = 0.0
+
+		# Fade in over 0.5 seconds
+		var tween = create_tween()
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)  # Allow tween during pause
+		tween.tween_property(panel, "modulate:a", 1.0, 0.5)
+		tween.parallel().tween_property(vbox, "modulate:a", 1.0, 0.5)
 
 func _input(event):
-	if player.is_dead:
+	# Handle reset from death screen
+	if player.is_dead and event.is_action_pressed("hard_reset"):
+		hard_reset()
+		# Clean up death screen
+		if death_screen_instance != null:
+			get_tree().paused = false
+			death_screen_instance.queue_free()
+			death_screen_instance = null
 		return
 
-	if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
-		soft_reset()
-	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
-		hard_reset()
+	# Normal gameplay inputs (only when alive and not paused)
+	if pause_menu_instance == null and not player.is_dead:  # Don't allow resets while pause menu or death screen is open
+		if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
+			soft_reset()
+		elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos
+			hard_reset()
 	
 	if event.is_action_pressed("ui_cancel"):
 		if pause_menu_instance == null:
@@ -105,11 +149,14 @@ func hard_reset():
 func spawn_echo_from_player():
 	var echo_scene = preload("res://src/scenes/echo_player.tscn")
 	var echo = echo_scene.instantiate()
-	
+
 	echo.spawn_position = player.spawn_position
 	echo.global_position = player.spawn_position
 	echo.recorded_inputs = player.recording.duplicate(true)
-	
+
+	# Ensure echo pauses normally despite parent's PROCESS_MODE_ALWAYS
+	echo.process_mode = Node.PROCESS_MODE_PAUSABLE
+
 	add_child(echo)
 	echoes.append(echo) 	
 

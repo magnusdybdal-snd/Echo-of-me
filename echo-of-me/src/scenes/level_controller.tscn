@@ -5,6 +5,5 @@
 
 [node name="LevelController" type="Node"]
 script = ExtResource("1_rcub5")
-player_path = null
 
 [node name="ConstantUIInstructions" parent="." instance=ExtResource("2_constant_ui")]
