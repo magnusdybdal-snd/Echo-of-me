@@ -4,13 +4,14 @@ extends CharacterBody2D
 class_name CharacterBase
 
 # Constants for player movement and forces
-const SPEED := 200.0
+const SPEED := 150.0
 const CARRY_SPEED := 130
-const SPRINT_SPEED := 300.0
+const SPRINT_SPEED := 210.0
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
 const AIR_RESISTANCE := 400
 const JUMP_VELOCITY := -370.0
+const SECOND_JUMP_VELOCITY := -270
 const CARRY_JUMP_VELOCITY := -270.0
 const BOX_PUSH_SPEED := 300.0
 
@@ -20,7 +21,7 @@ const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Dash constants
-const DASH_FORCE := 500.0 # Horizontal velocity applied when dashing
+const DASH_FORCE := 400.0 # Horizontal velocity applied when dashing
 const DASH_DURATION := 0.2 # How long the dash lasts in seconds
 
 # Used to control animations
@@ -96,7 +97,7 @@ func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
 	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
-	can_dash = GameManager.has_powerup("dash")
+	can_dash = GameManager.has_powerup("dash") and carried_box == null
 
 # Updates wall jump grace timer
 func update_wall_jump_timer(delta: float) -> void:
@@ -282,7 +283,7 @@ func start_jump():
 		velocity.y = CARRY_JUMP_VELOCITY
 
 	else:
-		velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY if is_on_floor() else SECOND_JUMP_VELOCITY
 		animated_sprite.play("jump")
 
 # Performs a dash in the direction the character is facing
@@ -390,7 +391,10 @@ func die() -> void:
 	if is_dead:
 		return # player is already dead
 
+	print("DIE() called - carried_box: ", carried_box)
 	if carried_box != null:
+		print("  Calling place_down on box before dying")
+		carried_box.freeze = false
 		carried_box.place_down(facing_direction)
 		carried_box = null
 

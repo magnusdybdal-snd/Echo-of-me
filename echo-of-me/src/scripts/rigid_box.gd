@@ -21,6 +21,7 @@ var last_collision_time := 0.0
 const IMPACT_COOLDOWN := 0.3  # Minimum time between impact sounds
 
 func _ready():
+	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	start_position = global_position
 
 	if physics_material_override == null:
@@ -55,15 +56,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.angular_velocity = 0.0
 		state.transform.origin = start_position
 		
-		print("BOX RESET via _integrate_forces - Position: ", global_position)
-
 func _physics_process(_delta: float) -> void:
-	# Safety clamp: prevent unrealistic velocities (catches any physics bugs)
-	const MAX_VELOCITY := 800.0  # Reasonable max for a thrown box
-	if linear_velocity.length() > MAX_VELOCITY:
-		print("WARNING: Box velocity clamped from ", linear_velocity.length(), " to ", MAX_VELOCITY)
-		linear_velocity = linear_velocity.normalized() * MAX_VELOCITY
-
 	# Adjust friction based on state
 	if beeing_pushed:
 		physics_material_override.friction = 0.0
@@ -72,12 +65,12 @@ func _physics_process(_delta: float) -> void:
 
 	# If box is carried, follow the carrier
 	if beeing_carried and is_instance_valid(carrier):
-		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		freeze = true
 		global_position = carrier.global_position + CARRY_OFFSET
 		stop_drag_sound()  # Stop drag sound when carried
 	else:
 		freeze = false
+		sleeping = false
 
 	# Play drag sound when being pushed and moving
 	if beeing_pushed and abs(linear_velocity.x) > 10.0:  # Threshold to avoid sound when barely moving
@@ -149,10 +142,16 @@ func _on_reset_level():
 	# We wait one frame to let any player/echo move away before messing with the box
 	await get_tree().physics_frame
 
+	# Clear all collision exceptions
+	var exceptions = get_collision_exceptions()
+	for exception in exceptions:
+		remove_collision_exception_with(exception)
+
 	# Reset ALL state flags before any physics operations
 	beeing_carried = false
 	beeing_pushed = false
 	carrier = null  # Clear carrier reference BEFORE physics operations
+	freeze = false
 	stop_drag_sound()  # Stop drag sound when resetting
 
 	# Queue the physics reset to happen in _integrate_forces
@@ -186,7 +185,7 @@ func stop_drag_sound():
 		drag_player.stop()
 
 # Detects impacts with world/objects
-func _on_body_entered_impact(body: Node):
+func _on_body_entered_impact(_body: Node):
 	# Ignore impacts when being carried or pushed (only play on throw/fall impacts)
 	if beeing_carried or beeing_pushed:
 		return
