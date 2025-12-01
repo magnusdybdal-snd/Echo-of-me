@@ -283,7 +283,7 @@ func start_jump():
 		velocity.y = CARRY_JUMP_VELOCITY
 
 	else:
-		velocity.y = JUMP_VELOCITY if is_on_floor() else JUMP_VELOCITY + 100
+		velocity.y = JUMP_VELOCITY if is_on_floor() else SECOND_JUMP_VELOCITY
 		animated_sprite.play("jump")
 
 # Performs a dash in the direction the character is facing
