@@ -97,7 +97,7 @@ func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
 	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
-	can_dash = GameManager.has_powerup("dash")
+	can_dash = GameManager.has_powerup("dash") and carried_box == null
 
 # Updates wall jump grace timer
 func update_wall_jump_timer(delta: float) -> void:
