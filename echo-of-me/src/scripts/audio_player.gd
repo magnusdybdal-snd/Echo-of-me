@@ -87,6 +87,9 @@ const sfx_collections = {
 	],
 	"push": [
 		preload("res://assets/audio/player-sounds_v01/echo-pushing.mp3")
+	],
+	"click": [
+		preload("res://assets/audio/freesound_org/sfx/click.mp3")
 	]
 }
 
@@ -103,7 +106,8 @@ const sfx_buses = {
 	"run": "reverb",
 	"box_drag": "reverb",
 	"box_impact": "reverb",
-	"push": "reverb"
+	"push": "reverb",
+	"click": "echo_voice"
 }
 
 # Separate player for ambience that plays alongside music

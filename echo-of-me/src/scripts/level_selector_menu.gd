@@ -14,6 +14,7 @@ func _connect_level_buttons() -> void:
 					button.pressed.connect(_on_level_button_pressed.bind(button))
 
 func _on_level_button_pressed(button: Button) -> void:
+	AudioPlayer.play_sfx("click")
 	var level_index = 0 if button.name == "test_level" else int(button.name) + 1
 	GameManager.load_level(level_index)
 

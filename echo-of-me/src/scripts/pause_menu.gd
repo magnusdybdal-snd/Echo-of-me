@@ -22,14 +22,17 @@ func _input(event):
 
 
 func _on_continue_game_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	get_tree().paused = false
 	queue_free()
 
 func _on_select_level_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://src/scenes/menus/level_selector_menu.tscn")
 
 func _on_settings_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	# Instantiate and overlay settings menu instead of changing scenes
 	if settings_menu_instance == null:
 		# Hide the pause menu but don't free it
@@ -53,5 +56,6 @@ func show_pause_menu() -> void:
 	settings_menu_instance = null
 
 func _on_main_menu_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://src/scenes/menus/main_menu.tscn")
