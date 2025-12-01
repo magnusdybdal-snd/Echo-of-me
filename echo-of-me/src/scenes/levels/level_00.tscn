@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://c5ukyq1g61dbf"]
+[gd_scene load_steps=32 format=4 uid="uid://c5ukyq1g61dbf"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_5imsi"]
 [ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_kj3gd"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="10_bf14f"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="11_u28xx"]
 [ext_resource type="Script" uid="uid://3uxpdq33kcq2" path="res://src/scripts/dialog.gd" id="14_nfweu"]
+[ext_resource type="Script" uid="uid://bygws4sn4yuou" path="res://src/scripts/dialogue_audio.gd" id="15_u2nrp"]
 
 [sub_resource type="Animation" id="Animation_kj3gd"]
 length = 0.1
@@ -264,6 +265,32 @@ tracks/10/keys = {
 }, {
 "args": ["", ""],
 "method": &"display_line"
+}]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("LevelController/AudioStreamPlayer")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(3.8333333, 6.2, 8.466666, 9.866667, 11.06),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": ["1", 0.0],
+"method": &"_dialogue"
+}, {
+"args": ["2", 0.0],
+"method": &"_dialogue"
+}, {
+"args": ["4", 0.0],
+"method": &"_dialogue"
+}, {
+"args": ["3", 0.0],
+"method": &"_dialogue"
+}, {
+"args": ["11", 0.0],
+"method": &"_dialogue"
 }]
 }
 
@@ -1009,3 +1036,6 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Who are you"
 fit_content = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LevelController"]
+script = ExtResource("15_u2nrp")

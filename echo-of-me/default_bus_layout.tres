@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=9 format=3 uid="uid://drys8y3y78e5i"]
+[gd_resource type="AudioBusLayout" load_steps=14 format=3 uid="uid://drys8y3y78e5i"]
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
 resource_name = "Compressor"
@@ -7,7 +7,7 @@ release_ms = 190.0
 
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_j3pel"]
 resource_name = "PitchShift"
-pitch_scale = 1.05
+pitch_scale = 1.1
 
 [sub_resource type="AudioEffectChorus" id="AudioEffectChorus_j3pel"]
 resource_name = "Chorus"
@@ -39,6 +39,26 @@ voice/3/depth_ms = 0.0
 voice/3/level_db = 0.0
 voice/3/cutoff_hz = 16000.0
 voice/3/pan = 0.0
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_g28q7"]
+resource_name = "Compressor"
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_5t1r3"]
+resource_name = "Chorus"
+wet = 0.28
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_g28q7"]
+resource_name = "HighPassFilter"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_g28q7"]
+resource_name = "PitchShift"
+pitch_scale = 1.05
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_n8wo2"]
+resource_name = "Reverb"
+room_size = 0.14
+damping = 0.86
+wet = 0.1
 
 [resource]
 bus/1/name = &"reverb"
@@ -75,3 +95,19 @@ bus/3/effect/1/effect = SubResource("AudioEffectReverb_g28q7")
 bus/3/effect/1/enabled = true
 bus/3/effect/2/effect = SubResource("AudioEffectChorus_n8wo2")
 bus/3/effect/2/enabled = true
+bus/4/name = &"echo_voice"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = -10.750728
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectCompressor_g28q7")
+bus/4/effect/0/enabled = true
+bus/4/effect/1/effect = SubResource("AudioEffectChorus_5t1r3")
+bus/4/effect/1/enabled = false
+bus/4/effect/2/effect = SubResource("AudioEffectHighPassFilter_g28q7")
+bus/4/effect/2/enabled = false
+bus/4/effect/3/effect = SubResource("AudioEffectPitchShift_g28q7")
+bus/4/effect/3/enabled = true
+bus/4/effect/4/effect = SubResource("AudioEffectReverb_n8wo2")
+bus/4/effect/4/enabled = true
