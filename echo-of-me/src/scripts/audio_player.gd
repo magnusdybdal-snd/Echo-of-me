@@ -67,6 +67,9 @@ const sfx_collections = {
 	"door_open":[
 		preload("res://assets/audio/freesound_org/sfx/607911__ienba__wooden-door-open.mp3")
 	],
+	"death_sound":[
+		preload("res://assets/audio/freesound_org/sfx/32994__bates__dumdum.mp3")
+	],
 	"door_locked":[
 		preload("res://assets/audio/freesound_org/sfx/321087__benjaminnelan__door-locked.wav")
 	],
@@ -103,7 +106,8 @@ const sfx_buses = {
 	"run": "reverb",
 	"box_drag": "reverb",
 	"box_impact": "reverb",
-	"push": "reverb"
+	"push": "reverb",
+	"death_sound": "reverb",
 }
 
 # Separate player for ambience that plays alongside music

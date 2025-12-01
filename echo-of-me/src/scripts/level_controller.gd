@@ -33,6 +33,7 @@ func _ready():
 func _process(_delta):
 	# Show death screen immediately when player dies
 	if player.is_dead and death_screen_instance == null:
+		AudioPlayer.play_sfx("death_sound", -3.0)
 		death_screen_instance = death_screen_scene.instantiate()
 		death_screen_instance.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(death_screen_instance)
