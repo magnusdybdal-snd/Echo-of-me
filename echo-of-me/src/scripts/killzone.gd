@@ -4,7 +4,8 @@ extends Area2D
 @onready var death_text: Label = $"../CanvasLayer/death_text"
 
 func _ready() -> void:
-	death_text.hide()
+	#death_text.hide()
+	pass
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

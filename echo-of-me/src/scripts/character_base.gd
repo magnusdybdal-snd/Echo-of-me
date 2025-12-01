@@ -393,7 +393,7 @@ func die() -> void:
 
 	print("DIE() called - carried_box: ", carried_box)
 	if carried_box != null:
-		get_tree().physics_frame
+		await get_tree().physics_frame
 		print("  Calling place_down on box before dying")
 		carried_box.freeze = false
 		carried_box.place_down(facing_direction)
