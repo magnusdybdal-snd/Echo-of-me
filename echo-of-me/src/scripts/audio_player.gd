@@ -25,6 +25,20 @@ const ambience_pitch_scales = {
 	"cave_atmos": 0.25
 }
 
+const echo_voice_lines = {
+	"1": preload("res://assets/audio/player-sounds_v01/speaking-01.mp3"),
+	"2": preload("res://assets/audio/player-sounds_v01/speaking-02.mp3"),
+	"3": preload("res://assets/audio/player-sounds_v01/speaking-03.mp3"),
+	"4": preload("res://assets/audio/player-sounds_v01/speaking-04.mp3"),
+	"5": preload("res://assets/audio/player-sounds_v01/speaking-05.mp3"),
+	"6": preload("res://assets/audio/player-sounds_v01/speaking-06.mp3"),
+	"7": preload("res://assets/audio/player-sounds_v01/speaking-07.mp3"),
+	"8": preload("res://assets/audio/player-sounds_v01/speaking-08.mp3"),
+	"9": preload("res://assets/audio/player-sounds_v01/speaking-09.mp3"),
+	"10": preload("res://assets/audio/player-sounds_v01/speaking-10.mp3"),
+	"11": preload("res://assets/audio/player-sounds_v01/speaking-11.mp3")
+}
+
 const DEFAULT_MUSIC_VOLUME = -18.0
 const DEFAULT_AMBIENCE_VOLUME = -24.0
 
@@ -174,3 +188,23 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0):
 	player.play()
 	print("DEBUG: played sfx " + sfx_name)
 	player.finished.connect(player.queue_free)
+
+func play_dialogue(voice_line: String, volume_db: float = 0.0, echo_effect: bool = false):
+	if voice_line not in echo_voice_lines:
+		push_warning("Unknown voice line: " + voice_line)
+		return
+
+	var sound = echo_voice_lines[voice_line]
+
+	# Create one-shot audio player that deletes itself after playing
+	var voice = AudioStreamPlayer.new()
+	voice.stream = sound
+	voice.volume_db = volume_db
+	if !echo_effect:
+		voice.bus = sfx_buses.get(voice_line, "echo_voice")
+	else: 
+		voice.bus = sfx_buses.get(voice_line, "reverb")
+	add_child(voice)
+	voice.play()
+	print("DEBUG: played voice line " + voice_line)
+	voice.finished.connect(voice.queue_free)
