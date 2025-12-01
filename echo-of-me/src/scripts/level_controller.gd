@@ -10,6 +10,11 @@ signal reset_level
 var pause_menu_scene = preload("res://src/scenes/menus/pause_menu.tscn")
 var pause_menu_instance = null
 
+# Death screen 
+var death_screen_scene = preload("res://src/scenes/deathscreen.tscn")
+var death_screen_instance = null
+
+# Control menu info
 var control_menu_info = preload("res://src/scenes/UI/GameInstructions.tscn")
 var control_menu_instance = null
 var control_menu_show = false
@@ -17,11 +22,32 @@ var control_menu_show = false
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
+func _ready():
+	# Allow level controller to process input even when game is paused
+	# (needed for pause menu toggle and death screen reset)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _input(event):
-	if player.is_dead:
+	# Show death screen when player dies
+	if player.is_dead and death_screen_instance == null:
+		# create and show death screen
+		death_screen_instance = death_screen_scene.instantiate()
+		death_screen_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+		add_child(death_screen_instance)
+		get_tree().paused = true
+		return  # Exit early to prevent other inputs
+
+	# Handle reset from death screen
+	if player.is_dead and event.is_action_pressed("hard_reset"):
+		hard_reset()
+		# Clean up death screen
+		if death_screen_instance != null:
+			get_tree().paused = false
+			death_screen_instance.queue_free()
+			death_screen_instance = null
 		return
 
+	# Normal gameplay inputs (only when alive)
 	if event.is_action_pressed("soft_reset") and GameManager.can_use_echoes(): # E for echo spawn
 		soft_reset()
 	elif event.is_action_pressed("hard_reset") and GameManager.can_use_echoes(): # R for reset level and echos

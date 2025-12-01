@@ -15,11 +15,8 @@ func _on_body_entered(body: Node2D) -> void:
 func on_trap_triggered(player: Node2D) -> void:
 	# Override this in child classes for custom behavior
 	freeze_player(player)
-	
-	if kill_player:
-		await get_tree().create_timer(freeze_duration).timeout
-		if is_instance_valid(level_controller):
-			level_controller.hard_reset()
+	# Note: hard_reset is now handled by death screen in level_controller
+	# Player must press R to reset after death
 
 func freeze_player(player: Node2D) -> void:
 	if player is CharacterBase:
