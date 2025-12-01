@@ -90,6 +90,9 @@ const sfx_collections = {
 	],
 	"push": [
 		preload("res://assets/audio/player-sounds_v01/echo-pushing.mp3")
+	],
+	"click": [
+		preload("res://assets/audio/freesound_org/sfx/click.mp3")
 	]
 }
 
@@ -108,6 +111,7 @@ const sfx_buses = {
 	"box_impact": "reverb",
 	"push": "reverb",
 	"death_sound": "reverb",
+	"click": "echo_voice"
 }
 
 # Separate player for ambience that plays alongside music
