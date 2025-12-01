@@ -3,10 +3,6 @@ extends Area2D
 @onready var level_controller := get_tree().current_scene.get_node("LevelController")
 @onready var death_text: Label = $"../CanvasLayer/death_text"
 
-func _ready() -> void:
-	#death_text.hide()
-	pass
-
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		# Kill the player - death screen will handle the reset

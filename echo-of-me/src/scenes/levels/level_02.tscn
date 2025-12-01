@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://tnqqj4vt62kf"]
+[gd_scene load_steps=13 format=4 uid="uid://tnqqj4vt62kf"]
 
 [ext_resource type="Script" uid="uid://btoertrrg2u5x" path="res://src/scripts/level_01.gd" id="1_0afxd"]
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="2_ctanu"]
@@ -12,8 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="11_ril6c"]
 [ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="12_ck20o"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="13_53222"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_uqqpe"]
 
 [node name="Level02" type="Node2D"]
 script = ExtResource("1_0afxd")
@@ -58,18 +56,6 @@ position = Vector2(798, 543)
 position = Vector2(303, -134)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
-
-[node name="death_text" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 434.00003
-offset_top = 372.00003
-offset_right = 688.0
-offset_bottom = 395.00003
-scale = Vector2(0.9957647, 0.9957647)
-text = "You disappointed your ancestors"
-label_settings = SubResource("LabelSettings_uqqpe")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
 offset_left = 85.0
