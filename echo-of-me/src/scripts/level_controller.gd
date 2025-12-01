@@ -27,16 +27,15 @@ func _ready():
 	# (needed for pause menu toggle and death screen reset)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _input(event):
-	# Show death screen when player dies
+func _process(_delta):
+	# Show death screen immediately when player dies
 	if player.is_dead and death_screen_instance == null:
-		# create and show death screen
 		death_screen_instance = death_screen_scene.instantiate()
 		death_screen_instance.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(death_screen_instance)
 		get_tree().paused = true
-		return  # Exit early to prevent other inputs
 
+func _input(event):
 	# Handle reset from death screen
 	if player.is_dead and event.is_action_pressed("hard_reset"):
 		hard_reset()
