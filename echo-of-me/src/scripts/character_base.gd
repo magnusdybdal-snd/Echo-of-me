@@ -334,6 +334,7 @@ func handle_box_interraction():
 
 	if carried_box != null:
 		# Already carrying, place or throw
+		await get_tree().physics_frame
 		var is_moving = abs(velocity.x) > 10
 		
 		if is_moving:
