@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://iucw57xvg5wt"]
+
+[ext_resource type="Script" uid="uid://octsirw7q5av" path="res://src/scripts/level_transition.gd" id="1_transition"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xifbj"]
+bg_color = Color(0.033, 0.057383344, 0.11, 1)
+
+[node name="LevelTransition" type="CanvasLayer"]
+script = ExtResource("1_transition")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = 998
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xifbj")

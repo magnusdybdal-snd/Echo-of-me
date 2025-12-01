@@ -102,9 +102,14 @@ func load_level(level_index: int) -> void:
 		else:
 			AudioPlayer.stop_ambience()
 
-		var error = get_tree().change_scene_to_file(level_data["scene"])
-		if error != OK:
-			print("ERROR: Invalid level index " + str(level_index))
+		# Use transition system (assumes LevelTransition is autoloaded)
+		if has_node("/root/LevelTransition"):
+			get_node("/root/LevelTransition").transition_to_scene(level_data["scene"])
+		else:
+			# Fallback if transition not set up
+			var error = get_tree().change_scene_to_file(level_data["scene"])
+			if error != OK:
+				print("ERROR: Invalid level index " + str(level_index))
 	else:
 		print("Out of levels - Hurray you won?")
 
