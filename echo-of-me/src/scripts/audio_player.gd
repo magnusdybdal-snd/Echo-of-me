@@ -110,6 +110,9 @@ const sfx_buses = {
 var ambience_player: AudioStreamPlayer
 
 func _ready() -> void:
+	# Allow audio to play during pause (death screen, pause menu)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# Create ambience player as a child node
 	ambience_player = AudioStreamPlayer.new()
 	add_child(ambience_player)
@@ -184,6 +187,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0):
 	player.stream = random_sound
 	player.volume_db = volume_db
 	player.bus = sfx_buses.get(sfx_name, "Master")
+	player.process_mode = Node.PROCESS_MODE_ALWAYS  # Continue during pause
 	add_child(player)
 	player.play()
 	print("DEBUG: played sfx " + sfx_name)
@@ -202,8 +206,9 @@ func play_dialogue(voice_line: String, volume_db: float = 0.0, echo_effect: bool
 	voice.volume_db = volume_db
 	if !echo_effect:
 		voice.bus = sfx_buses.get(voice_line, "echo_voice")
-	else: 
+	else:
 		voice.bus = sfx_buses.get(voice_line, "reverb")
+	voice.process_mode = Node.PROCESS_MODE_ALWAYS  # Continue during pause
 	add_child(voice)
 	voice.play()
 	print("DEBUG: played voice line " + voice_line)
