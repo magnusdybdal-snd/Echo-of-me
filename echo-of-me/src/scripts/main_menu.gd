@@ -16,19 +16,23 @@ func _process(delta: float) -> void:
 
 
 func _on_start_game_pressed() -> void:
+	AudioPlayer.play_sfx("click")  # Boosted volume for testing
 	AudioPlayer.stop()
 	GameManager.load_level(1) # Index 0 is test level
 
 
 func _on_select_level_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	get_tree().change_scene_to_file("res://src/scenes/menus/level_selector_menu.tscn")
 
 
 func _on_quit_game_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	get_tree().quit()
 
 
 func _on_settings_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	# Instantiate and overlay settings menu instead of changing scenes
 	if settings_menu_instance == null:
 		# Hide the main menu but don't free it

@@ -30,6 +30,7 @@ func _on_vol_slider_value_changed(value: float) -> void:
 
 
 func _on_back_pressed() -> void:
+	AudioPlayer.play_sfx("click")
 	# Remove the settings menu overlay and show the previous menu
 	# Check which menu we came from and show it
 	if pause_menu_ref != null:
