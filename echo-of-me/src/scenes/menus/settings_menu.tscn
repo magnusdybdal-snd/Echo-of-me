@@ -128,14 +128,14 @@ text = "100 %"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMenu/MenuButtons/Volume"]
+[node name="Mute" type="HBoxContainer" parent="SettingsMenu/MenuButtons/Volume"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingsMenu/MenuButtons/Volume/HBoxContainer"]
+[node name="MuteLabel" type="Label" parent="SettingsMenu/MenuButtons/Volume/Mute"]
 layout_mode = 2
 text = "Mute: "
 
-[node name="CheckButton" type="CheckButton" parent="SettingsMenu/MenuButtons/Volume/HBoxContainer"]
+[node name="MuteToggle" type="CheckButton" parent="SettingsMenu/MenuButtons/Volume/Mute"]
 layout_mode = 2
 theme = SubResource("Theme_uc3o4")
 theme_override_colors/icon_normal_color = Color(0, 0.083333254, 1, 1)
