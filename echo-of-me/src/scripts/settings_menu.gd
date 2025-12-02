@@ -44,7 +44,7 @@ func _on_vol_slider_value_changed(value: float) -> void:
 	if is_muted and not updating_from_mute_button:
 		mute_button.button_pressed = false
 		is_muted = false
-		mute_label.text = "Mute: "
+		mute_label.text = "Mute : "
 
 	# Update the percentage label to match slider value
 	if not is_muted:
@@ -74,7 +74,7 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 	else:
 		# Unmute: restore previous volume
 		is_muted = false
-		mute_label.text = "Mute: "
+		mute_label.text = "Mute : "
 		vol_slider.value = previous_volume
 		# Volume will be set by the slider value_changed signal
 

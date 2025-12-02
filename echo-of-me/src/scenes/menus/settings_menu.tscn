@@ -133,7 +133,7 @@ layout_mode = 2
 
 [node name="MuteLabel" type="Label" parent="SettingsMenu/MenuButtons/Volume/Mute"]
 layout_mode = 2
-text = "Mute: "
+text = "Mute : "
 
 [node name="MuteToggle" type="CheckButton" parent="SettingsMenu/MenuButtons/Volume/Mute"]
 layout_mode = 2
