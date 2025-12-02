@@ -14,10 +14,15 @@ func _ready() -> void:
 	# Set up the volume slider
 	vol_slider.min_value = 0
 	vol_slider.max_value = 100
-	vol_slider.value = 100
 	vol_slider.step = 1
 
-	# Connect slider signal to update label
+	# Load current master volume and set slider to match
+	var master_bus_idx = AudioServer.get_bus_index("Master")
+	var current_volume_db = AudioServer.get_bus_volume_db(master_bus_idx)
+	var current_volume_linear = db_to_linear(current_volume_db)
+	vol_slider.value = current_volume_linear * 100
+
+	# Connect slider signal to update label and volume
 	vol_slider.value_changed.connect(_on_vol_slider_value_changed)
 
 	# Initialize the label
@@ -27,6 +32,14 @@ func _ready() -> void:
 func _on_vol_slider_value_changed(value: float) -> void:
 	# Update the percentage label to match slider value
 	vol_num_value.text = str(int(value)) + " %"
+
+	# Convert linear slider value (0-100) to audio bus volume in decibels
+	var volume_linear = value / 100.0
+	var volume_db = linear_to_db(volume_linear)
+
+	# Set the master bus volume
+	var master_bus_idx = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_volume_db(master_bus_idx, volume_db)
 
 
 func _on_back_pressed() -> void:
