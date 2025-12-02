@@ -132,6 +132,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="MuteLabel" type="Label" parent="SettingsMenu/MenuButtons/Volume/Mute"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "Mute : "
 
