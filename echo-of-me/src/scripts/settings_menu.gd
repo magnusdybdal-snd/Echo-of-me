@@ -1,8 +1,8 @@
 extends Control
 
 
-@onready var vol_slider: HSlider = $MenuButtons/Volume/HBoxContainer/vol_slider
-@onready var vol_num_value: Label = $MenuButtons/Volume/HBoxContainer/vol_num_value
+@onready var vol_slider: HSlider = $"MenuButtons/Volume/VolumeSliderBox/vol_slider"
+@onready var vol_num_value: Label = $"MenuButtons/Volume/VolumeSliderBox/vol_num_value"
 
 # References to menus (set by pause_menu.gd or main_menu.gd)
 var pause_menu_ref = null
