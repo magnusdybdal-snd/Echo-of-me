@@ -26,21 +26,26 @@ var initial_y_dir: int
 var initial_state: State
 var is_resetting: bool = false
 var ray: RayCast2D = null
+var is_returning_to_start: bool = false
 
 func _ready():
 	start_position = global_position
 	platform_start_position = global_position
 	start_global_position = global_position
 	start_xform = global_transform
-	
+
 	var level_controller = get_tree().current_scene.get_node("LevelController")
 	level_controller.connect("reset_level", Callable(self, "_on_reset_level"))
-	
+
+	# Connect to animation finished signal for BACK_AND_FORTH platforms
+	if has_node("AnimationPlayer"):
+		$AnimationPlayer.connect("animation_finished", Callable(self, "_on_animation_finished"))
+
 	# Store initial values for reset
 	initial_x_dir = x_dir
 	initial_y_dir = y_dir
 	initial_state = state
-	
+
 	match type:
 		PlatformType.SWITCH_X_AND_Y_POS:
 			if has_node("RayCast2D"):
@@ -141,11 +146,23 @@ func _on_reset_level():
 func _on_button_pressed():
 	print("Button pressed - platform activating")
 	match type:
-		PlatformType.MOVE_ON_BUTTON_PRESS, PlatformType.MOVE_ON_BUTTON_HOLD, PlatformType.MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH:
+		PlatformType.MOVE_ON_BUTTON_PRESS, PlatformType.MOVE_ON_BUTTON_HOLD:
 			if has_node("AnimationPlayer"):
 				var anims = $AnimationPlayer.get_animation_list()
 				if anims.size() > 0:
 					$AnimationPlayer.play(anims[0])
+		PlatformType.MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH:
+			if has_node("AnimationPlayer"):
+				var anim_player = $AnimationPlayer
+				var anims = anim_player.get_animation_list()
+				if anims.size() > 0:
+					# Re-enable looping (ping-pong back and forth)
+					var anim = anim_player.get_animation(anims[0])
+					anim.loop_mode = Animation.LOOP_PINGPONG
+					# Stop returning to start
+					is_returning_to_start = false
+					# Play from current position
+					anim_player.play(anims[0])
 			
 func _on_button_released():
 	match type:
@@ -156,9 +173,16 @@ func _on_button_released():
 					$AnimationPlayer.play_backwards(anims[0])
 		PlatformType.MOVE_ON_BUTTON_HOLD_BACK_AND_FORTH:
 			if has_node("AnimationPlayer"):
-				var anims = $AnimationPlayer.get_animation_list()
+				var anim_player = $AnimationPlayer
+				var anims = anim_player.get_animation_list()
 				if anims.size() > 0:
-					$AnimationPlayer.pause()
+					# Disable looping so it doesn't continue back and forth
+					var anim = anim_player.get_animation(anims[0])
+					anim.loop_mode = Animation.LOOP_NONE
+					# Mark that we're returning to start
+					is_returning_to_start = true
+					# Play backwards to position 0.0
+					anim_player.play_backwards(anims[0])
 
 func _on_button_momentary_pressed() -> void:
 	if state == State.MOVE_Y:
@@ -167,3 +191,10 @@ func _on_button_momentary_pressed() -> void:
 	else:
 		state = State.MOVE_Y
 		y_dir = -y_dir
+
+func _on_animation_finished():
+	if is_returning_to_start:
+		# We've returned to start position, now stop
+		if has_node("AnimationPlayer"):
+			$AnimationPlayer.stop()
+		is_returning_to_start = false
