@@ -335,7 +335,6 @@ sources/2 = SubResource("TileSetAtlasSource_tcufg")
 [node name="Level 07" type="Node2D"]
 
 [node name="LevelController" parent="." instance=ExtResource("1_hq3qp")]
-player_path = NodePath("")
 
 [node name="TileMaps" parent="LevelController" instance=ExtResource("2_mkjxr")]
 
@@ -412,7 +411,7 @@ position = Vector2(965, 505)
 collision_mask = 13
 
 [node name="Platform" parent="LevelController" instance=ExtResource("8_mmjhh")]
-position = Vector2(701, 139)
+position = Vector2(701, 178.50047)
 script = ExtResource("10_cjil0")
 type = 5
 

@@ -133,8 +133,9 @@ func _on_reset_level():
 			
 		_:
 			# For other types, just reset position
-			global_position = start_position
 			await get_tree().process_frame
+			global_position = start_position
+
 			is_resetting = false
 
 func _on_button_pressed():
