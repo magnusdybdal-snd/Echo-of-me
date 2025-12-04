@@ -65,17 +65,24 @@ var levels := [
 		"music": "cave"
 	},
 	{
+		"name": "Level 7 - Double Jump",
+		"scene": "res://src/scenes/levels/level_07.tscn",
+		"max_echoes": 1,
+		"available_powerups": ["sprint", "double_jump"],
+		"music": "cave"
+	},
+	{
+		"name": "Level 8 - Spikes",
+		"scene": "res://src/scenes/levels/level_08.tscn",
+		"max_echoes": 1,
+		"available_powerups": ["sprint", "double_jump"],
+		"music": "cave"
+	},
+	{
 		"name": "Level 14 - Echo Simulation",
 		"scene": "res://src/scenes/levels/level_14.tscn",
 		"max_echoes": 2,
 		"available_powerups": ["sprint", "double_jump", "wall_climb", "dash"],
-		"music": "cave"
-	},
-	{
-		"name": "Level 7 - Spikes",
-		"scene": "res://src/scenes/levels/level_07.tscn",
-		"max_echoes": 1,
-		"available_powerups": ["sprint"],
 		"music": "cave"
 	}
 ]
