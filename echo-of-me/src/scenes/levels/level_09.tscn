@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=4 uid="uid://bm5om0i1cyi5q"]
+
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_xs5il"]
+[ext_resource type="PackedScene" uid="uid://bp6fsgwdbfw16" path="res://src/scenes/tileMapsNew.tscn" id="2_sx7ec"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="3_vw2ls"]
+[ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="4_vu7mg"]
+[ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="5_o0akj"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="6_6jwvv"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="7_qkjf3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2l2dm"]
+font_size = 13
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Level09" type="Node2D"]
+
+[node name="LevelController" parent="." instance=ExtResource("1_xs5il")]
+
+[node name="TileMaps" parent="LevelController" instance=ExtResource("2_sx7ec")]
+
+[node name="MiddleGround" parent="LevelController/TileMaps" index="3"]
+tile_map_data = PackedByteArray("AAAOABEADwAAAAAAAAAQABEADwAAAAAAAAASABEADwAAAAAAAAAUABEADwAAAAAAAAAWABEADwAAAAAAAAANABEACQAAAAAAAAAPABEACQAAAAAAAAARABEACQAAAAAAAAATABEACQAAAAAAAAAVABEACQAAAAAAAAADABEACQAAAAAAAAACABEACQAAAAAAAAABABEACQAAAAAAAAAAABEACQAAAAAAAAD//xEACQAAAAAAAAAXABEACQAAAAAAAAAYABEACQAAAAAAAAAZABEACQAAAAAAAAAaABEACQAAAAAAAAAMABEADwAAAAAAAAA=")
+
+[node name="Foreground" parent="LevelController/TileMaps" index="4"]
+tile_map_data = PackedByteArray("AAAHAAQAAQAJAAAAAAAlAAQAAQAJAAAAAABDAAQAAQAJAAAAAAA=")
+
+[node name="Player" parent="LevelController" instance=ExtResource("3_vw2ls")]
+position = Vector2(77, 414)
+
+[node name="Door" parent="LevelController" instance=ExtResource("4_vu7mg")]
+position = Vector2(-154, 187)
+rotation = -6.2831855
+scale = Vector2(-2, 2)
+collision_layer = 2
+collision_mask = 5
+need_key = false
+
+[node name="Lightrays" parent="LevelController/Door" instance=ExtResource("5_o0akj")]
+position = Vector2(-14.5, 3.90212e-06)
+
+[node name="level_end" parent="LevelController" instance=ExtResource("6_6jwvv")]
+position = Vector2(-107, 78)
+scale = Vector2(4, 5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
+
+[node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
+offset_left = -211.0
+offset_top = 249.0
+offset_right = -40.0
+offset_bottom = 317.0
+text = "You can dash in the air by pressing 'S'"
+label_settings = SubResource("LabelSettings_2l2dm")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("7_qkjf3")]
+position = Vector2(-139.00002, 461)
+scale = Vector2(0.905, 1.605)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
+
+[editable path="LevelController/TileMaps"]
