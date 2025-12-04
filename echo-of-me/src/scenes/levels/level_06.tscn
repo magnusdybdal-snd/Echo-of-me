@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bxapuf1b4qwwq"]
+[gd_scene load_steps=20 format=4 uid="uid://bxapuf1b4qwwq"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_7an1v"]
 [ext_resource type="PackedScene" uid="uid://buvknufgkkhgp" path="res://src/scenes/background_image.tscn" id="3_n8iml"]
@@ -15,6 +15,12 @@
 [ext_resource type="TileSet" uid="uid://b8uvniaej8tu5" path="res://src/tilesets/mine_middleground_merged_tilesets_NOCOL.tres" id="11_d7kay"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="11_ttgy3"]
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="12_pfae2"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="16_r4t8u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ttgy3"]
+font_size = 13
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_llwyb"]
 resource_name = "move_down"
@@ -85,13 +91,16 @@ position = Vector2(-2, 0)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-visible = false
-offset_left = 275.0
-offset_top = 421.0
-offset_right = 577.0
-offset_bottom = 444.0
-text = "Press SPACE, W, or ARROW-UP to jump!"
-horizontal_alignment = 3
+offset_left = 663.0
+offset_top = 198.0
+offset_right = 834.0
+offset_bottom = 266.0
+text = "Some buttons needs to
+be held. If only you
+had someone to help..."
+label_settings = SubResource("LabelSettings_ttgy3")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Killzone" parent="LevelController" instance=ExtResource("10_r4t8u")]
 position = Vector2(530, 663)
@@ -117,6 +126,11 @@ libraries = {
 
 [node name="button_momentary" parent="LevelController" instance=ExtResource("7_x6dcy")]
 position = Vector2(748, 313)
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("16_r4t8u")]
+position = Vector2(797, 304)
+scale = Vector2(1.345, 1)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
 [connection signal="pressed" from="LevelController/button_momentary" to="LevelController/Platforms/PlatformMoveOnHold" method="_on_button_pressed"]

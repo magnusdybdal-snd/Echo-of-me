@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dtqpu5xsw6d3e" path="res://assets/Tilesets/Foreground/MineTileset1_Foreground_shadow.png" id="13_nt4at"]
 [ext_resource type="Texture2D" uid="uid://bovnt84ekqrs0" path="res://assets/Tilesets/Foreground/4_Foreground_1B_Tile.png" id="14_n5mmu"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="16_tijw4"]
-[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/Instruction_zone.tscn" id="17_c80n5"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="17_c80n5"]
 
 [sub_resource type="Animation" id="Animation_h8dqj"]
 resource_name = "move_up"

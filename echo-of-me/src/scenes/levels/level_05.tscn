@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://cjbst0gj8qp6s"]
+[gd_scene load_steps=21 format=4 uid="uid://cjbst0gj8qp6s"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_yd0lt"]
 [ext_resource type="PackedScene" uid="uid://buvknufgkkhgp" path="res://src/scenes/background_image.tscn" id="2_rrvwm"]
@@ -14,7 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://hn4qpeibboil" path="res://src/scenes/key.tscn" id="13_5fx8b"]
 [ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="15_60462"]
 [ext_resource type="Script" uid="uid://cnchy3s7it60o" path="res://src/scripts/platform.gd" id="15_vipsw"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="16_vipsw"]
 [ext_resource type="PackedScene" uid="uid://bgofklnojcv7v" path="res://src/scenes/button_momentary.tscn" id="17_rrvwm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_60462"]
+font_size = 13
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_vipsw"]
 resource_name = "horisontal platform"
@@ -89,13 +95,16 @@ position = Vector2(246, -367)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-visible = false
-offset_left = 275.0
-offset_top = 421.0
-offset_right = 577.0
-offset_bottom = 444.0
-text = "Press SPACE, W, or ARROW-UP to jump!"
-horizontal_alignment = 3
+offset_left = 506.0
+offset_top = 392.0
+offset_right = 677.0
+offset_bottom = 460.0
+text = "Pressing buttons might
+do someting...
+Try it!"
+label_settings = SubResource("LabelSettings_60462")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Killzone" parent="LevelController" instance=ExtResource("11_rajt0")]
 position = Vector2(530, 663)
@@ -134,6 +143,11 @@ shape = SubResource("RectangleShape2D_rrvwm")
 
 [node name="button_momentary" parent="LevelController/Platforms" instance=ExtResource("17_rrvwm")]
 position = Vector2(623, 506)
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("16_vipsw")]
+position = Vector2(251, 432)
+scale = Vector2(2.805, 1)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
 [connection signal="pressed" from="LevelController/Platforms/button_momentary" to="LevelController/Platforms/AxisPlatform" method="_on_button_momentary_pressed"]

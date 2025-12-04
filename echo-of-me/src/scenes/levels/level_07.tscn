@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dv5fvbna16ja3"]
+[gd_scene load_steps=25 format=4 uid="uid://dv5fvbna16ja3"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_hq3qp"]
 [ext_resource type="PackedScene" uid="uid://6n518di60aig" path="res://src/scenes/spikes_static.tscn" id="2_cjil0"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="10_mkjxr"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="11_cjil0"]
 [ext_resource type="PackedScene" uid="uid://nx2hoka7rlat" path="res://src/scenes/spikes_dynamic.tscn" id="14_w4lhp"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="15_w4lhp"]
 
 [sub_resource type="Animation" id="Animation_amm5i"]
 resource_name = "side_to_side"
@@ -244,10 +245,10 @@ position = Vector2(646, 250)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 112.0
-offset_top = 238.0
-offset_right = 210.0
-offset_bottom = 306.0
+offset_left = 113.0
+offset_top = 131.0
+offset_right = 211.0
+offset_bottom = 199.0
 text = "Double Jump by jumping while in the air"
 label_settings = SubResource("LabelSettings_h8dqj")
 horizontal_alignment = 1
@@ -255,6 +256,10 @@ autowrap_mode = 2
 
 [node name="RigidBox" parent="LevelController" instance=ExtResource("6_w4lhp")]
 position = Vector2(592, 317)
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("15_w4lhp")]
+position = Vector2(13, 145)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
 
 [connection signal="pressed" from="LevelController/Buttons/button_momentary" to="LevelController/Platforms/PlatformMoveUpAndDownOnHold" method="_on_button_pressed"]
 [connection signal="released" from="LevelController/Buttons/button_momentary" to="LevelController/Platforms/PlatformMoveUpAndDownOnHold" method="_on_button_released"]
