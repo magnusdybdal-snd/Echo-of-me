@@ -2,7 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://n7sgatcelsf4"
+uid="uid://bfalkida1q677"
 path="res://.godot/imported/799439__sadiquecat__250418_10h28-gergueil-west-ortf.wav-c5f18a8be4ca4cc9a07d03faf6a16d19.sample"
 
 [deps]
@@ -18,7 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=2
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=2
