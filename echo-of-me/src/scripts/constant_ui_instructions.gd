@@ -23,7 +23,7 @@ func _ready() -> void:
 	e_keycap.modulate = NORMAL_COLOR
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_echo_display()
 	update_key_visuals()
 

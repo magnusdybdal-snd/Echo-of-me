@@ -49,6 +49,7 @@ position = Vector2(1047, 417)
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 5
+need_key = false
 
 [node name="Lightrays" parent="LevelController/Door" instance=ExtResource("10_sxj84")]
 z_index = 9
@@ -85,3 +86,6 @@ position = Vector2(36, 431)
 labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
+
+[editable path="LevelController/Player"]
+[editable path="LevelController/Door"]
