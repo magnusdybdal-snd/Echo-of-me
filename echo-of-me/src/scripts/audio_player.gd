@@ -10,7 +10,7 @@ const music_tracks = {
 }
 
 const ambience_tracks = {
-	#"birds": preload("res://assets/audio/freesound_org/ambience/799439__sadiquecat__250418_10h28-gergueil-west-ortf.wav"),  # TODO: Convert to PCM format for Windows compatibility
+	"birds": preload("res://assets/audio/freesound_org/ambience/799439__sadiquecat__250418_10h28-gergueil-west-ortf_pcm.wav"),
 	"cave_atmos": preload("res://assets/audio/freesound_org/ambience/613175__tferrino__construction-site-air-hammer-extday-amb-atmo-st-48k24b.wav"),
 }
 
