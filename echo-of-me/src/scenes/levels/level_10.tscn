@@ -83,7 +83,7 @@ tile_map_data = PackedByteArray("AAAEAAwACQAHAAcAAAAFAAwACQAHAAcAAAAGAAwACQAHAAc
 position = Vector2(0, -74)
 
 [node name="Player" parent="LevelController" instance=ExtResource("5_lx8a3")]
-position = Vector2(1122, 193)
+position = Vector2(185, 323)
 
 [node name="Door" parent="LevelController" instance=ExtResource("6_8he6n")]
 position = Vector2(351, 98)
@@ -192,7 +192,7 @@ position = Vector2(-100, 51)
 position = Vector2(602, 782)
 
 [node name="RigidBox2" parent="LevelController" instance=ExtResource("14_ow0jg")]
-position = Vector2(835, 516)
+position = Vector2(418, 558)
 
 [node name="PlatformUpAndDown" parent="LevelController" instance=ExtResource("2_ytn6x")]
 position = Vector2(64, 566)
