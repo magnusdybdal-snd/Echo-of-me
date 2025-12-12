@@ -43,7 +43,6 @@ func _on_vol_slider_value_changed(value: float) -> void:
 	if is_muted and not updating_from_mute_button:
 		mute_button.button_pressed = false
 		is_muted = false
-		mute_button.text = "Mute: "
 
 	# Update the percentage label to match slider value
 	if not is_muted:
@@ -68,12 +67,10 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 		previous_volume = vol_slider.value
 		vol_slider.value = 0
 		vol_num_value.text = "Muted"
-		mute_button.text = "Muted: "
 		AudioServer.set_bus_volume_db(master_bus_idx, -80.0)  # Effectively silent
 	else:
 		# Unmute: restore previous volume
 		is_muted = false
-		mute_button.text = "Mute: "
 		vol_slider.value = previous_volume
 		# Volume will be set by the slider value_changed signal
 
