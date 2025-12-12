@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://1rf8eof5efqr"]
+[gd_scene load_steps=14 format=4 uid="uid://1rf8eof5efqr"]
 
 [ext_resource type="Script" uid="uid://btoertrrg2u5x" path="res://src/scripts/level_01.gd" id="1_n0kxv"]
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="2_mc7rl"]
@@ -10,7 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="10_bcxre"]
 [ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="11_smn8e"]
 [ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="12_0bgn2"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="12_xdp4r"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="13_bwhkn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n0kxv"]
+font_size = 13
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Level01" type="Node2D"]
 script = ExtResource("1_n0kxv")
@@ -56,12 +62,14 @@ position = Vector2(180, -102)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 275.0
-offset_top = 421.0
-offset_right = 577.0
-offset_bottom = 444.0
+offset_left = 253.0
+offset_top = 398.0
+offset_right = 424.0
+offset_bottom = 466.0
 text = "Press SPACE, W, or ARROW-UP to jump!"
-horizontal_alignment = 3
+label_settings = SubResource("LabelSettings_n0kxv")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Killzone" parent="LevelController" instance=ExtResource("12_0bgn2")]
 position = Vector2(530, 674)
@@ -69,5 +77,9 @@ position = Vector2(530, 674)
 [node name="level_end" parent="LevelController" instance=ExtResource("13_bwhkn")]
 position = Vector2(1114, 466)
 scale = Vector2(1, 4)
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("12_xdp4r")]
+position = Vector2(94, 431)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]

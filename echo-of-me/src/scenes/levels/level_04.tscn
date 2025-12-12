@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://ciexatristany"]
+[gd_scene load_steps=16 format=4 uid="uid://ciexatristany"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_cv71w"]
 [ext_resource type="PackedScene" uid="uid://buvknufgkkhgp" path="res://src/scenes/background_image.tscn" id="2_nu3xp"]
@@ -12,14 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="11_0fka2"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="12_fwcuj"]
 [ext_resource type="PackedScene" uid="uid://hn4qpeibboil" path="res://src/scenes/key.tscn" id="13_k6hgu"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="14_00tm3"]
 [ext_resource type="PackedScene" uid="uid://cq8rrfg4xhml1" path="res://src/scenes/rigid_box.tscn" id="14_bbyjh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cv71w"]
-line_spacing = 0.0
-font_size = 12
+font_size = 13
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 0
 
 [node name="Level04" type="Node2D"]
 
@@ -65,20 +64,20 @@ position = Vector2(221, -39)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 268.0
-offset_top = 436.0
-offset_right = 414.0
-offset_bottom = 473.0
+offset_left = 264.0
+offset_top = 418.0
+offset_right = 435.0
+offset_bottom = 486.0
 text = "'CTRL' or 'Q' to pick up / place down boxes"
 label_settings = SubResource("LabelSettings_cv71w")
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="PlayerInstructions2" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 577.0
-offset_top = 436.0
-offset_right = 723.0
-offset_bottom = 473.0
+offset_left = 572.0
+offset_top = 416.0
+offset_right = 743.0
+offset_bottom = 484.0
 text = "Place down while moving to throw"
 label_settings = SubResource("LabelSettings_cv71w")
 horizontal_alignment = 1
@@ -101,5 +100,15 @@ mass = 1.0
 [node name="RigidBox2" parent="LevelController" instance=ExtResource("14_bbyjh")]
 position = Vector2(816, 513)
 mass = 1.0
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("14_00tm3")]
+position = Vector2(350, 474)
+scale = Vector2(0.72, 1)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
+
+[node name="InstructionZone2" parent="LevelController" instance=ExtResource("14_00tm3")]
+position = Vector2(543, 474)
+scale = Vector2(0.72, 1)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions2")])
 
 [connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]

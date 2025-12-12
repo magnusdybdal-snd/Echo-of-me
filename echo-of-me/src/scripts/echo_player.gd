@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 				carried_box.place_down(facing_direction)
 				carried_box = null
 			
-			animated_sprite.play("die")
+			animated_sprite.play("idle")
 
 func get_direction() -> float:
 	return direction

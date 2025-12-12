@@ -1,0 +1,16 @@
+# Normalize line endings for all text files
+* text=auto
+
+# Force LF line endings for Godot files (cross-platform compatibility)
+*.gd text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.import text eol=lf
+*.godot text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.wav binary
+*.mp3 binary
+*.ogg binary

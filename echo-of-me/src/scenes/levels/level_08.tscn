@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dncssocf52gm8"]
+[gd_scene load_steps=24 format=4 uid="uid://dncssocf52gm8"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_0bw4s"]
 [ext_resource type="PackedScene" uid="uid://nocignd5huwf" path="res://src/scenes/tileMaps.tscn" id="2_kyj3o"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dtqpu5xsw6d3e" path="res://assets/Tilesets/Foreground/MineTileset1_Foreground_shadow.png" id="13_nt4at"]
 [ext_resource type="Texture2D" uid="uid://bovnt84ekqrs0" path="res://assets/Tilesets/Foreground/4_Foreground_1B_Tile.png" id="14_n5mmu"]
 [ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="16_tijw4"]
+[ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="17_c80n5"]
 
 [sub_resource type="Animation" id="Animation_h8dqj"]
 resource_name = "move_up"
@@ -447,15 +448,37 @@ scale = Vector2(4, 5)
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]
-offset_left = 173.0
-offset_top = 335.0
-offset_right = 344.0
-offset_bottom = 403.0
+offset_left = 171.0
+offset_top = 338.0
+offset_right = 342.0
+offset_bottom = 406.0
 text = "These spikes looks deadly... 
 Maybe your echo can help?"
 label_settings = SubResource("LabelSettings_tijw4")
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="PlayerInstructions2" type="Label" parent="LevelController/CanvasLayer"]
+offset_left = 386.0
+offset_top = 490.0
+offset_right = 557.0
+offset_bottom = 558.0
+text = "Changing the enviroment
+might change your echo's
+behavior..."
+label_settings = SubResource("LabelSettings_tijw4")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InstructionZone" parent="LevelController" instance=ExtResource("17_c80n5")]
+position = Vector2(64.00001, 424)
+scale = Vector2(0.905, 1.605)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions")])
+
+[node name="InstructionZone2" parent="LevelController" instance=ExtResource("17_c80n5")]
+position = Vector2(160, 385)
+scale = Vector2(2.03, 1.605)
+labels = Array[NodePath]([NodePath("../CanvasLayer/PlayerInstructions2")])
 
 [connection signal="pressed" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_pressed"]
 [connection signal="released" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_released"]

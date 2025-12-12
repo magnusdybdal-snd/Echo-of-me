@@ -3,7 +3,6 @@ extends StaticBody2D
 # Collision shapes that block player passage when door is locked
 @onready var collision_area_shape_top: CollisionShape2D = $CollisionAreaShape_top
 @onready var collision_area_shape_bottom: CollisionShape2D = $CollisionAreaShape_bottom
-@onready var collision_shape_door: CollisionShape2D = $LevelController/Door/CollisionShapeDoor
 
 # Reference to key in level (null if no key exists)
 @onready var key: Area2D = $"../Key" if has_node("../Key") else null

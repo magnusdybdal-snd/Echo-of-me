@@ -7,7 +7,6 @@ var recording: Array = []
 var frame_index := 0
 var is_recording := false
 var in_cutscene := false 
-@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
 func _ready():
 	super._ready()  # Call parent class initialization
