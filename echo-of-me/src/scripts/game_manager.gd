@@ -96,6 +96,11 @@ var levels := [
 
 var current_level_index := 0
 
+# Audio settings (persisted across scenes)
+var is_muted: bool = false
+var current_volume: float = 100.0  # Current volume level (0-100)
+var saved_volume: float = 100.0  # Store volume before muting
+
 # Powerups state manager
 var max_echoes := 0
 var unlocked_powerups := {
