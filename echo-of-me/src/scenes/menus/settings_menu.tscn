@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7akdcqs2fj5b"]
+[gd_scene load_steps=14 format=3 uid="uid://b7akdcqs2fj5b"]
 
 [ext_resource type="Script" uid="uid://dko0b8as5nwua" path="res://src/scripts/settings_menu.gd" id="1_uc3o4"]
 [ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="2_sx0ul"]
@@ -12,18 +12,37 @@ modulate_color = Color(0.8244924, 0.8244924, 0.8244924, 1)
 texture = ExtResource("3_uc3o4")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_track"]
-bg_color = Color(0.75, 0.75, 0.75, 1)
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.3)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_grabber_area"]
-bg_color = Color(0.95, 0.95, 0.95, 1)
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.6)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_grabber"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="Theme" id="Theme_uc3o4"]
 
@@ -56,6 +75,7 @@ shadow_size = 3
 [node name="SettingsMenu" type="CanvasLayer"]
 
 [node name="SettingsMenu" type="Control" parent="."]
+custom_minimum_size = Vector2(27.97, 35.06)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,6 +108,7 @@ scale = Vector2(1.8730298, 1.8730298)
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
 
 [node name="MenuButtons" type="VBoxContainer" parent="SettingsMenu"]
+custom_minimum_size = Vector2(109.26, 6.43)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.305
@@ -103,7 +124,9 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 
 [node name="Volume" type="VBoxContainer" parent="SettingsMenu/MenuButtons"]
+custom_minimum_size = Vector2(39.36, 42.25)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Volume label" type="Label" parent="SettingsMenu/MenuButtons/Volume"]
 layout_mode = 2
@@ -111,15 +134,20 @@ theme_override_font_sizes/font_size = 31
 text = "Volume"
 
 [node name="VolumeSliderBox" type="HBoxContainer" parent="SettingsMenu/MenuButtons/Volume"]
+custom_minimum_size = Vector2(47.66, 32.92)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="vol_slider" type="HSlider" parent="SettingsMenu/MenuButtons/Volume/VolumeSliderBox"]
+custom_minimum_size = Vector2(54.59, 15.69)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_styles/slider = SubResource("StyleBoxFlat_slider_track")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_grabber_area")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_grabber_area")
+theme_override_styles/grabber = SubResource("StyleBoxFlat_slider_grabber")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxFlat_slider_grabber")
 
 [node name="vol_num_value" type="Label" parent="SettingsMenu/MenuButtons/Volume/VolumeSliderBox"]
 layout_mode = 2
