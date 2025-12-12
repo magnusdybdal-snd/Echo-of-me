@@ -64,7 +64,8 @@ func lock_door() -> void:
 func unlock_door() -> void:
 	DoorSprite.play("open")
 	lightrays.show()
-	AudioPlayer.play_sfx("door_open")
+	if need_key:
+		AudioPlayer.play_sfx("door_open")
 	opened = true
 	collision_area_shape_top.set_deferred("disabled", true) # Disable collision (allows passage)
 	collision_area_shape_bottom.set_deferred("disabled", true)
