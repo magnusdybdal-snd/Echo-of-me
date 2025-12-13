@@ -31,6 +31,10 @@ func _validate_level_buttons() -> void:
 						button.modulate = Color(1.0, 0.5, 0.5)  # Light red tint
 						# Optionally disable the button
 						button.disabled = true
+					if level_index >= GameManager.level_progression:
+						button.disabled = true
+					if button.name == "00": # bad practice, but works great.
+						button.disabled = false
 
 func _get_level_path(button_name: String) -> String:
 	if button_name.is_valid_int():
