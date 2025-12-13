@@ -7,11 +7,14 @@ func enter(player: CharacterBase) -> void:
 
 
 func exit(player: CharacterBase) -> void:
-	pass
+	# If for some reason player has picked up a box mid air after dashing
+	player.has_used_dash = false
+
 
 
 func pre_update(player: CharacterBase) -> void:
-	pass
+	if not player.animated_sprite.is_playing():
+		player.change_state_to(PlayerStates.IDLE_CARRY)
 
 
 func update(player: CharacterBase, delta: float) -> void:

@@ -22,10 +22,7 @@ func pre_update(player: CharacterBase) -> void:
 		player.change_state_to(PlayerStates.JUMP)
 		
 	if Input.is_action_just_pressed("pick_up"):
-		if not player.carried_box:
-			player.change_state_to(PlayerStates.PICK_UP)
-		else:
-			player.change_state_to(PlayerStates.PUT_DOWN)
+		player.change_state_to(PlayerStates.PICK_UP)
 		
 		
 	# Determine if we are running or walking
