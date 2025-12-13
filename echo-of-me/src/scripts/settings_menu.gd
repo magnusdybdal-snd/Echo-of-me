@@ -4,7 +4,6 @@ extends Control
 @onready var vol_slider: HSlider = $"MenuButtons/Volume/VolumeSliderBox/vol_slider"
 @onready var vol_num_value: Label = $"MenuButtons/Volume/VolumeSliderBox/vol_num_value"
 @onready var mute_button: CheckButton = $"MenuButtons/Volume/Mute/MuteToggle"
-@onready var mute_label: Label = $"MenuButtons/Volume/Mute/MuteLabel"
 
 # References to menus (set by pause_menu.gd or main_menu.gd)
 var pause_menu_ref = null
@@ -57,8 +56,12 @@ func _on_vol_slider_value_changed(value: float) -> void:
 	# If muted and slider is moved manually (not from mute button), unmute
 	if GameManager.is_muted and not updating_from_mute_button:
 		mute_button.button_pressed = false
+<<<<<<< HEAD
+		is_muted = false
+=======
 		GameManager.is_muted = false
 		mute_label.text = "Mute: "
+>>>>>>> main
 
 	# Save current volume to GameManager
 	if not updating_from_mute_button:
@@ -87,13 +90,17 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 		GameManager.saved_volume = vol_slider.value
 		vol_slider.value = 0
 		vol_num_value.text = "Muted"
-		mute_label.text = "Muted: "
 		AudioServer.set_bus_volume_db(master_bus_idx, -80.0)  # Effectively silent
 	else:
 		# Unmute: restore previous volume
+<<<<<<< HEAD
+		is_muted = false
+		vol_slider.value = previous_volume
+=======
 		GameManager.is_muted = false
 		mute_label.text = "Mute: "
 		vol_slider.value = GameManager.saved_volume
+>>>>>>> main
 		# Volume will be set by the slider value_changed signal
 
 	updating_from_mute_button = false
