@@ -65,6 +65,9 @@ var current_footstep_sound: String = ""
 # Push sound player (persistent for looping)
 var push_player: AudioStreamPlayer
 
+## The current state the player is in
+var state: BasePlayerState = null
+
 func _ready():
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
