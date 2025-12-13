@@ -185,3 +185,4 @@ func ensure_unfreeze():
 	
 	# Reset velocity completely
 	player.velocity = Vector2.ZERO
+	

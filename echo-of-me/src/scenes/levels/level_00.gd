@@ -5,7 +5,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_dialog.display_line("Hello World")
+	_dialog.display_line("")
 	animation_player.play("cutscene")
 
 
