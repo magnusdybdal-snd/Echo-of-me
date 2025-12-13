@@ -16,7 +16,6 @@ const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Used to control animations
-var falling := false
 var is_sprinting := false
 var is_dead := false
 var anim_lock := false
@@ -37,11 +36,11 @@ var last_wall_normal := Vector2.ZERO
 # Dash timer
 var dash_timer := 0.0
 
-# Tracks boxes to apply push force to
+# Tracks boxes to pick up or apply push force to
 var nearby_boxes: Array = []
-
-# Box currently beeing carried
+var pick_up_target: RigidBody2D = null
 var carried_box: RigidBody2D = null
+
 var facing_direction := 1.0 # -1.0 left, 1.0 right
 
 @onready var animated_sprite = %AnimatedSprite2D
@@ -218,30 +217,6 @@ func update_animation(direction: float) -> void:
 		animated_sprite.flip_h = true
 		facing_direction = -1.0
 
-	# ON GROUND ANIMATIONS
-	if is_on_floor():
-		# Just landed
-		if falling and !anim_lock:
-			falling = false
-			anim_lock = true
-		# On ground not jumping/falling -> play walk or idle
-		elif !anim_lock:
-			# Animations when carrying a box
-			if carried_box:
-				pass
-					
-	else:
-		# IN AIR ANIMATIONS
-		  # Stop footsteps when in air
-		if !anim_lock:
-			if carried_box:
-				pass
-			#elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
-			else:
-				pass
-		if velocity.y > 0:
-			falling = true
-
 # Sets flags for animation control and plays jump animation
 func start_jump():
 	if can_wall_jump():
@@ -274,38 +249,7 @@ func push_boxes() -> void:
 				box.linear_velocity.x = velocity.x
 				
 func handle_box_interraction():
-	# Cannot pick up again before animation is complete
-	if anim_lock:
-		print("PICKUP BLOCKED - anim_lock is true, current animation: ", animated_sprite.animation)
-		return
-
-	if carried_box != null:
-		# Already carrying, place or throw
-		var is_moving = abs(velocity.x) > 10
-		
-		if is_moving:
-			# Take the animation lock and ply the animation. Throw and place animation 
-			# Always overgo other animations so we do not check lock
-			anim_lock = true
-			animated_sprite.play("throw")
-			# Throw the box
-			var throw_dir = sign(velocity.x)
-			carried_box.throw_box(throw_dir, velocity)
-		else:
-			# Place down gently
-			carried_box.place_down(facing_direction)
-			# Take the animation lock and play the animation
-			anim_lock = true
-			animated_sprite.play("place_down")
-		# Reset state of carried box
-		carried_box = null
-	
-	else:
-		# Try to pick up nearby boxa 
-		var nearest_box = find_nearest_box()
-		if nearest_box != null and nearest_box.has_method("pick_up"):
-			nearest_box.pick_up(self)
-			carried_box = nearest_box
+	pass
 						
 # Function that finds the nearest box to the player
 func find_nearest_box() -> RigidBody2D:

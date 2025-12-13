@@ -17,4 +17,4 @@ func pre_update(player: CharacterBase) -> void:
 		player.change_state_to(PlayerStates.IDLE)
 	
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta

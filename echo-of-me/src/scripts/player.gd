@@ -27,8 +27,6 @@ func _physics_process(delta: float) -> void:
 	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
 	
 	# Q key to pick up / throw / place box
-	if Input.is_action_just_pressed("pick_up"):
-		handle_box_interraction()
 		
 
 	# Echo recording system
@@ -63,7 +61,7 @@ func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
 	anim_lock = false
-	falling = false
+	#falling = false
 	is_sprinting = false
 	is_dead = false
 	is_dashing = false
@@ -76,8 +74,8 @@ func reset_player():
 
 	stop_footsteps()
 	stop_push_sound()
-	animated_sprite.play("idle")
 	clear_recording()
+	change_state_to(PlayerStates.IDLE)
 
 # Appends player inputs to the recording for later echo spawn / mimic	
 func record_input() -> void:

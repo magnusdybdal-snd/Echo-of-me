@@ -6,7 +6,8 @@ func enter(player: CharacterBase) -> void:
 
 
 func exit(player: CharacterBase) -> void:
-	pass
+	player.pick_up_target = null
+	player.carried_box = null
 
 
 func pre_update(player: CharacterBase) -> void:

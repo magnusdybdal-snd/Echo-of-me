@@ -63,7 +63,7 @@ func reset_playback():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
 	anim_lock = false
-	falling = false
+	#falling = false
 	is_sprinting = false
 	used_double_jump = false
 	is_dead = false
