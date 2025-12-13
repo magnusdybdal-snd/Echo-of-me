@@ -1,4 +1,9 @@
-[gd_resource type="AudioBusLayout" load_steps=14 format=3 uid="uid://drys8y3y78e5i"]
+[gd_resource type="AudioBusLayout" load_steps=15 format=3 uid="uid://drys8y3y78e5i"]
+
+[sub_resource type="AudioEffectHardLimiter" id="AudioEffectHardLimiter_j3pel"]
+resource_name = "HardLimiter"
+pre_gain_db = -6.0
+ceiling_db = -0.1
 
 [sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
 resource_name = "Compressor"
@@ -61,6 +66,8 @@ damping = 0.86
 wet = 0.1
 
 [resource]
+bus/0/effect/0/effect = SubResource("AudioEffectHardLimiter_j3pel")
+bus/0/effect/0/enabled = true
 bus/1/name = &"reverb"
 bus/1/solo = false
 bus/1/mute = false
