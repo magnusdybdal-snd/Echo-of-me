@@ -2,7 +2,8 @@ class_name FallCarryPlayerState
 extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
-	pass
+	player.stop_footsteps()
+	player.animated_sprite.play("in_air_carry_box")
 
 
 func exit(player: CharacterBase) -> void:

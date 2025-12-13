@@ -1,8 +1,9 @@
-class_name LandingPlayerState
+class_name LandingCarryPlayerState
 extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
-	pass
+	player.animated_sprite.play("landing_carry_box")
+	AudioPlayer.play_sfx("landing")
 
 
 func exit(player: CharacterBase) -> void:

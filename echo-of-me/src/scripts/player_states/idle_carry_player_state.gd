@@ -2,8 +2,8 @@ class_name IdleCarryPlayerState
 extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
-	pass
-
+	player.animated_sprite.play("idle_carry_box")
+	player.stop_footsteps()
 
 func exit(player: CharacterBase) -> void:
 	pass

@@ -2,7 +2,8 @@ class_name WalkCarryPlayerState
 extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
-	pass
+	player.animated_sprite.play("walk_carry_box")
+	player.play_footsteps("walk")
 
 
 func exit(player: CharacterBase) -> void:

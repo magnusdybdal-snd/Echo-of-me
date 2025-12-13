@@ -8,19 +8,12 @@ const SPRINT_SPEED := 210.0
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
 const AIR_RESISTANCE := 400
-const JUMP_VELOCITY := -370.0
-const SECOND_JUMP_VELOCITY := -270
-const CARRY_JUMP_VELOCITY := -270.0
 const BOX_PUSH_SPEED := 300.0
 
 # Wall climb constants
 const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
 const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
-
-# Dash constants
-const DASH_FORCE := 400.0 # Horizontal velocity applied when dashing
-const DASH_DURATION := 0.2 # How long the dash lasts in seconds
 
 # Used to control animations
 var falling := false
@@ -143,16 +136,9 @@ func can_wall_jump() -> bool:
 	
 # Applies gravity to the characters when in air
 func apply_gravity(delta: float) -> void:
-	# Don't apply gravity while dashing
-	if is_dashing:
-		return
-
 	# If player is in contact with a wall, apply sliding gravity
 	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
 		velocity.y = WALL_SLIDE_GRAVITY
-	# Otherwise normal world gravity
-	if not is_on_floor():
-		velocity += get_gravity() * delta
 		
 # Acceleration based movement system
 func apply_movement(delta: float) -> void:
@@ -238,81 +224,47 @@ func update_animation(direction: float) -> void:
 		if falling and !anim_lock:
 			falling = false
 			anim_lock = true
-			AudioPlayer.play_sfx("landing")
-			if !carried_box:
-				animated_sprite.play("landing")
-			else:
-				animated_sprite.play("landing_carry_box")
 		# On ground not jumping/falling -> play walk or idle
 		elif !anim_lock:
 			# Animations when carrying a box
 			if carried_box:
-				if direction == 0:
-					animated_sprite.play("idle_carry_box")
-					stop_footsteps()
-				else:
-					animated_sprite.play("walk_carry_box")
-					play_footsteps("walk")
-			# Animations when not carrying a box
-			else:
-				if direction == 0:
-					stop_footsteps()
-				elif can_sprint and is_sprinting:
-					play_footsteps("run")
-				else:
-					play_footsteps("walk")
+				pass
+					
 	else:
 		# IN AIR ANIMATIONS
-		stop_footsteps()  # Stop footsteps when in air
+		  # Stop footsteps when in air
 		if !anim_lock:
 			if carried_box:
-				animated_sprite.play("in_air_carry_box")
-			elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
-				animated_sprite.play("wall_slide")
+				pass
+			#elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
 			else:
-				animated_sprite.play("in air")
+				pass
 		if velocity.y > 0:
 			falling = true
 
 # Sets flags for animation control and plays jump animation
 func start_jump():
-	if is_dead:
-		return
-	anim_lock = true
-	falling = false
-	AudioPlayer.play_sfx("jump", -6.0)
 	if can_wall_jump():
+		pass
 		# Use stored wall normal from last wall contact
-		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
-		velocity.y = JUMP_VELOCITY
-
-		animated_sprite.play("jump")
+		#velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
+		#velocity.y = JUMP_VELOCITY
 
 	elif carried_box:
-		animated_sprite.play("jump_carry_box")
-		velocity.y = CARRY_JUMP_VELOCITY
+		pass
 
 	else:
-		velocity.y = JUMP_VELOCITY if is_on_floor() else SECOND_JUMP_VELOCITY
-		animated_sprite.play("jump")
+		pass
+		#animated_sprite.play("jump")
 
 # Performs a dash in the direction the character is facing
 func perform_dash():
 	# Apply dash velocity in the facing direction (horizontal only)
-	velocity.x = DASH_FORCE * facing_direction
-	velocity.y = 0  # Cancel vertical velocity for horizontal dash
-	is_dashing = true
-	has_used_dash = true
-	dash_timer = DASH_DURATION
-
-	anim_lock = true
-	animated_sprite.play("dash")
-	AudioPlayer.play_sfx("dash")
-
-# Makes sure animations finish before physics process takes over by toggeling animation lock
-func _on_animated_sprite_2d_animation_finished() -> void:
-	anim_lock = false
-	print("anim unlocked")
+	#velocity.y = 0  # Cancel vertical velocity for horizontal dash
+	#is_dashing = true
+	#has_used_dash = true
+	#dash_timer = DASH_DURATION
+	pass
 				
 func push_boxes() -> void:
 	var direction = get_direction()
@@ -479,5 +431,5 @@ func stop_push_sound():
 	if push_player != null and push_player.playing:
 		push_player.stop()
 
-func get_movement_direction() -> void:
-	pass
+func get_speed() -> float:
+	return velocity.length()

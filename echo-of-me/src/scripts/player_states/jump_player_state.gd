@@ -1,8 +1,13 @@
 class_name JumpPlayerState
 extends BasePlayerState
 
+const JUMP_VELOCITY := -370.0
+const SECOND_JUMP_VELOCITY := -270
+
 func enter(player: CharacterBase) -> void:
-	pass
+	player.velocity.y = JUMP_VELOCITY if player.is_on_floor() else SECOND_JUMP_VELOCITY
+	player.animated_sprite.play("jump")
+	AudioPlayer.play_sfx("jump")
 
 
 func exit(player: CharacterBase) -> void:
@@ -10,8 +15,9 @@ func exit(player: CharacterBase) -> void:
 
 
 func pre_update(player: CharacterBase) -> void:
-	pass
+	if player.velocity.y > 0:
+		player.change_state_to(PlayerStates.FALL)
 
 
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta

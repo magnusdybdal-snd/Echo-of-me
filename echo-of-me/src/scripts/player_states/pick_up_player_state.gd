@@ -1,17 +1,16 @@
-class_name LandingPlayerState
+class_name PickUpPlayerState
 extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
-	player.animated_sprite.play("landing")
-	AudioPlayer.play_sfx("landing")
+	pass
+
 
 func exit(player: CharacterBase) -> void:
-	player.has_used_dash = false
+	pass
 
 
 func pre_update(player: CharacterBase) -> void:
-	if not player.animated_sprite.is_playing():
-		player.change_state_to(PlayerStates.IDLE)
+	pass
 
 
 func update(player: CharacterBase, delta: float) -> void:

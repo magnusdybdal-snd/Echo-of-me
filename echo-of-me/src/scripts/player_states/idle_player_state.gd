@@ -3,19 +3,35 @@ extends BasePlayerState
 
 func enter(player: CharacterBase) -> void:
 	player.animated_sprite.play("idle")
-	
+	player.stop_footsteps()
+
 func exit(player: CharacterBase) -> void:
 	pass
 
 ## Handles transition rules between states
 func pre_update(player: CharacterBase) -> void:
-	var current_speed = player.get_current_speed()
+	var direction = player.get_direction()
 	
-	if not player.is_on_floor():
+	# If we are not on the floor and we are falling downwards
+	if not player.is_on_floor() and player.velocity.y < 0:
 		player.change_state_to(PlayerStates.FALL)
-	elif player.get_direction() != 0:
+		return
+		
+	# Jump
+	if Input.is_action_just_pressed("jump"):
+		player.change_state_to(PlayerStates.JUMP)
+		
+	if Input.is_action_just_pressed("pick_up"):
+		if not player.carried_box:
+			player.change_state_to(PlayerStates.PICK_UP)
+		else:
+			player.change_state_to(PlayerStates.PUT_DOWN)
+		
+		
+	# Determine if we are running or walking
+	if direction != 0 and player.is_on_floor():
 		player.change_state_to(PlayerStates.WALK)
-	
-	
+
+
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta
