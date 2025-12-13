@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://iucw57xvg5wt"]
+[gd_scene load_steps=4 format=3 uid="uid://iucw57xvg5wt"]
 
 [ext_resource type="Script" uid="uid://octsirw7q5av" path="res://src/scripts/level_transition.gd" id="1_transition"]
+[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="2_yar4w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xifbj"]
 bg_color = Color(0.033, 0.057383344, 0.11, 1)
@@ -17,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xifbj")
+metadata/_edit_lock_ = true
 
 [node name="Level_name" type="Label" parent="Panel"]
 z_index = 999
@@ -30,3 +32,8 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Echo_player" parent="Panel" instance=ExtResource("2_yar4w")]
+position = Vector2(579, 377)
+scale = Vector2(1.3200024, 1.3200024)
