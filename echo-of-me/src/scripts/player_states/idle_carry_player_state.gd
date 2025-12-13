@@ -14,4 +14,4 @@ func pre_update(player: CharacterBase) -> void:
 
 
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta

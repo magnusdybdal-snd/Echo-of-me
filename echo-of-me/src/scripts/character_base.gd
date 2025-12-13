@@ -250,21 +250,6 @@ func start_jump():
 		#velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
 		#velocity.y = JUMP_VELOCITY
 
-	elif carried_box:
-		pass
-
-	else:
-		pass
-		#animated_sprite.play("jump")
-
-# Performs a dash in the direction the character is facing
-func perform_dash():
-	# Apply dash velocity in the facing direction (horizontal only)
-	#velocity.y = 0  # Cancel vertical velocity for horizontal dash
-	#is_dashing = true
-	#has_used_dash = true
-	#dash_timer = DASH_DURATION
-	pass
 				
 func push_boxes() -> void:
 	var direction = get_direction()

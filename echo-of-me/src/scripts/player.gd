@@ -29,10 +29,7 @@ func _physics_process(delta: float) -> void:
 	# Q key to pick up / throw / place box
 	if Input.is_action_just_pressed("pick_up"):
 		handle_box_interraction()
-
-	# S key to dash (only in air, not on ground or wall)
-	if Input.is_action_just_pressed("dash") and can_dash and not is_on_floor() and not is_on_wall_only() and not has_used_dash:
-		perform_dash()
+		
 
 	# Echo recording system
 	if is_recording:

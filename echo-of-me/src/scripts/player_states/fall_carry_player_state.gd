@@ -11,8 +11,10 @@ func exit(player: CharacterBase) -> void:
 
 
 func pre_update(player: CharacterBase) -> void:
-	pass
+	if player.is_on_floor():
+		player.change_state_to(PlayerStates.LANDING_CARRY)
+		return
 
 
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta

@@ -25,7 +25,8 @@ func _physics_process(delta: float) -> void:
 
 		# Handle dash (only in air, not on ground or wall)
 		if dash_pressed and can_dash and not is_on_floor() and not is_on_wall_only() and not has_used_dash:
-			perform_dash()
+			#perform_dash()
+			pass
 
 		# Handle jump.
 		if jump_pressed:
