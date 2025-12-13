@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://pymr5naa61im"]
+[gd_scene load_steps=18 format=4 uid="uid://pymr5naa61im"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_f0ame"]
 [ext_resource type="PackedScene" uid="uid://beocf8xcagmxf" path="res://src/scenes/sliding door.tscn" id="2_dttw4"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://b4ds0okl4vayj" path="res://src/scenes/instruction_zone.tscn" id="9_7ujoj"]
 [ext_resource type="PackedScene" uid="uid://bgofklnojcv7v" path="res://src/scenes/button_momentary.tscn" id="10_vin3i"]
 [ext_resource type="PackedScene" uid="uid://nx2hoka7rlat" path="res://src/scenes/spikes_dynamic.tscn" id="11_tmybn"]
-[ext_resource type="PackedScene" uid="uid://hn4qpeibboil" path="res://src/scenes/key.tscn" id="13_svm5y"]
 [ext_resource type="PackedScene" uid="uid://cq8rrfg4xhml1" path="res://src/scenes/rigid_box.tscn" id="14_ow0jg"]
 [ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="15_pas16"]
 
@@ -91,6 +90,7 @@ rotation = -6.2831855
 scale = Vector2(-2, 2)
 collision_layer = 2
 collision_mask = 5
+need_key = false
 
 [node name="Lightrays" parent="LevelController/Door" instance=ExtResource("7_vdulf")]
 position = Vector2(-14.5, -1.4999961)
@@ -181,9 +181,6 @@ rotation = 3.1415927
 [node name="spikes_dynamic12" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
 position = Vector2(912, 304)
 rotation = 3.1415927
-
-[node name="Key" parent="LevelController" instance=ExtResource("13_svm5y")]
-position = Vector2(-72, 637)
 
 [node name="RigidBox" parent="LevelController" instance=ExtResource("14_ow0jg")]
 position = Vector2(-100, 51)
