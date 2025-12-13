@@ -95,6 +95,8 @@ var levels := [
 ]
 
 var current_level_index := 0
+var level_progression := 0
+
 
 # Audio settings (persisted across scenes)
 var is_muted: bool = false
@@ -141,6 +143,16 @@ func load_level(level_index: int) -> void:
 
 func load_next() -> void:
 	load_level(current_level_index + 1)
+	unlock_level()
+	
+# counter to keep track of what levels have been completed (for save/load function)
+func unlock_level() -> void:
+	if level_progression > current_level_index:
+		print("No need to save progress. Current level unlocked is ", level_progression)
+		return # Do nothing if you play a previous level
+	else:
+		level_progression = current_level_index # Unlock next level
+		print("Progress updated! Current level unlocked is ", level_progression, "current_level_index: ", current_level_index)
 		
 # Auto unlocks powerups based on level progression
 # TODO: Levels are currently just for testing

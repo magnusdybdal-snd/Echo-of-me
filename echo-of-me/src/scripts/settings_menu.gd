@@ -31,14 +31,12 @@ func _ready() -> void:
 	# Initialize mute button state from GameManager
 	mute_button.button_pressed = GameManager.is_muted
 	if GameManager.is_muted:
-		mute_label.text = "Muted: "
 		vol_num_value.text = "Muted"
 		# Set slider to 0 visually but don't trigger unmute logic
 		updating_from_mute_button = true
 		vol_slider.value = 0
 		updating_from_mute_button = false
 	else:
-		mute_label.text = "Mute: "
 		# Update the label with current volume
 		vol_num_value.text = str(int(GameManager.current_volume)) + " %"
 
@@ -56,12 +54,8 @@ func _on_vol_slider_value_changed(value: float) -> void:
 	# If muted and slider is moved manually (not from mute button), unmute
 	if GameManager.is_muted and not updating_from_mute_button:
 		mute_button.button_pressed = false
-<<<<<<< HEAD
-		is_muted = false
-=======
 		GameManager.is_muted = false
-		mute_label.text = "Mute: "
->>>>>>> main
+
 
 	# Save current volume to GameManager
 	if not updating_from_mute_button:
@@ -93,14 +87,8 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 		AudioServer.set_bus_volume_db(master_bus_idx, -80.0)  # Effectively silent
 	else:
 		# Unmute: restore previous volume
-<<<<<<< HEAD
-		is_muted = false
-		vol_slider.value = previous_volume
-=======
 		GameManager.is_muted = false
-		mute_label.text = "Mute: "
 		vol_slider.value = GameManager.saved_volume
->>>>>>> main
 		# Volume will be set by the slider value_changed signal
 
 	updating_from_mute_button = false
