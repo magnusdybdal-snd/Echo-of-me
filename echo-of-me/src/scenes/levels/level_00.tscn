@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=4 uid="uid://c5ukyq1g61dbf"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_5imsi"]
-[ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_kj3gd"]
+[ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_u2nrp"]
 [ext_resource type="Texture2D" uid="uid://c2d7xxccqemvb" path="res://assets/Art/forrest_outside.png" id="2_kj3gd"]
 [ext_resource type="Texture2D" uid="uid://berulshvh4g8m" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_1.png" id="3_5imsi"]
 [ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="3_bf14f"]
@@ -958,11 +958,11 @@ default_font = SubResource("SystemFont_u2nrp")
 default_font_size = 24
 
 [node name="Level00" type="Node2D"]
-script = ExtResource("1_kj3gd")
+script = ExtResource("1_u2nrp")
 
 [node name="LevelController" parent="." instance=ExtResource("1_5imsi")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController" groups=["AnimationPlayer"]]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_bf14f")

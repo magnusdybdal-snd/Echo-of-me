@@ -19,6 +19,7 @@ var control_menu_info = preload("res://src/scenes/UI/GameInstructions.tscn")
 var control_menu_instance = null
 var control_menu_show = false
 
+
 var echoes : Array = []
 var can_spawn_echoes = GameManager.can_use_echoes()
 
@@ -38,6 +39,7 @@ func _process(_delta):
 		death_screen_instance.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(death_screen_instance)
 		get_tree().paused = true
+		
 
 		# Fade in the death screen elements
 		var panel = death_screen_instance.get_node("PanelContainer")
@@ -77,9 +79,17 @@ func _input(event):
 			pause_menu_instance = pause_menu_scene.instantiate()
 			pause_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
 			add_child(pause_menu_instance)
+			
+			var animationPlayers = get_tree().get_nodes_in_group("AnimationPlayer")
+			for anim_player in animationPlayers:
+				anim_player.speed_scale = 0
+				
 			get_tree().paused = true
 		else:
 			# Hide and remove menu
+			var animationPlayers = get_tree().get_nodes_in_group("AnimationPlayer")
+			for anim_player in animationPlayers:
+				anim_player.speed_scale = 1
 			get_tree().paused = false
 			pause_menu_instance.queue_free()
 			pause_menu_instance = null
