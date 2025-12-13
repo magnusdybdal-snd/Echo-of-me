@@ -98,6 +98,13 @@ var levels := [
 		"max_echoes": 2,
 		"available_powerups": ["sprint", "double_jump", "dash"],
 		"music": "cave"
+	},
+	{
+		"name": "Level 69 - Box Box",
+		"scene": "res://src/scenes/levels/level_69.tscn",
+		"max_echoes": 999,
+		"available_powerups": ["sprint", "double_jump", "dash"],
+		"music": "test_level"
 	}
 ]
 
