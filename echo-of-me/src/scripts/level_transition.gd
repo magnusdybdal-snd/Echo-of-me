@@ -3,9 +3,11 @@ extends CanvasLayer
 # Handles smooth fade transitions between levels
 
 @onready var panel: Panel = $Panel
+@onready var label: Label = $Panel/Level_name # label to display name og level
 
 # Transition durations
 const FADE_IN_DURATION = 0.7   # Time to fade to black
+const WAIT_TIMER = 2.0		   # Time between fades
 const FADE_OUT_DURATION = 0.7  # Time to fade from black
 
 func _ready():
@@ -17,10 +19,14 @@ func _ready():
 # Fade to black, load scene, then fade from black
 func transition_to_scene(scene_path: String) -> void:
 	# Fade in (to black)
+	print("current index start: ", GameManager.current_level_index)
 	await fade_in()
 	
+	# Display name of scene as label
+	label.text = GameManager.levels[GameManager.current_level_index].name # Display name of level being loaded
+	
 	# Waits 0.5s before fading in.
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(WAIT_TIMER).timeout
 	# Load the new scene
 	var error = get_tree().change_scene_to_file(scene_path)
 	if error != OK:
@@ -29,8 +35,11 @@ func transition_to_scene(scene_path: String) -> void:
 	
 	# Wait one frame to ensure new scene is ready
 	await get_tree().process_frame
+	
+	label.text = "" # Remove labelname before fadeout (text dont fade with panel)
 
 	# Fade out (from black)
+	print("current index after: ", GameManager.current_level_index)
 	await fade_out()
 
 # Fades the screen to black
