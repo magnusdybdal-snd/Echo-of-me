@@ -78,10 +78,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -222.5
-offset_top = -250.0
-offset_right = 224.0
-offset_bottom = -80.0
+offset_left = -203.25
+offset_top = -326.0
+offset_right = 203.25
+offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
@@ -113,6 +113,39 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
 text = "Select level"
+
+[node name="Save_and_load" type="HBoxContainer" parent="PauseMenu/MenuButtons"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="PauseMenu/MenuButtons/Save_and_load"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Save"
+
+[node name="Load" type="Button" parent="PauseMenu/MenuButtons/Save_and_load"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_s84or")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pmuqf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
+text = "Load"
 
 [node name="Settings" type="Button" parent="PauseMenu/MenuButtons"]
 layout_mode = 2
