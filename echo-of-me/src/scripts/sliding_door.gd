@@ -11,6 +11,7 @@ enum DoorType { NORMAL, TIMER }
 @export var anim_speed_scale: float = 10.0 # Standard for fast open/close doors
 
 var start_position: Vector2
+var is_closed: bool = true
 
 func _ready():
 	# Store the starting position of the platform body (should be 0,0 relative to parent)
@@ -35,7 +36,10 @@ func _on_button_pressed():
 					SlideDirection.LEFT:
 						anim_player.play("SlideLeft")
 			DoorType.TIMER:
+				if anim_player.current_animation == "TimerClose":
+					return
 				anim_player.play("TimerOpen")
+				is_closed = false
 
 
 func _on_button_released():
@@ -48,16 +52,18 @@ func _on_button_released():
 					SlideDirection.LEFT:
 						anim_player.play_backwards("SlideLeft")
 			DoorType.TIMER:
-				anim_player.play("TimerClose")
+				if not is_closed:
+					anim_player.play("TimerClose")
+					is_closed = true
 
 func _on_reset_level():
-	print("Sliding door: Resetting")
 	# Stop animation
 	if anim_player:
 		anim_player.stop()
 
 	# Reset platform body to start position
 	platform_body.position = start_position
+	is_closed = true
 
 	# Wait one frame for physics sync
 	await get_tree().process_frame

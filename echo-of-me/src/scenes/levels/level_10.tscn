@@ -84,14 +84,13 @@ position = Vector2(0, -74)
 tile_map_data = PackedByteArray("AAAOAAQAAQAJAAAAAAAsAAQAAQAJAAAAAABKAAQAAQAJAAAAAAA=")
 
 [node name="Player" parent="LevelController" instance=ExtResource("5_lx8a3")]
-position = Vector2(162, 323)
+position = Vector2(1076, 220)
 
 [node name="Door" parent="LevelController" instance=ExtResource("6_8he6n")]
 position = Vector2(344, 98)
 rotation = -6.2831855
 scale = Vector2(-2, 2)
 collision_layer = 2
-collision_mask = 5
 need_key = false
 
 [node name="Lightrays" parent="LevelController/Door" instance=ExtResource("7_vdulf")]
