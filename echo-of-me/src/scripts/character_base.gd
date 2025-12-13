@@ -1,7 +1,5 @@
-# character_base.gd
-
-extends CharacterBody2D
 class_name CharacterBase
+extends CharacterBody2D
 
 # Constants for player movement and forces
 const SPEED := 150.0
@@ -66,9 +64,11 @@ var current_footstep_sound: String = ""
 var push_player: AudioStreamPlayer
 
 ## The current state the player is in
-var state: BasePlayerState = null
+var state: BasePlayerState = PlayerStates.IDLE
 
-func _ready():
+func _ready() -> void:
+	
+	state.enter(self)
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
 	footstep_player.bus = "reverb"
@@ -80,7 +80,17 @@ func _ready():
 	push_player.volume_db = -10.0
 	add_child(push_player)
 
+## Change the current player state and rund the correct functinos
+func change_state_to(new_state: BasePlayerState) -> void:
+	state.exit(self)
+	state = new_state
+	state.enter(self)
+
 func _physics_process(delta):
+	state.pre_update(self)
+	state.update(self, delta)
+	
+	
 	if is_dead:
 		return 
 	if "in_cutscene" in self and self.in_cutscene:

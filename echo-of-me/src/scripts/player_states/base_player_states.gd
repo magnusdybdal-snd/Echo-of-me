@@ -3,15 +3,19 @@ class_name BasePlayerState
 extends RefCounted
 
 ## Called when we first enter this state
-func enter() -> void:
+func enter(player: CharacterBase) -> void:
 	pass
 	
 
 ## Called when we exit a state
-func exit() -> void:
+func exit(player: CharacterBase) -> void:
 	pass
 	
 
+## Called before update, allows for state changes on the correct physics frame
+func pre_update(player: CharacterBase) -> void:
+	pass
+
 ## Called every physics framed when we are in this state
-func update(delta: float) -> void:
+func update(player: CharacterBase, delta: float) -> void:
 	pass
