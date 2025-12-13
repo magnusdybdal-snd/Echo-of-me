@@ -86,10 +86,17 @@ var levels := [
 		"music": "cave"
 	},
 	{
-		"name": "Level 14 - Echo Simulation",
+		"name": "Level 10 - Syncing Up",
+		"scene": "res://src/scenes/levels/level_10.tscn",
+		"max_echoes": 1,
+		"available_powerups": ["sprint", "double_jump", "dash"],
+		"music": "cave"
+	},
+	{
+		"name": "Level 11 - Echo Simulation",
 		"scene": "res://src/scenes/levels/level_14.tscn",
 		"max_echoes": 2,
-		"available_powerups": ["sprint", "double_jump", "wall_climb", "dash"],
+		"available_powerups": ["sprint", "double_jump", "dash"],
 		"music": "cave"
 	}
 ]

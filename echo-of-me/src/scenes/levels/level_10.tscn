@@ -1,0 +1,205 @@
+[gd_scene load_steps=17 format=4 uid="uid://pymr5naa61im"]
+
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_f0ame"]
+[ext_resource type="PackedScene" uid="uid://beocf8xcagmxf" path="res://src/scenes/sliding door.tscn" id="2_dttw4"]
+[ext_resource type="PackedScene" uid="uid://d0d76f4xsjmb0" path="res://src/scenes/platform.tscn" id="2_ytn6x"]
+[ext_resource type="Script" uid="uid://cnchy3s7it60o" path="res://src/scripts/platform.gd" id="3_38jbx"]
+[ext_resource type="PackedScene" uid="uid://bp6fsgwdbfw16" path="res://src/scenes/tileMapsNew.tscn" id="4_7dvm3"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="5_lx8a3"]
+[ext_resource type="PackedScene" uid="uid://cbqbmc2mid2l" path="res://src/scenes/door.tscn" id="6_8he6n"]
+[ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/door_lightrays.tscn" id="7_vdulf"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="8_42ho2"]
+[ext_resource type="PackedScene" uid="uid://blfestifyuj5q" path="res://src/scenes/button.tscn" id="9_i0fwc"]
+[ext_resource type="PackedScene" uid="uid://bgofklnojcv7v" path="res://src/scenes/button_momentary.tscn" id="10_vin3i"]
+[ext_resource type="PackedScene" uid="uid://nx2hoka7rlat" path="res://src/scenes/spikes_dynamic.tscn" id="11_tmybn"]
+[ext_resource type="PackedScene" uid="uid://cq8rrfg4xhml1" path="res://src/scenes/rigid_box.tscn" id="14_ow0jg"]
+[ext_resource type="PackedScene" uid="uid://dggv2ggdn6h77" path="res://src/scenes/killzone.tscn" id="15_pas16"]
+
+[sub_resource type="Animation" id="Animation_i0fwc"]
+resource_name = "MoveUp"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(64, 565), Vector2(64, 360)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ytn6x"]
+_data = {
+&"MoveUp": SubResource("Animation_i0fwc")
+}
+
+[node name="Level09" type="Node2D"]
+
+[node name="LevelController" parent="." instance=ExtResource("1_f0ame")]
+
+[node name="SlidingDoors" type="Node2D" parent="LevelController"]
+
+[node name="TopDoor1" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(247.99998, 304)
+rotation = -1.5707964
+
+[node name="BottomDoor1" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(352, 528)
+rotation = -1.5707964
+
+[node name="BottomDoor2" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(544, 528)
+rotation = -1.5707964
+
+[node name="LeftPitPlatform" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(688, 361)
+
+[node name="RightPitPlatform" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(976, 361)
+slide_direction = 0
+
+[node name="EndDoor" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
+position = Vector2(429, 80)
+rotation = 1.5707964
+door_type = 1
+anim_speed_scale = 0.3
+
+[node name="TileMaps" parent="LevelController" instance=ExtResource("4_7dvm3")]
+
+[node name="BackgroundWall" parent="LevelController/TileMaps" index="1"]
+tile_map_data = PackedByteArray("AAAUAAMAAAA7ACAAAAAUAAQAAAA7ACEAAAAUAAUAAAA7ACIAAAAUAAYAAAA7ACMAAAAUAAcAAAA7ACQAAAAVAAMAAAA8ACAAAAAVAAQAAAA8ACEAAAAVAAUAAAA8ACIAAAAVAAYAAAA8ACMAAAAVAAcAAAA8ACQAAAAWAAMAAAA9ACAAAAAWAAQAAAA9ACEAAAAWAAUAAAA9ACIAAAAWAAYAAAA9ACMAAAAWAAcAAAA9ACQAAAAXAAMAAAA+ACAAAAAXAAQAAAA+ACEAAAAXAAUAAAA+ACIAAAAXAAYAAAA+ACMAAAAXAAcAAAA+ACQAAAARAAMAAAA7ACAAAAARAAQAAAA7ACEAAAARAAUAAAA7ACIAAAARAAYAAAA7ACMAAAARAAcAAAA7ACQAAAASAAMAAAA8ACAAAAASAAQAAAA8ACEAAAASAAUAAAA8ACIAAAASAAYAAAA8ACMAAAASAAcAAAA8ACQAAAATAAMAAAA9ACAAAAATAAQAAAA9ACEAAAATAAUAAAA9ACIAAAATAAYAAAA9ACMAAAATAAcAAAA9ACQAAAAOAAMAAAA7ACAAAAAOAAQAAAA7ACEAAAAOAAUAAAA7ACIAAAAOAAYAAAA7ACMAAAAOAAcAAAA7ACQAAAAPAAMAAAA8ACAAAAAPAAQAAAA8ACEAAAAPAAUAAAA8ACIAAAAPAAYAAAA8ACMAAAAPAAcAAAA8ACQAAAAQAAMAAAA9ACAAAAAQAAQAAAA9ACEAAAAQAAUAAAA9ACIAAAAQAAYAAAA9ACMAAAAQAAcAAAA9ACQAAAAUAAIAAAA7ACAAAAAVAAIAAAA8ACAAAAAWAAIAAAA9ACAAAAARAAIAAAA7ACAAAAASAAIAAAA8ACAAAAATAAIAAAA9ACAAAAAOAAIAAAA7ACAAAAAPAAIAAAA8ACAAAAAQAAIAAAA9ACAAAAAXAAIAAAA+ACAAAAA=")
+
+[node name="BackgroundProps" parent="LevelController/TileMaps" index="2"]
+tile_map_data = PackedByteArray("AAAMAAoACQAHAAkAAAANAAoACQAHAAkAAAAOAAoACQAHAAkAAAAGAAoACQAHAAkAAAAFAAgACQAHAAkAADAEAAgACQAHAAkAADAKAAgACQAHAAkAADALAAgACQAHAAkAADAOAAYACQAHAAkAAFAOAAUACQAHAAkAAFATAAgACQAHAAkAAFAdAAcACQAHAAkAAFAgAAkACQAHAAkAAGAXAAMACQAHAAkAAAAYAAMACQAHAAkAAAAbAAMACQAHAAkAAAAOAA8ACQAHAAkAADAPAA8ACQAHAAkAADAUAA8ACQAHAAkAADAVAA8ACQAHAAkAADAWAA8ACQAHAAkAADAWABEACQAHAAkAAAAXABEACQAHAAkAAAAbABEACQAHAAkAAAAFABEACQAHAAkAAAAGABEACQAHAAkAAAAcABAACQAHAAoAAAAcABEACQAHAAsAAAAhAAcACQAHAAoAAAAWAAMACQAHAAoAAAA=")
+
+[node name="MiddleGround" parent="LevelController/TileMaps" index="3"]
+position = Vector2(0, 64)
+tile_map_data = PackedByteArray("AAAEAAwACQAGAAYAAGAFAAwACQAHAAYAADAGAAwACQAHAAYAADAHAAwACQAAAAAAADAIAAwACQAHAAYAADAJAAwACQAHAAYAADAKAAwACQAAAAAAADALAAwACQAHAAYAADAMAAwACQAHAAYAADANAAwACQAHAAYAADAOAAwACQAHAAYAADAPAAwACQAAAAAAADAQAAgACQAGAAcAAAAQAAkACQALAAYAAAAQAAoACQAHAAcAAAAQAAsACQAHAAcAAAAQAAwACQAHAAYAADARAAgACQAFAAgAAAARAAkACQAHAAcAAAARAAoACQAFAAgAAAARAAsACQAAAAIAAAARAAwACQAHAAYAADASAAgACQAIAAcAAAASAAkACQAKAAYAAAASAAoACQAHAAcAAAASAAsACQAHAAcAAAASAAwACQAHAAYAADATAAsACQAFAAgAAAATAAwACQAHAAYAADAUAAwACQAAAAAAADAVAAwACQAHAAYAADAWAAwACQAHAAYAADAXAAwACQAHAAYAADAYAAwACQAHAAYAADAZAAwACQAAAAAAADAaAAwACQAHAAYAADAbAAwACQAHAAYAADAcAAwACQAHAAYAADAdAAwACQAKAAYAADAeAAwACQAHAAcAAAAfAAwACQAAAAIAAAAgAAwACQAFAAgAAAAhAAwACQAHAAcAAAAiAAwACQAHAAcAAAAjAAwACQAHAAcAAAAAABAACQAHAAYAAAABABAACQAAAAAAAAACABAACQAHAAYAAAADABAACQAHAAYAAAAEAAQACQAFAAgAAAAEAAUACQAHAAYAADAEAAoACQAGAAcAAAAEAAsACQAGAAcAAAAEABAACQAHAAYAAAAFAAQACQAHAAcAAAAFAAUACQAAAAAAADAFAAoACQAHAAcAAAAFAAsACQAHAAcAAAAFABAACQAAAAAAAAAGAAQACQAHAAcAAAAGAAUACQAAAAAAADAGAAoACQAHAAcAAAAGAAsACQAAAAIAAAAGABAACQAHAAYAAAAHAAQACQAHAAcAAAAHAAUACQAHAAYAADAHAAoACQAFAAgAAAAHAAsACQAHAAcAAAAHABAACQAHAAYAAAAIAAQACQAAAAIAAAAIAAUACQAHAAYAADAIAAoACQAHAAcAAAAIAAsACQAHAAcAAAAIABAACQAAAAAAAAAJAAQACQAHAAcAAAAJAAUACQAHAAYAADAJAAoACQAAAAIAAAAJAAsACQAHAAcAAAAJABAACQAHAAYAAAAKAAQACQAHAAcAAAAKAAUACQAHAAYAADAKAAoACQAHAAcAAAAKAAsACQAAAAIAAAAKABAACQAHAAYAAAALAAQACQAHAAcAAAALAAUACQAAAAAAADALAAoACQAHAAcAAAALAAsACQAFAAgAAAALABAACQAHAAYAAAAMAAQACQAHAAcAAAAMAAUACQAHAAYAADAMAAoACQAHAAcAAAAMAAsACQAHAAcAAAAMABAACQAHAAYAAAANAAQACQAAAAMAAAANAAUACQAIAAYAAFANAAoACQAAAAIAAAANAAsACQAHAAcAAAANABAACQAHAAYAAAAOAAoACQAHAAcAAAAOAAsACQAFAAgAAAAOABAACQAAAAAAAAAPAAoACQAAAAIAAAAPAAsACQAHAAcAAAAPABAACQAHAAYAAAAQAAYACQAGAAcAAAAQAAcACQAGAAcAAAAQABAACQAHAAYAAAARAAYACQAHAAcAAAARAAcACQAAAAIAAAARABAACQAHAAYAAAASAAYACQAIAAcAAAASAAcACQAIAAcAAAASABAACQAHAAYAAAATABAACQAHAAYAAAAUABAACQAAAAAAAAAVABAACQAHAAYAAAAWABAACQAHAAYAAAAXABAACQAHAAYAAAAYABAACQAAAAAAAAAZABAACQAAAAAAAAAaABAACQAHAAYAAAAbABAACQAHAAYAAAAcABAACQAHAAYAAAAdABAACQAKAAYAAGAeABAACQAHAAcAAAAfABAACQAFAAgAAAAgABAACQAHAAcAAAAhABAACQAHAAcAAAAiABAACQAHAAcAAAAjABAACQAHAAcAAAAAABEACQAHAAcAAAABABEACQAHAAcAAAACABEACQAHAAcAAAADABEACQAHAAcAAAAEABEACQAHAAcAAAAFABEACQAHAAcAAAAGABEACQAHAAcAAAAHABEACQAHAAcAAAAIABEACQAHAAcAAAAJABEACQAHAAcAAAAKABEACQAHAAcAAAALABEACQAHAAcAAAAMABEACQAHAAcAAAANABEACQAHAAcAAAAOABEACQAHAAcAAAAPABEACQAHAAcAAAAQABEACQAHAAcAAAARABEACQAHAAcAAAASABEACQAHAAcAAAATABEACQAHAAcAAAAUABEACQAHAAcAAAAVABEACQAHAAcAAAAWABEACQAHAAcAAAAXABEACQAHAAcAAAAYABEACQAHAAcAAAAZABEACQAHAAcAAAAaABEACQAHAAcAAAAbABEACQAHAAcAAAAcABEACQAHAAcAAAAdABEACQAHAAcAAAAeABEACQAHAAcAAAAfABEACQAHAAcAAAAgABEACQAHAAcAAAAhABEACQAHAAcAAAAiABEACQAHAAcAAAAjABEACQAHAAcAAAAEAAIACQAHAAcAAAAEAAMACQAHAAcAAAAFAAIACQAHAAcAAAAFAAMACQAHAAcAAAAGAAIACQAAAAIAAAAGAAMACQAHAAcAAAAHAAIACQAKAAYAAAAHAAMACQAHAAcAAAAIAAIACQAHAAYAAAAIAAMACQAHAAcAAAAJAAIACQAHAAYAAAAJAAMACQAHAAcAAAAKAAIACQAHAAYAAAAKAAMACQAFAAgAAAALAAIACQAHAAYAAAALAAMACQAHAAcAAAAMAAIACQAHAAYAAAAMAAMACQAHAAcAAAANAAIACQAIAAYAAAANAAMACQAIAAcAAAAEAAkACQAGAAYAAAAFAAkACQAHAAYAAAAGAAkACQAAAAAAAAAHAAkACQAHAAYAAAAIAAkACQAHAAYAAAAJAAkACQAAAAAAAAAKAAkACQAHAAYAAAALAAkACQAHAAYAAAAMAAkACQAHAAYAAAANAAkACQAAAAAAAAAOAAkACQAAAAAAAAAPAAkACQAHAAYAAAAQAAUACQAGAAYAAAARAAUACQAHAAYAAAASAAUACQAIAAYAAAATAAkACQAHAAYAAAATAAoACQAHAAcAAAAWAAsACQAHAAcAAAAXAAUACQAHAAcAAAAXAAYACQAHAAYAADAXAAsACQAHAAcAAAAYAAUACQAHAAcAAAAYAAYACQAHAAYAADAYAAsACQAHAAcAAAAZAAUACQAAAAIAAAAZAAYACQAHAAYAADAZAAsACQAAAAIAAAAaAAUACQAFAAgAAAAaAAYACQAHAAYAADAaAAsACQAAAAIAAAAbAAUACQAHAAcAAAAbAAYACQAHAAYAADAbAAsACQAHAAcAAAAcAAUACQAAAAMAAAAcAAYACQAIAAYAAFAcAAsACQAHAAcAAAAdAAkACQAGAAYAAAAdAAoACQALAAYAAAAdAAsACQAHAAcAAAAeAAkACQAAAAAAAAAeAAoACQAHAAcAAAAeAAsACQAFAAgAAAAfAAkACQAHAAYAAAAfAAoACQAHAAcAAAAfAAsACQAHAAcAAAAgAAsACQAHAAcAAAAhAAsACQAHAAcAAAAiAAsACQAAAAIAAAAjAAsACQAHAAcAAAAWAAkACQAIAAYAAAAWAAoACQALAAYAAFAgAAkACQAHAAYAAAAgAAoACQAHAAcAAAAhAAkACQALAAYAAAAhAAoACQAFAAgAAAAUAAkACQAHAAYAAAAUAAoACQAFAAgAAAAVAAoACQAAAAIAAAAVAAsACQAHAAcAAAAUAAsACQAHAAcAAAAVAAkACQAHAAYAAAAVAAUACQAAAAEAAAAVAAYACQAIAAYAADAWAAUACQAHAAcAAAAWAAYACQAHAAYAADAhAAcACQAGAAcAAAAhAAgACQAAAAEAAAAiAAcACQAHAAcAAAAiAAgACQAHAAcAAAAiAAkACQAHAAcAAAAiAAoACQAHAAcAAAAjAAcACQAHAAcAAAAjAAgACQAHAAcAAAAjAAkACQAAAAIAAAAjAAoACQAHAAcAAAAVAAQACQAGAAcAAAAWAAQACQAHAAcAAAAXAAQACQAFAAgAAAAYAAQACQAAAAIAAAAZAAQACQAHAAcAAAAaAAQACQAHAAcAAAAbAAQACQAHAAcAAAAcAAQACQAAAAMAAAAhAAYACQAGAAYAAAAiAAYACQAAAAAAAAAjAAYACQAHAAYAAAAEAP7/CQAHAAcAAAAEAP//CQAHAAcAAAAEAAAACQAHAAcAAAAEAAEACQAAAAIAAAAFAP7/CQAHAAcAAAAFAP//CQAHAAcAAAAFAAAACQAHAAcAAAAFAAEACQAFAAgAAAAGAP7/CQAHAAcAAAAGAP//CQAHAAcAAAAGAAAACQAHAAcAAAAGAAEACQAHAAcAAAAHAP7/CQAHAAcAAAAHAP//CQAKAAYAAFAHAAAACQAIAAcAAAAHAAEACQAIAAcAAAD///7/CQAHAAcAAAD/////CQAHAAcAAAD//wAACQAHAAcAAAD//wEACQAHAAcAAAD//wIACQAHAAcAAAD//wMACQAHAAcAAAAAAP7/CQAHAAcAAAAAAP//CQAHAAcAAAAAAAAACQAHAAcAAAAAAAEACQAAAAIAAAAAAAIACQAHAAcAAAAAAAMACQAAAAIAAAABAP7/CQAHAAcAAAABAP//CQAHAAcAAAABAAAACQAHAAcAAAABAAEACQAFAAgAAAABAAIACQAHAAcAAAABAAMACQAHAAcAAAACAP7/CQAHAAcAAAACAP//CQAHAAcAAAACAAAACQAHAAcAAAACAAEACQAHAAcAAAACAAIACQAFAAgAAAACAAMACQAAAAIAAAADAP7/CQAHAAcAAAADAP//CQAHAAcAAAADAAAACQAFAAgAAAADAAEACQAHAAcAAAADAAIACQAHAAcAAAADAAMACQAHAAcAAAD//wQACQAHAAcAAAD//wUACQAHAAcAAAAAAAQACQAHAAcAAAAAAAUACQAHAAYAADABAAQACQAHAAcAAAABAAUACQAAAAAAADACAAQACQAHAAcAAAACAAUACQAHAAYAADADAAQACQAHAAcAAAADAAUACQAHAAYAADAIAP7/CQAHAAcAAAAJAP7/CQAHAAcAAAAKAP7/CQAHAAcAAAALAP7/CQALAAUAAGAMAP7/CQAAAAQAAAANAP7/CQAHAAgAAAAOAP7/CQAHAAgAAAAPAP7/CQAHAAgAAAAQAP7/CQAAAAQAAAARAP7/CQAHAAgAAAASAP7/CQAHAAgAAAATAP7/CQAHAAgAAAAUAP7/CQAAAAQAAAAVAAIACQAGAAYAAAAVAAMACQAAAAEAAAAWAAIACQAHAAYAAAAWAAMACQAAAAIAAAAXAAIACQAAAAAAAAAXAAMACQAHAAcAAAAYAAMACQAHAAcAAAAZAAMACQAHAAcAAAAaAAMACQAFAAgAAAAVAP7/CQAHAAgAAAAWAP7/CQAHAAgAAAAXAP7/CQAAAAQAAAAYAP7/CQAHAAgAAAAZAP7/CQAAAAQAAAAaAP7/CQAHAAgAAAAbAP7/CQAAAAQAAAAcAP7/CQAHAAgAAAAdAP7/CQAHAAgAAAAeAP7/CQAAAAQAAAAkAP7/CQAHAAcAAAAkAP//CQAHAAcAAAAkAAAACQAHAAcAAAAkAAEACQAHAAcAAAAkAAIACQAHAAcAAAAkAAMACQAHAAcAAAAkAAQACQAHAAcAAAAkAAUACQAHAAcAAAAkAAYACQAHAAcAAAAfAP7/CQAHAAgAAAAgAP7/CQAHAAgAAAAhAP7/CQAHAAgAAAAiAP7/CQALAAUAAAAjAP7/CQAHAAcAAAAiAP//CQAGAAcAAAAiAAAACQAGAAgAAAAjAP//CQAHAAcAAAAjAAAACQAHAAgAAAAXAAoACQAHAAYAAAAYAAoACQAHAAYAAAAZAAoACQAHAAYAAAAaAAoACQAHAAYAAAAbAAoACQAHAAYAAAAcAAoACQAHAAYAAAAYAAIACQAHAAYAAAAZAAIACQAAAAAAAAAaAAIACQAAAAAAAAAbAAIACQAHAAYAAAAbAAMACQAAAAIAAAAcAAIACQAIAAYAAAAcAAMACQAIAAcAAAAfAAQACQAJAAYAAFAeAAQACQAJAAYAAGD//wYACQAHAAcAAAD//wcACQAHAAcAAAD//wgACQAHAAcAAAD//wkACQAHAAcAAAD//woACQAHAAcAAAD//wsACQAHAAcAAAD//wwACQAHAAcAAAD//w0ACQAHAAcAAAD//w4ACQAHAAcAAAD//w8ACQAHAAcAAAAdAA0ACQAAAAEAAAAeAA0ACQAHAAcAAAAeAA4ACQAHAAcAAAAfAA4ACQAHAAcAAAAgAA4ACQAFAAgAAAAhAA4ACQAHAAcAAAAhAA8ACQAHAAcAAAAiAA8ACQAFAAgAAAAjAA8ACQAAAAIAAAAjAA4ACQAHAAcAAAAjAA0ACQAHAAcAAAAiAA4ACQAHAAcAAAAiAA0ACQAFAAgAAAAhAA0ACQAHAAcAAAAgAA0ACQAHAAcAAAAfAA0ACQAAAAIAAAAdAA4ACQAGAAcAAAAdAA8ACQAGAAcAAAAeAA8ACQAHAAcAAAAfAA8ACQAAAAIAAAAgAA8ACQAHAAcAAAAPAAIALwAJAAAAAAAQAAIALwAJAAAAAAARAAIALwAJAAAAAAASAAIALwAJAAAAAAATAAIALwAJAAAAAAAUAAIALwAKAAAAAAAOAAIALwAIAAAAAAAUAA8ACQALAAsAAAAUAAMACQALAAsAAGAhAAAACQALAAsAAGAfAAgACQAJAAsAAAAfAAMACQAJAAsAAAAOAA0ACQAJAAsAADADAAoACQAJAAsAAGACAAYACQAKAAsAADATAAYACQAKAAsAAFANAAgACQALAAoAADAGAA0ACQALAAoAAAAZAAEACQALAAoAADAOAAQACQAJAAoAAGAJAAEACQAJAAoAADAbAA8ACQAJAAoAADAVAAgACQALAAkAAAAGAAgACQALAAkAAAAcAA0ACQAKAAkAAGAAAA8ACQAKAAkAAAAbAAEACQAJAAkAAAALAP//CQAIAAYAAFAKAP//CQAHAAYAADAJAP//CQAHAAYAADAIAP//CQAHAAYAADA=")
+
+[node name="Foreground" parent="LevelController/TileMaps" index="4"]
+position = Vector2(0, -74)
+tile_map_data = PackedByteArray("AAAOAAQAAQAJAAAAAAAsAAQAAQAJAAAAAABKAAQAAQAJAAAAAAA=")
+
+[node name="Player" parent="LevelController" instance=ExtResource("5_lx8a3")]
+position = Vector2(1076, 220)
+
+[node name="Door" parent="LevelController" instance=ExtResource("6_8he6n")]
+position = Vector2(344, 98)
+rotation = -6.2831855
+scale = Vector2(-2, 2)
+collision_layer = 2
+need_key = false
+
+[node name="Lightrays" parent="LevelController/Door" instance=ExtResource("7_vdulf")]
+position = Vector2(-14.5, -1.4999961)
+
+[node name="level_end" parent="LevelController" instance=ExtResource("8_42ho2")]
+position = Vector2(265, 78)
+scale = Vector2(4, 5)
+
+[node name="Buttons" type="Node2D" parent="LevelController"]
+position = Vector2(0, -1)
+
+[node name="TopButton1" parent="LevelController/Buttons" instance=ExtResource("10_vin3i")]
+position = Vector2(352, 345)
+
+[node name="BottomButton1" parent="LevelController/Buttons" instance=ExtResource("10_vin3i")]
+position = Vector2(256, 569)
+
+[node name="BottomButton3" parent="LevelController/Buttons" instance=ExtResource("10_vin3i")]
+position = Vector2(832, 570)
+
+[node name="TopButton2" parent="LevelController/Buttons" instance=ExtResource("10_vin3i")]
+position = Vector2(559, 218)
+
+[node name="TopButton3" parent="LevelController/Buttons" instance=ExtResource("10_vin3i")]
+position = Vector2(1119, 250)
+
+[node name="BottomButton2" parent="LevelController/Buttons" instance=ExtResource("9_i0fwc")]
+position = Vector2(501, 570)
+
+[node name="Spikes" type="Node2D" parent="LevelController"]
+
+[node name="spikes_dynamic" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(752, 368)
+
+[node name="spikes_dynamic2" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(784, 368)
+
+[node name="spikes_dynamic3" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(816, 368)
+
+[node name="spikes_dynamic4" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(848, 368)
+
+[node name="spikes_dynamic5" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(880, 368)
+
+[node name="spikes_dynamic6" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(912, 368)
+
+[node name="spikes_dynamic7" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(752, 304)
+rotation = 3.1415927
+
+[node name="spikes_dynamic8" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(784, 304)
+rotation = 3.1415927
+
+[node name="spikes_dynamic9" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(816, 304)
+rotation = 3.1415927
+
+[node name="spikes_dynamic10" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(848, 304)
+rotation = 3.1415927
+
+[node name="spikes_dynamic11" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(880, 304)
+rotation = 3.1415927
+
+[node name="spikes_dynamic12" parent="LevelController/Spikes" instance=ExtResource("11_tmybn")]
+position = Vector2(912, 304)
+rotation = 3.1415927
+
+[node name="RigidBox" parent="LevelController" instance=ExtResource("14_ow0jg")]
+position = Vector2(-100, 51)
+
+[node name="Killzone" parent="LevelController" instance=ExtResource("15_pas16")]
+position = Vector2(602, 782)
+
+[node name="RigidBox2" parent="LevelController" instance=ExtResource("14_ow0jg")]
+position = Vector2(418, 558)
+
+[node name="PlatformUpAndDown" parent="LevelController" instance=ExtResource("2_ytn6x")]
+position = Vector2(64, 565)
+script = ExtResource("3_38jbx")
+type = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController/PlatformUpAndDown"]
+libraries = {
+&"": SubResource("AnimationLibrary_ytn6x")
+}
+
+[connection signal="pressed" from="LevelController/Buttons/TopButton1" to="LevelController/SlidingDoors/BottomDoor1" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/Buttons/TopButton1" to="LevelController/SlidingDoors/BottomDoor1" method="_on_button_released"]
+[connection signal="pressed" from="LevelController/Buttons/BottomButton1" to="LevelController/SlidingDoors/TopDoor1" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/Buttons/BottomButton1" to="LevelController/SlidingDoors/TopDoor1" method="_on_button_released"]
+[connection signal="pressed" from="LevelController/Buttons/BottomButton3" to="LevelController/SlidingDoors/LeftPitPlatform" method="_on_button_pressed"]
+[connection signal="pressed" from="LevelController/Buttons/BottomButton3" to="LevelController/SlidingDoors/RightPitPlatform" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/Buttons/BottomButton3" to="LevelController/SlidingDoors/LeftPitPlatform" method="_on_button_released"]
+[connection signal="released" from="LevelController/Buttons/BottomButton3" to="LevelController/SlidingDoors/RightPitPlatform" method="_on_button_released"]
+[connection signal="pressed" from="LevelController/Buttons/TopButton2" to="LevelController/SlidingDoors/BottomDoor2" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/Buttons/TopButton2" to="LevelController/SlidingDoors/BottomDoor2" method="_on_button_released"]
+[connection signal="pressed" from="LevelController/Buttons/TopButton3" to="LevelController/SlidingDoors/EndDoor" method="_on_button_pressed"]
+[connection signal="released" from="LevelController/Buttons/TopButton3" to="LevelController/SlidingDoors/EndDoor" method="_on_button_released"]
+[connection signal="pressed" from="LevelController/Buttons/BottomButton2" to="LevelController/PlatformUpAndDown" method="_on_button_pressed"]
+[connection signal="body_entered" from="LevelController/Killzone" to="LevelController/Killzone" method="_on_body_entered"]
+
+[editable path="LevelController/SlidingDoors/TopDoor1"]
+[editable path="LevelController/SlidingDoors/BottomDoor1"]
+[editable path="LevelController/SlidingDoors/BottomDoor2"]
+[editable path="LevelController/TileMaps"]

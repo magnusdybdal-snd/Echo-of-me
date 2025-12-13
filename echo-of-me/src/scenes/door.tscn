@@ -34,6 +34,7 @@ animations = [{
 size = Vector2(29, 30)
 
 [node name="Door" type="StaticBody2D"]
+collision_mask = 5
 script = ExtResource("1_qkrcv")
 
 [node name="CollisionAreaShape_top" type="CollisionShape2D" parent="."]
