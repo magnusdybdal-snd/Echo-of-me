@@ -256,13 +256,10 @@ func update_animation(direction: float) -> void:
 			# Animations when not carrying a box
 			else:
 				if direction == 0:
-					animated_sprite.play("idle")
 					stop_footsteps()
 				elif can_sprint and is_sprinting:
-					animated_sprite.play("run")
 					play_footsteps("run")
 				else:
-					animated_sprite.play("walk")
 					play_footsteps("walk")
 	else:
 		# IN AIR ANIMATIONS
@@ -481,3 +478,6 @@ func play_push_sound():
 func stop_push_sound():
 	if push_player != null and push_player.playing:
 		push_player.stop()
+
+func get_movement_direction() -> void:
+	pass
