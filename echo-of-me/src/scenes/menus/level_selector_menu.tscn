@@ -325,3 +325,110 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
 text = "0"
 script = ExtResource("3_a4y26")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="12" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="13" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="14" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="15" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="16" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
+
+[node name="17" type="Button" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7m11")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_js0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_csrom")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yxunk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yxunk")
+text = "0"
+script = ExtResource("3_a4y26")
