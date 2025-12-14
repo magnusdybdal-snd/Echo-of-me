@@ -23,9 +23,6 @@ func _physics_process(delta: float) -> void:
 	# Only record if echo mechanic is unlocked
 	is_recording = GameManager.can_use_echoes()
 	
-	# Check sprint input
-	#is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()		
-
 	# Echo recording system
 	if is_recording:
 		record_input()
@@ -46,6 +43,7 @@ func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
 	is_dead = false
+	has_used_dash = false
 
 	clear_recording()
 	change_state_to(PlayerStates.IDLE)
@@ -67,6 +65,9 @@ func record_input() -> void:
 func clear_recording():
 	recording.clear()
 	frame_index = 0
+
+func set_animation(anim_name: String):
+	animated_sprite.play(anim_name)
 	
 func start_cutscene():
 	in_cutscene = true

@@ -11,14 +11,14 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	if frame_index < recorded_inputs.size():
-		# Physics handled in super class
 		frame_index += 1
 	else:
-		# Finished playback
-		if carried_box != null:
+		# Finished playback go to idle state
+		if carried_box != null and state != PlayerStates.IDLE_CARRY:
 			change_state_to(PlayerStates.IDLE_CARRY)
-		else:
+		elif carried_box == null and state != PlayerStates.IDLE:
 			change_state_to(PlayerStates.IDLE)
+	# Apply physics, handled in super class
 	super._physics_process(delta)
 
 
