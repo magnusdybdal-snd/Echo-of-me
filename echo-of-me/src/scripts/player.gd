@@ -54,7 +54,6 @@ func record_input() -> void:
 		"frame": frame_index,
 		"direction": Input.get_axis("move_left", "move_right"),
 		"jump": Input.is_action_just_pressed("jump"),
-		"double_jump": Input.is_action_just_pressed("jump") and not used_double_jump,
 		"sprint": Input.is_action_pressed("sprint"),
 		"pick_up": Input.is_action_just_pressed("pick_up"),
 		"dash": Input.is_action_just_pressed("dash")

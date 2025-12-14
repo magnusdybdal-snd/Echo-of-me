@@ -6,6 +6,9 @@ const CARRY_SPEED := 130.0
 
 func enter(player: CharacterBase) -> void:
 	player.velocity.y = CARRY_JUMP_VELOCITY
+	# Consume coyote time if jumping during it
+	if player.cyote_time_remaining > 0:
+		player.cyote_time_remaining = 0.0
 	player.animated_sprite.play("jump_carry_box")
 	AudioPlayer.play_sfx("jump")
 	player.target_speed = CARRY_SPEED

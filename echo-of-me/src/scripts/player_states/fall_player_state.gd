@@ -8,16 +8,17 @@ func enter(player: CharacterBase) -> void:
 func exit(player: CharacterBase) -> void:
 	pass
 
-
 func pre_update(player: CharacterBase) -> void:
+	var can_dash = not player.has_used_dash and player.can_dash
 	if player.is_on_floor():
 		player.change_state_to(PlayerStates.LANDING)
 		return
 	
-	if player.is_action_just_pressed_virtual("dash") and not player.has_used_dash:
+	if player.is_action_just_pressed_virtual("dash") and can_dash:
 		player.change_state_to(PlayerStates.DASH)
 		return
-		
+
+	# Only handle double jump in FALL (coyote time handled in WALK/RUN)
 	if player.is_action_just_pressed_virtual("jump") and player.can_double_jump and not player.used_double_jump:
 		player.change_state_to(PlayerStates.JUMP)
 

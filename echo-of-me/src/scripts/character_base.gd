@@ -4,50 +4,31 @@ extends CharacterBody2D
 # Constants for player movement and forces
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
-const AIR_RESISTANCE := 400
-const BOX_PUSH_SPEED := 300.0
+const AIR_RESISTANCE := 400.0
 const SPEED := 150.0
+const BOX_PUSH_SPEED := 300.0
+const CYOTEE_GRACE_TIME := 0.5
 
-# Wall climb constants
-const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
-const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
-const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
+# Speed the player should move at. Updated by states
+var target_speed := 0.0
 
-# Used to control animations
-#var is_sprinting := false
 var is_dead := false
-var anim_lock := false
-var is_dashing := false
 var has_used_dash := false
-
-var is_echo := false
+var used_double_jump := false
+var cyote_time_remaining := 0.0
 
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
-var can_wall_climb := false
-var used_double_jump := false
 var can_dash := false
-var target_speed := 0.0
-
-# Wall jump coyote time
-var wall_jump_timer := 0.0
-var last_wall_normal := Vector2.ZERO
-
-# Dash timer
-var dash_timer := 0.0
 
 # Tracks boxes to pick up or apply push force to
 var nearby_boxes: Array = []
 var pick_up_target: RigidBody2D = null
 var carried_box: RigidBody2D = null
-
-var facing_direction := 1.0 # -1.0 left, 1.0 right
+var facing_direction := 1.0 # -1.0 left, 1.0 right used to place down boxes
 
 @onready var animated_sprite = %AnimatedSprite2D
-
-# Audio is now managed by AudioPlayer singleton
-# (Old audio nodes in player.tscn can be removed)
 
 # Footstep audio player (persistent for looping)
 var footstep_player: AudioStreamPlayer
@@ -61,7 +42,9 @@ var state: BasePlayerState = PlayerStates.IDLE
 
 func _ready() -> void:
 	
+	check_powerups()
 	state.enter(self)
+	
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
 	footstep_player.bus = "reverb"
@@ -80,19 +63,16 @@ func change_state_to(new_state: BasePlayerState) -> void:
 	state.enter(self)
 
 func _physics_process(delta):
-	state.pre_update(self)
-	state.update(self, delta)
-	
-	
 	if is_dead:
 		return 
+		
 	if "in_cutscene" in self and self.in_cutscene:
 		move_and_slide()  # Still allow AnimationPlayer to move the character
 		return
-
-	check_powerups()
-	update_wall_jump_timer(delta)
-	update_dash_timer(delta)
+	
+	state.pre_update(self)
+	state.update(self, delta)
+	
 	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()
@@ -101,38 +81,7 @@ func _physics_process(delta):
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
-	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
 	can_dash = GameManager.has_powerup("dash") and carried_box == null
-
-# Updates wall jump grace timer
-func update_wall_jump_timer(delta: float) -> void:
-	if is_on_wall_only() and can_wall_climb:
-		# Resets the timer if we are on the wall
-		wall_jump_timer = WALL_JUMP_GRACE_TIME
-		# Get the normal of the wall we are colliding with
-		var wall_col := get_slide_collision(0) if get_slide_collision_count() > 0 else null
-		if wall_col:
-			last_wall_normal = wall_col.get_normal()
-	# Just left the wall, start counting down the grace timer
-	elif wall_jump_timer > 0:
-		wall_jump_timer -= delta
-
-# Updates dash timer and resets dash flags
-func update_dash_timer(delta: float) -> void:
-	# Reset dash availability when touching ground
-	if is_on_floor():
-		has_used_dash = false
-
-	# Count down dash duration
-	if dash_timer > 0:
-		dash_timer -= delta
-		if dash_timer <= 0:
-			is_dashing = false
-	
-# Check if player can wall jump -> Is on wall OR within wall jump grace period
-func can_wall_jump() -> bool:
-	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0) and !carried_box
-	
 
 # Acceleration based movement system
 func apply_movement(delta: float) -> void:
@@ -181,9 +130,8 @@ func is_pushing_box(direction: float) -> bool:
 			
 	return false
 
+# Flips sprite based on the direction the character is facing
 func update_animation(direction: float) -> void:
-
-	# Flips sprite based on the direction the character is facing
 	if direction > 0:
 		animated_sprite.flip_h = false
 		facing_direction = 1.0
@@ -191,9 +139,7 @@ func update_animation(direction: float) -> void:
 		animated_sprite.flip_h = true
 		facing_direction = -1.0
 
-# Sets flags for animation control and plays jump animation
 
-				
 func push_boxes() -> void:
 	var direction = get_direction()
 	
@@ -215,9 +161,6 @@ func push_boxes() -> void:
 				box.set_target_velocity(velocity.x)
 			else:
 				box.linear_velocity.x = velocity.x
-				
-func handle_box_interraction():
-	pass
 						
 # Function that finds the nearest box to the player
 func find_nearest_box() -> RigidBody2D:
@@ -333,10 +276,10 @@ func get_speed() -> float:
 	
 ## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
 ## In the state machine while differentiating between pressing the button and reading a recording
-func is_action_pressed_virtual(action: String) -> bool:
+func is_action_pressed_virtual(_action: String) -> bool:
 	return false
 
 ## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
 ## In the state machine while differentiating between pressing the button and reading a recording
-func is_action_just_pressed_virtual(action: String) -> bool:
+func is_action_just_pressed_virtual(_action: String) -> bool:
 	return false

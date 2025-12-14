@@ -5,11 +5,12 @@ const SPEED := 150.0
 const RUN_SPEED := 210.0
 
 func enter(player: CharacterBase) -> void:
-	player.animated_sprite.play("landing")
 	AudioPlayer.play_sfx("landing")
+	player.animated_sprite.play("landing")
 	# Reset the dash and double jump flag when we land
 	player.has_used_dash = false
 	player.used_double_jump = false
+	player.cyote_time_remaining = player.CYOTEE_GRACE_TIME
 
 func exit(player: CharacterBase) -> void:
 	pass
@@ -17,7 +18,7 @@ func exit(player: CharacterBase) -> void:
 func pre_update(player: CharacterBase) -> void:
 	# Set speed based on if we are running or walking, but continue playing
 	# landing animation
-	if player.is_action_pressed_virtual("sprint"):
+	if player.is_action_pressed_virtual("sprint") and player.can_sprint:
 		player.target_speed = RUN_SPEED
 	else:
 		player.target_speed = SPEED
@@ -37,6 +38,19 @@ func pre_update(player: CharacterBase) -> void:
 		else:
 			player.change_state_to(PlayerStates.WALK)
 
+	# Start coyote time when leaving ground, only fall when it expires
+	if not player.is_on_floor():
+		if player.cyote_time_remaining <= 0 and player.velocity.y > 0:
+			player.change_state_to(PlayerStates.FALL)
+
 
 func update(player: CharacterBase, delta: float) -> void:
 	player.velocity += player.get_gravity() * delta
+
+	# Count down coyote time when not on floor
+	if not player.is_on_floor():
+		if player.cyote_time_remaining > 0:
+			player.cyote_time_remaining -= delta
+	else:
+		# Reset coyote time when on floor
+		player.cyote_time_remaining = player.CYOTEE_GRACE_TIME

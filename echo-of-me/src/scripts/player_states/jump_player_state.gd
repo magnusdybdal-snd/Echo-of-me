@@ -5,8 +5,10 @@ const JUMP_VELOCITY := -370.0
 const SECOND_JUMP_VELOCITY := -270
 
 func enter(player: CharacterBase) -> void:
-	if player.is_on_floor():
+	# If we still have coyote time, treat as ground jump
+	if player.is_on_floor() or player.cyote_time_remaining > 0:
 		player.velocity.y = JUMP_VELOCITY
+		player.cyote_time_remaining = 0.0  # Consume coyote time
 	else:
 		player.velocity.y = SECOND_JUMP_VELOCITY
 		player.used_double_jump = true
@@ -19,10 +21,11 @@ func exit(player: CharacterBase) -> void:
 
 
 func pre_update(player: CharacterBase) -> void:
+	var can_dash = not player.has_used_dash and player.can_dash
 	if player.velocity.y > 0:
 		player.change_state_to(PlayerStates.FALL)
 
-	if player.is_action_just_pressed_virtual("dash") and not player.has_used_dash:
+	if player.is_action_just_pressed_virtual("dash") and can_dash:
 		player.change_state_to(PlayerStates.DASH)
 		return
 		
