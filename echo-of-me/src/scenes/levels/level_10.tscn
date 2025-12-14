@@ -55,10 +55,10 @@ position = Vector2(544, 528)
 rotation = -1.5707964
 
 [node name="LeftPitPlatform" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
-position = Vector2(688, 361)
+position = Vector2(688, 360)
 
 [node name="RightPitPlatform" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]
-position = Vector2(976, 361)
+position = Vector2(976, 360)
 slide_direction = 0
 
 [node name="EndDoor" parent="LevelController/SlidingDoors" instance=ExtResource("2_dttw4")]

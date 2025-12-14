@@ -33,6 +33,7 @@ func reset_playback():
 	velocity = Vector2.ZERO
 	used_double_jump = false
 	has_used_dash = false
+	change_state_to(PlayerStates.IDLE)
 
 func set_animation(anim_name: String):
 	animated_sprite.play(anim_name)

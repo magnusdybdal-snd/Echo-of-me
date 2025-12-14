@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://ptpkv1hgs8dq"]
+[gd_scene load_steps=35 format=4 uid="uid://ptpkv1hgs8dq"]
 
 [ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/controllers_managers/level_controller.tscn" id="1_dgkac"]
 [ext_resource type="PackedScene" uid="uid://nocignd5huwf" path="res://src/scenes/styling/tileMaps.tscn" id="2_gmrdx"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://c70iuqis64jdr" path="res://src/scenes/level_items/door_lightrays.tscn" id="20_l28vi"]
 [ext_resource type="PackedScene" uid="uid://7yvjftaq4tc3" path="res://src/scenes/styling/torch.tscn" id="21_hegmi"]
 [ext_resource type="PackedScene" uid="uid://nx2hoka7rlat" path="res://src/scenes/level_items/spikes_dynamic.tscn" id="22_svt8x"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/zones/level_end.tscn" id="23_gmrdx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i4b14"]
 texture = ExtResource("7_7g88h")
@@ -743,6 +744,10 @@ rotation = -1.5708883
 [node name="spikes_dynamic2" parent="LevelController/SpikeTraps" instance=ExtResource("22_svt8x")]
 position = Vector2(720, 560)
 rotation = -1.5708883
+
+[node name="level_end" parent="LevelController" instance=ExtResource("23_gmrdx")]
+position = Vector2(1081, 429)
+scale = Vector2(4, 5)
 
 [connection signal="pressed" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_pressed"]
 [connection signal="released" from="LevelController/button_momentary" to="LevelController/Platform" method="_on_button_released"]

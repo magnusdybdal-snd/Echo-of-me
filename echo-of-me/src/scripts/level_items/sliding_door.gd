@@ -16,7 +16,10 @@ var is_closed: bool = true
 func _ready():
 	# Store the starting position of the platform body (should be 0,0 relative to parent)
 	start_position = platform_body.position
-	
+
+	# Enable sync_to_physics so collision moves smoothly with animation
+	platform_body.sync_to_physics = true
+
 	# Sets the animation speed scale of the door
 	if anim_player:
 		anim_player.speed_scale = anim_speed_scale

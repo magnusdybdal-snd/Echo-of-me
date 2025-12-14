@@ -16,7 +16,7 @@ func pre_update(player: CharacterBase) -> void:
 		player.change_state_to(PlayerStates.RUN)
 	if player.is_action_just_pressed_virtual("jump"):
 		player.change_state_to(PlayerStates.JUMP)
-	if player.velocity.x == 0:
+	if player.get_direction() == 0:
 		player.change_state_to(PlayerStates.IDLE)
 
 	# Start coyote time when leaving ground, only fall when it expires

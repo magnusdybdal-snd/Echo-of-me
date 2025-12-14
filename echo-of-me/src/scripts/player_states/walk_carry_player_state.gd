@@ -15,7 +15,7 @@ func exit(player: CharacterBase) -> void:
 func pre_update(player: CharacterBase) -> void:
 	if player.is_action_just_pressed_virtual("jump"):
 		player.change_state_to(PlayerStates.JUMP_CARRY)
-	if player.velocity.x == 0:
+	if player.get_direction() == 0:
 		player.change_state_to(PlayerStates.IDLE_CARRY)
 	
 	if player.get_direction() != 0 and player.is_action_just_pressed_virtual("pick_up"):

@@ -20,6 +20,9 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Disable state machine for echo player (it's just for visual effect)
 	echo_player.disable_state_machine = true
+	# Disable collision on echo player (it's just for visual display)
+	echo_player.collision_layer = 0
+	echo_player.collision_mask = 0
 	# Hide echo player initially
 	echo_player.visible = false
 
