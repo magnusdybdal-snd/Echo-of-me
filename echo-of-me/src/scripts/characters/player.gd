@@ -44,6 +44,7 @@ func reset_player():
 	velocity = Vector2.ZERO
 	is_dead = false
 	has_used_dash = false
+	used_double_jump = false
 
 	clear_recording()
 	change_state_to(PlayerStates.IDLE)
@@ -71,11 +72,10 @@ func set_animation(anim_name: String):
 func start_cutscene():
 	in_cutscene = true
 	velocity = Vector2.ZERO 
-	print("Start of cutscene")
 	
 func end_cutscene():
 	in_cutscene = false
-	print("end cutscene")
+	spawn_position = global_position
 	
 func is_action_pressed_virtual(action: String) -> bool:
 	return Input.is_action_pressed(action)

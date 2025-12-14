@@ -7,7 +7,7 @@ const FRICTION := 2000.0
 const AIR_RESISTANCE := 400.0
 const SPEED := 150.0
 const BOX_PUSH_SPEED := 300.0
-const CYOTEE_GRACE_TIME := 0.75
+const CYOTEE_GRACE_TIME := 0.2
 
 # Speed the player should move at. Updated by states
 var target_speed := 0.0
