@@ -18,7 +18,7 @@ func exit(player: CharacterBase) -> void:
 func pre_update(player: CharacterBase) -> void:
 	if player.velocity.y > 0:
 		player.change_state_to(PlayerStates.FALL_CARRY)
-	if player.get_direction() != 0 and Input.is_action_just_pressed("pick_up"):
+	if player.get_direction() != 0 and player.is_action_just_pressed_virtual("pick_up"):
 		player.change_state_to(PlayerStates.THROW)
 
 

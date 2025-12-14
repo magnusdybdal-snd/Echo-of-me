@@ -22,8 +22,9 @@ func exit(player: CharacterBase) -> void:
 
 
 func pre_update(player: CharacterBase) -> void:
+	# Change state to carry state immidiatly after picking up box
 	player.change_state_to(PlayerStates.IDLE_CARRY)
 
 
 func update(player: CharacterBase, delta: float) -> void:
-	pass
+	player.velocity += player.get_gravity() * delta

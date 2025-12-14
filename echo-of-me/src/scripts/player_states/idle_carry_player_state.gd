@@ -20,11 +20,11 @@ func pre_update(player: CharacterBase) -> void:
 		return
 	
 	# Jump
-	if Input.is_action_just_pressed("jump"):
+	if player.is_action_just_pressed_virtual("jump"):
 		player.change_state_to(PlayerStates.JUMP_CARRY)
 		
 	# Place down or throw based on if we are moving or not
-	if Input.is_action_just_pressed("pick_up"):
+	if player.is_action_just_pressed_virtual("pick_up"):
 		if direction == 0:
 			player.change_state_to(PlayerStates.PLACE_DOWN)
 		else:

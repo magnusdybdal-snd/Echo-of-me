@@ -26,7 +26,7 @@ func pre_update(player: CharacterBase) -> void:
 		
 		
 	# Pick up box
-	if Input.is_action_just_pressed("pick_up") and player:
+	if player.is_action_just_pressed_virtual("pick_up"):
 		player.pick_up_target = player.find_nearest_box()
 		if player.pick_up_target != null and player.pick_up_target.has_method("pick_up"):
 			player.change_state_to(PlayerStates.PICK_UP)

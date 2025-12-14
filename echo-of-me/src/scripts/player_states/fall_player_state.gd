@@ -14,7 +14,7 @@ func pre_update(player: CharacterBase) -> void:
 		player.change_state_to(PlayerStates.LANDING)
 		return
 	
-	if Input.is_action_just_pressed("dash") and not player.has_used_dash:
+	if player.is_action_just_pressed_virtual("dash") and not player.has_used_dash:
 		player.change_state_to(PlayerStates.DASH)
 		return
 
