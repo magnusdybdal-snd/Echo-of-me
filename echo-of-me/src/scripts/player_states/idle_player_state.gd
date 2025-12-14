@@ -31,9 +31,8 @@ func pre_update(player: CharacterBase) -> void:
 		if player.pick_up_target != null and player.pick_up_target.has_method("pick_up"):
 			player.change_state_to(PlayerStates.PICK_UP)
 		return
-		
-		
-	# Determine if we are running or walking
+
+
 	if direction != 0 and player.is_on_floor():
 		player.change_state_to(PlayerStates.WALK)
 

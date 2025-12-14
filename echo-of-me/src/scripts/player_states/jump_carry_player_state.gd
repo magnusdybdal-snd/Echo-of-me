@@ -7,7 +7,7 @@ const CARRY_SPEED := 130.0
 func enter(player: CharacterBase) -> void:
 	player.velocity.y = CARRY_JUMP_VELOCITY
 	player.animated_sprite.play("jump_carry_box")
-	player.velocity.y = CARRY_JUMP_VELOCITY
+	AudioPlayer.play_sfx("jump")
 	player.target_speed = CARRY_SPEED
 
 

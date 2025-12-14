@@ -25,10 +25,13 @@ func pre_update(player: CharacterBase) -> void:
 		
 	# Place down or throw based on if we are moving or not
 	if player.is_action_just_pressed_virtual("pick_up"):
-		if direction == 0:
+		if abs(player.velocity.x) < 50:
 			player.change_state_to(PlayerStates.PLACE_DOWN)
 		else:
 			player.change_state_to(PlayerStates.THROW)
+	
+	if direction != 0 and player.is_on_floor():
+		player.change_state_to(PlayerStates.WALK_CARRY)
 
 
 func update(player: CharacterBase, delta: float) -> void:

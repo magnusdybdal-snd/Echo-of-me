@@ -17,6 +17,10 @@ func pre_update(player: CharacterBase) -> void:
 	if player.is_on_floor():
 		player.change_state_to(PlayerStates.LANDING_CARRY)
 		return
+	
+	if player.is_action_just_pressed_virtual("pick_up") and abs(player.velocity.x) > 50:
+		player.change_state_to(PlayerStates.THROW)
+		return
 
 
 func update(player: CharacterBase, delta: float) -> void:
