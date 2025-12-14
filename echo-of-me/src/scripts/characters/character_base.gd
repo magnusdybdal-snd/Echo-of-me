@@ -7,7 +7,7 @@ const FRICTION := 2000.0
 const AIR_RESISTANCE := 400.0
 const SPEED := 150.0
 const BOX_PUSH_SPEED := 300.0
-const CYOTEE_GRACE_TIME := 0.5
+const CYOTEE_GRACE_TIME := 0.75
 
 # Speed the player should move at. Updated by states
 var target_speed := 0.0
@@ -16,6 +16,7 @@ var is_dead := false
 var has_used_dash := false
 var used_double_jump := false
 var cyote_time_remaining := 0.0
+var disable_state_machine := false  # For UI/cutscene usage
 
 # Cached powerup states
 var can_sprint := false
@@ -38,12 +39,13 @@ var current_footstep_sound: String = ""
 var push_player: AudioStreamPlayer
 
 ## The current state the player is in
-var state: BasePlayerState = PlayerStates.IDLE
+var state: BasePlayerState
 
 func _ready() -> void:
-	
-	check_powerups()
-	state.enter(self)
+	if not disable_state_machine:
+		state = PlayerStates.IDLE
+		check_powerups()
+		state.enter(self)
 	
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
@@ -63,16 +65,16 @@ func change_state_to(new_state: BasePlayerState) -> void:
 	state.enter(self)
 
 func _physics_process(delta):
-	if is_dead:
-		return 
-		
+	if is_dead or disable_state_machine:
+		return
+
 	if "in_cutscene" in self and self.in_cutscene:
 		move_and_slide()  # Still allow AnimationPlayer to move the character
 		return
-	
+
 	state.pre_update(self)
 	state.update(self, delta)
-	
+
 	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()

@@ -12,7 +12,7 @@ func enter(player: CharacterBase) -> void:
 	player.used_double_jump = false
 	player.cyote_time_remaining = player.CYOTEE_GRACE_TIME
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 func pre_update(player: CharacterBase) -> void:

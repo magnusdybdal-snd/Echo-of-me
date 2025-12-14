@@ -18,6 +18,8 @@ func _ready():
 	panel.modulate.a = 0.0
 	# Always process even when game is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Disable state machine for echo player (it's just for visual effect)
+	echo_player.disable_state_machine = true
 	# Hide echo player initially
 	echo_player.visible = false
 
@@ -32,17 +34,15 @@ func transition_to_scene(scene_path: String) -> void:
 
 	# Show echo player and play run animation
 	echo_player.visible = true
-	echo_player.set_physics_process(false) # Disable physics so animation doesn't get overridden
 	echo_player.animated_sprite.play("run")
 
-	# Waits 0.5s before fading in.
+	# Wait for random duration
 	wait_timer = randf_range(1.5,3.0)
 	print("DEBUG: wait timer ", wait_timer)
 	await get_tree().create_timer(wait_timer).timeout
 
 	# Hide echo player before loading scene
 	echo_player.visible = false
-	echo_player.set_physics_process(true) # Re-enable physics
 
 	# Load the new scene
 	var error = get_tree().change_scene_to_file(scene_path)

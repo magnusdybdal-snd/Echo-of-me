@@ -5,7 +5,7 @@ func enter(player: CharacterBase) -> void:
 	player.stop_footsteps()
 	player.animated_sprite.play("in air")
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 func pre_update(player: CharacterBase) -> void:

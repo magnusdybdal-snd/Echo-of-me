@@ -16,7 +16,7 @@ func enter(player: CharacterBase) -> void:
 	AudioPlayer.play_sfx("jump")
 
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

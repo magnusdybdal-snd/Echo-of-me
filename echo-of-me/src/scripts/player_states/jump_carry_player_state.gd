@@ -1,7 +1,7 @@
 class_name JumpCarryPlayerState
 extends BasePlayerState
 
-const CARRY_JUMP_VELOCITY := -270.0
+const CARRY_JUMP_VELOCITY := -290.0
 const CARRY_SPEED := 130.0
 
 func enter(player: CharacterBase) -> void:
@@ -14,7 +14,7 @@ func enter(player: CharacterBase) -> void:
 	player.target_speed = CARRY_SPEED
 
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

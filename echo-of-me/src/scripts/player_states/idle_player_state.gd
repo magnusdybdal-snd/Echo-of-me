@@ -8,7 +8,7 @@ func enter(player: CharacterBase) -> void:
 	player.stop_footsteps()
 	player.target_speed = 0.0
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 ## Handles transition rules between states

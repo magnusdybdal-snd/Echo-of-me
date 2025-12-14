@@ -8,7 +8,7 @@ func enter(player: CharacterBase) -> void:
 	player.carried_box = null
 
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

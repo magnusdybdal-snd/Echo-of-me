@@ -17,7 +17,7 @@ func enter(player: CharacterBase) -> void:
 	# Clear cached target
 	player.pick_up_target = null
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

@@ -15,7 +15,7 @@ func enter(player: CharacterBase) -> void:
 	player.has_used_dash = true
 	
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

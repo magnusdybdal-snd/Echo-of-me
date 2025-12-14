@@ -7,7 +7,7 @@ func enter(player: CharacterBase) -> void:
 	player.animated_sprite.play("idle_carry_box")
 	player.stop_footsteps()
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

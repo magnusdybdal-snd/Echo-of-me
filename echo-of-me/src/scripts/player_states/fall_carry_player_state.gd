@@ -9,7 +9,7 @@ func enter(player: CharacterBase) -> void:
 	player.target_speed = CARRY_SPEED
 
 
-func exit(player: CharacterBase) -> void:
+func exit(_player: CharacterBase) -> void:
 	pass
 
 

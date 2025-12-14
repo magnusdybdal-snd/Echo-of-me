@@ -146,7 +146,7 @@ func hard_reset():
 	
 	# Revive player
 	if player is CharacterBase:
-		player.revive()
+		player.reset_player()
 	else:	# Fallback unfreeze
 		ensure_unfreeze()			
 		if player.has_node("AnimatedSprite2D"):
