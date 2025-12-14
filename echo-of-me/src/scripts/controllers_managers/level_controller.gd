@@ -11,7 +11,7 @@ var pause_menu_scene = preload("res://src/scenes/menus/pause_menu.tscn")
 var pause_menu_instance = null
 
 # Death screen 
-var death_screen_scene = preload("res://src/scenes/deathscreen.tscn")
+var death_screen_scene = preload("res://src/scenes/UI/deathscreen.tscn")
 var death_screen_instance = null
 
 # Control menu info
@@ -157,7 +157,7 @@ func hard_reset():
 	
 # Instantiates an echo scene and adds an echo with the players position and recordings
 func spawn_echo_from_player():
-	var echo_scene = preload("res://src/scenes/echo_player.tscn")
+	var echo_scene = preload("res://src/scenes/characters/echo_player.tscn")
 	var echo = echo_scene.instantiate()
 
 	echo.spawn_position = player.spawn_position

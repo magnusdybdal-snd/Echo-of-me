@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cq8rrfg4xhml1"]
 
-[ext_resource type="Script" uid="uid://dxephcnvoxhop" path="res://src/scripts/rigid_box.gd" id="1_cuxeg"]
+[ext_resource type="Script" uid="uid://dxephcnvoxhop" path="res://src/scripts/level_items/rigid_box.gd" id="1_cuxeg"]
 [ext_resource type="Texture2D" uid="uid://cxxx2fj3ufaq0" path="res://assets/Tilesets/Props/1_Mine_Props_1.png" id="1_tfug4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cuxeg"]

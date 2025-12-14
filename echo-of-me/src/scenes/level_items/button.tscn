@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://blfestifyuj5q"]
 
-[ext_resource type="Script" uid="uid://bmxt32tvqx41f" path="res://src/scripts/button.gd" id="1_qlidy"]
+[ext_resource type="Script" uid="uid://bmxt32tvqx41f" path="res://src/scripts/level_items/button.gd" id="1_qlidy"]
 [ext_resource type="Texture2D" uid="uid://bnxpq41egwp83" path="res://assets/Tilesets/Props/buttonSpriteSheet.png" id="2_qlidy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlidy"]

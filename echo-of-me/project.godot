@@ -17,9 +17,9 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-GameManager="*res://src/scenes/game_manager.tscn"
+GameManager="*res://src/scenes/controllers_managers/game_manager.tscn"
 AudioPlayer="*res://src/scenes/audio/audio_player.tscn"
-LevelTransition="*res://src/scenes/level_transition.tscn"
+LevelTransition="*res://src/scenes/UI/level_transition.tscn"
 
 [display]
 

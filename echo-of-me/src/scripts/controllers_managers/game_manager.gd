@@ -109,7 +109,7 @@ var levels := [
 ]
 
 var current_level_index := 0
-var level_progression := 99 # CHANGE THIS TO A BIG NUMBER TO UNLOCK ALL
+var level_progression := 99 # CHANGE THIS TO A BIG NUMBER TO UNLOCK ALL original value "0"
 
 
 # Audio settings (persisted across scenes)

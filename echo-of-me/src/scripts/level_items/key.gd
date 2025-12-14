@@ -2,7 +2,7 @@ extends Area2D
 
 
 var start_position : Vector2
-var key_scene = preload("res://src/scenes/key.tscn")
+var key_scene = preload("res://src/scenes/level_items/key.tscn")
 
 
 # Tracks if key has been picked up.

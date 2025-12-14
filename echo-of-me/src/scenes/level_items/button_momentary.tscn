@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bgofklnojcv7v"]
 
-[ext_resource type="Script" uid="uid://tvenen1w5ndh" path="res://src/scripts/button_momentary.gd" id="1_k0q30"]
+[ext_resource type="Script" uid="uid://tvenen1w5ndh" path="res://src/scripts/level_items/button_momentary.gd" id="1_k0q30"]
 [ext_resource type="Texture2D" uid="uid://bnxpq41egwp83" path="res://assets/Tilesets/Props/buttonSpriteSheet.png" id="2_w5j03"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgniu"]
