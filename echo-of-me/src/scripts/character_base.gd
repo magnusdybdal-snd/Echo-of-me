@@ -214,13 +214,6 @@ func die() -> void:
 	else:
 		animated_sprite.stop()
 
-func revive() -> void:
-	is_dead = false
-	velocity = Vector2.ZERO
-
-	# Resume animations
-	animated_sprite.play("idle")
-
 # Plays footstep sounds (looping)
 func play_footsteps(sound_type: String):
 	# Lazy initialization if _ready() wasn't called
