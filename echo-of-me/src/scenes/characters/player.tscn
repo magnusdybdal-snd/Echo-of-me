@@ -1,6 +1,6 @@
 [gd_scene load_steps=63 format=3 uid="uid://biihkc0s4fiab"]
 
-[ext_resource type="Script" uid="uid://38x278i5tjkv" path="res://src/scripts/player.gd" id="1_v4rts"]
+[ext_resource type="Script" uid="uid://38x278i5tjkv" path="res://src/scripts/characters/player.gd" id="1_v4rts"]
 [ext_resource type="Texture2D" uid="uid://usaen2fmiqmk" path="res://assets/Character animation/Hooded Protaganist/AnimationSheet_Character.png" id="4_l2v1k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oric3"]

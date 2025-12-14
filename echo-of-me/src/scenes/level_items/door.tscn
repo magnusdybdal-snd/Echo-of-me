@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cbqbmc2mid2l"]
 
 [ext_resource type="Texture2D" uid="uid://wtyrtvesb1oj" path="res://assets/Tilesets/Props/door/door-alpha_32x32_1.png" id="1_80g33"]
-[ext_resource type="Script" uid="uid://cplroxb3hhgq5" path="res://src/scripts/door.gd" id="1_qkrcv"]
+[ext_resource type="Script" uid="uid://cplroxb3hhgq5" path="res://src/scripts/level_items/door.gd" id="1_qkrcv"]
 [ext_resource type="Texture2D" uid="uid://c8rd0r0wmgcs4" path="res://assets/Tilesets/Props/door/door-alpha_32x32_2.png" id="2_qkrcv"]
 [ext_resource type="Texture2D" uid="uid://bt370plslvr16" path="res://assets/Tilesets/Props/door/door-alpha_32x32_frame.png" id="4_fiowe"]
 

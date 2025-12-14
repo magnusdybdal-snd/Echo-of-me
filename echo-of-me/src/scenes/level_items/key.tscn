@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://hn4qpeibboil"]
 
-[ext_resource type="Script" uid="uid://cqltb150vsugf" path="res://src/scripts/key.gd" id="1_bw511"]
+[ext_resource type="Script" uid="uid://cqltb150vsugf" path="res://src/scripts/level_items/key.gd" id="1_bw511"]
 [ext_resource type="Texture2D" uid="uid://b4n4b75ru8tbp" path="res://assets/Tilesets/Props/key_big.png" id="1_v3ndw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bw511"]

@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var level_controller: Node = $LevelController
 
-var rigid_box_scene = preload("res://src/scenes/rigid_box.tscn")
+var rigid_box_scene = preload("res://src/scenes/level_items/rigid_box.tscn")
 var previous_echo_count: int = 0
 var spawn_position: Vector2 = Vector2(164, 248) # Default spawn position, adjust as needed
 var spawned_boxes: Array = []  # Track all spawned boxes

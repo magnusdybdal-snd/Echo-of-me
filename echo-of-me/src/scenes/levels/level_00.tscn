@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=4 uid="uid://c5ukyq1g61dbf"]
 
-[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_5imsi"]
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/controllers_managers/level_controller.tscn" id="1_5imsi"]
 [ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_u2nrp"]
 [ext_resource type="Texture2D" uid="uid://c2d7xxccqemvb" path="res://assets/Art/forrest_outside.png" id="2_kj3gd"]
 [ext_resource type="Texture2D" uid="uid://berulshvh4g8m" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_1.png" id="3_5imsi"]
@@ -9,12 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://mdh6rxhhnlqf" path="res://assets/Tilesets/Background/2_Mine_Tileset_3_Background.png" id="5_u2nrp"]
 [ext_resource type="Texture2D" uid="uid://b2t2kq08xymqr" path="res://assets/Tilesets/Background/Mine_Tileset_1A_Background_.png" id="6_n446o"]
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="7_q1vha"]
-[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="8_e8q3y"]
-[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="10_4p1gg"]
-[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="10_bf14f"]
-[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="11_u28xx"]
-[ext_resource type="Script" uid="uid://3uxpdq33kcq2" path="res://src/scripts/dialog.gd" id="14_nfweu"]
-[ext_resource type="Script" uid="uid://bygws4sn4yuou" path="res://src/scripts/dialogue_audio.gd" id="15_u2nrp"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/characters/player.tscn" id="8_e8q3y"]
+[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/styling/torch_glow.tscn" id="10_4p1gg"]
+[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/characters/echo_player.tscn" id="10_bf14f"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/zones/level_end.tscn" id="11_u28xx"]
+[ext_resource type="Script" uid="uid://3uxpdq33kcq2" path="res://src/scripts/animations/dialog.gd" id="14_nfweu"]
+[ext_resource type="Script" uid="uid://bygws4sn4yuou" path="res://src/scripts/animations/dialogue_audio.gd" id="15_u2nrp"]
 
 [sub_resource type="Animation" id="Animation_kj3gd"]
 length = 0.1

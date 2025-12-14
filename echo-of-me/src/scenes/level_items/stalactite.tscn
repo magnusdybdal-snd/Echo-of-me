@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://drnirfl7rfuns"]
 
 [ext_resource type="Texture2D" uid="uid://2owjif8ppiyg" path="res://assets/Tilesets/Props/stalactite.png" id="1_3ilon"]
-[ext_resource type="Script" uid="uid://btrasl4y3u87r" path="res://src/scripts/stalactite.gd" id="1_g7bai"]
+[ext_resource type="Script" uid="uid://btrasl4y3u87r" path="res://src/scripts/level_items/stalactite.gd" id="1_g7bai"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7bai"]
 radius = 4.0

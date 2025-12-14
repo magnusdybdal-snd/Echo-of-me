@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://beocf8xcagmxf"]
 
 [ext_resource type="Texture2D" uid="uid://c1vngt5yhe1xq" path="res://assets/Tilesets/Middleground/Mine_Tileset_2E.png" id="1_3x8s5"]
-[ext_resource type="Script" uid="uid://3sxfqb1qfyhw" path="res://src/scripts/sliding_door.gd" id="1_v1ctf"]
+[ext_resource type="Script" uid="uid://3sxfqb1qfyhw" path="res://src/scripts/level_items/sliding_door.gd" id="1_v1ctf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dq8d6"]
 size = Vector2(96, 16)

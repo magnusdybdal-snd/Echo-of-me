@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1bm6xnnd88dg"]
 
-[ext_resource type="Script" uid="uid://c1wr1bb7sr8g4" path="res://src/scripts/level_controller.gd" id="1_rcub5"]
+[ext_resource type="Script" uid="uid://c1wr1bb7sr8g4" path="res://src/scripts/controllers_managers/level_controller.gd" id="1_rcub5"]
 [ext_resource type="PackedScene" uid="uid://b5cp4xqcddk8k" path="res://src/scenes/UI/constant_ui_instructions.tscn" id="2_constant_ui"]
 
 [node name="LevelController" type="Node"]
