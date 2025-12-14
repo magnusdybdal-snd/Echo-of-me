@@ -1,9 +1,12 @@
 class_name RunPlayerState
 extends BasePlayerState
 
+const SPRINT_SPEED := 210.0
+
 func enter(player: CharacterBase) -> void:
 	player.animated_sprite.play("run")
 	player.play_footsteps("run")
+	player.target_speed = SPRINT_SPEED
 	
 func exit(player: CharacterBase) -> void:
 	player.stop_footsteps()
@@ -11,10 +14,10 @@ func exit(player: CharacterBase) -> void:
 func pre_update(player: CharacterBase) -> void:	
 	var direction := player.get_direction()
 	
-	if Input.is_action_just_pressed("jump"):
+	if player.is_action_just_pressed_virtual("jump"):
 		player.change_state_to(PlayerStates.JUMP)
 	
-	if not Input.is_action_pressed("sprint"):
+	if not player.is_action_pressed_virtual("sprint"):
 		player.change_state_to(PlayerStates.WALK)
 		
 	if direction == 0:

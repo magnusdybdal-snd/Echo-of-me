@@ -1,9 +1,12 @@
 class_name FallCarryPlayerState
 extends BasePlayerState
 
+const CARRY_SPEED := 130.0
+
 func enter(player: CharacterBase) -> void:
 	player.stop_footsteps()
 	player.animated_sprite.play("in_air_carry_box")
+	player.target_speed = CARRY_SPEED
 
 
 func exit(player: CharacterBase) -> void:

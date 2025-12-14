@@ -2,13 +2,11 @@ class_name CharacterBase
 extends CharacterBody2D
 
 # Constants for player movement and forces
-const SPEED := 150.0
-const CARRY_SPEED := 130
-const SPRINT_SPEED := 210.0
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
 const AIR_RESISTANCE := 400
 const BOX_PUSH_SPEED := 300.0
+const SPEED := 150.0
 
 # Wall climb constants
 const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
@@ -16,11 +14,13 @@ const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
 const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
 
 # Used to control animations
-var is_sprinting := false
+#var is_sprinting := false
 var is_dead := false
 var anim_lock := false
 var is_dashing := false
 var has_used_dash := false
+
+var is_echo := false
 
 # Cached powerup states
 var can_sprint := false
@@ -28,6 +28,7 @@ var can_double_jump := false
 var can_wall_climb := false
 var used_double_jump := false
 var can_dash := false
+var target_speed := 0.0
 
 # Wall jump coyote time
 var wall_jump_timer := 0.0
@@ -92,7 +93,6 @@ func _physics_process(delta):
 	check_powerups()
 	update_wall_jump_timer(delta)
 	update_dash_timer(delta)
-	apply_gravity(delta)
 	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()
@@ -133,62 +133,37 @@ func update_dash_timer(delta: float) -> void:
 func can_wall_jump() -> bool:
 	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0) and !carried_box
 	
-# Applies gravity to the characters when in air
-func apply_gravity(delta: float) -> void:
-	# If player is in contact with a wall, apply sliding gravity
-	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
-		velocity.y = WALL_SLIDE_GRAVITY
-		
+
 # Acceleration based movement system
 func apply_movement(delta: float) -> void:
 	var direction = get_direction()
-	
-	var target_speed := 0.0
-	var is_pushing := false
-	
-	if direction != 0:
-		is_pushing = is_pushing_box(direction)
+	var is_pushing := is_pushing_box(direction) if direction != 0 else false
 
-		if is_pushing:
-			# Cap speed to the speed of the box while pushing
-			target_speed = BOX_PUSH_SPEED * direction
-			play_push_sound()
-		else:
-			if is_on_floor():
-				# Normal movement speed
-				if (can_sprint and is_sprinting and carried_box == null):
-					target_speed = SPRINT_SPEED
-				elif (carried_box != null):
-					target_speed = CARRY_SPEED
-				else:
-					target_speed = SPEED
-			# Air speed
-			else:
-				if abs(velocity.x) > SPEED and carried_box == null:
-					target_speed = SPRINT_SPEED
-				elif carried_box != null:
-					target_speed = CARRY_SPEED
-				else:
-					target_speed = SPEED
-					
-			target_speed *= direction
-				
-	
+	# Handle push sound
+	if is_pushing:
+		play_push_sound()
+	else:
+		stop_push_sound()
+
+	# Override target speed if pushing, or ensure minimum air control
+	var final_speed: float
+	if is_pushing:
+		final_speed = BOX_PUSH_SPEED
+	elif not is_on_floor() and target_speed < SPEED:
+		# Ensure minimum air control speed even when jumping from idle
+		final_speed = SPEED
+	else:
+		final_speed = target_speed
+
+	# Determine acceleration rate
 	var accel_rate: float
-	
 	if direction != 0:
 		accel_rate = ACCELERATION
 	else:
-		if is_on_floor():
-			accel_rate = FRICTION
-		else:
-			accel_rate = AIR_RESISTANCE
+		accel_rate = FRICTION if is_on_floor() else AIR_RESISTANCE
 
-	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
-
-	# Stop push sound when not pushing
-	if not is_pushing:
-		stop_push_sound()
+	# Apply movement with direction
+	velocity.x = move_toward(velocity.x, final_speed * direction, accel_rate * delta)
 
 # Check if we're actively pushing a box in the given direction	
 func is_pushing_box(direction: float) -> bool:
@@ -206,7 +181,6 @@ func is_pushing_box(direction: float) -> bool:
 			
 	return false
 
-# This function handles update of animations related to physics
 func update_animation(direction: float) -> void:
 
 	# Flips sprite based on the direction the character is facing
@@ -218,12 +192,6 @@ func update_animation(direction: float) -> void:
 		facing_direction = -1.0
 
 # Sets flags for animation control and plays jump animation
-func start_jump():
-	if can_wall_jump():
-		pass
-		# Use stored wall normal from last wall contact
-		#velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
-		#velocity.y = JUMP_VELOCITY
 
 				
 func push_boxes() -> void:
@@ -362,3 +330,13 @@ func stop_push_sound():
 
 func get_speed() -> float:
 	return velocity.length()
+	
+## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
+## In the state machine while differentiating between pressing the button and reading a recording
+func is_action_pressed_virtual(action: String) -> bool:
+	return false
+
+## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
+## In the state machine while differentiating between pressing the button and reading a recording
+func is_action_just_pressed_virtual(action: String) -> bool:
+	return false

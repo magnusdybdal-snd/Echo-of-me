@@ -6,6 +6,9 @@ var frame_index: int = 0
 var direction: float = 0.0
 var in_cutscene := false 
 
+func _ready() -> void:
+	is_echo = true
+
 func _physics_process(delta: float) -> void:
 	if in_cutscene: # no physics in cutscene
 		return
@@ -13,11 +16,11 @@ func _physics_process(delta: float) -> void:
 	if frame_index < recorded_inputs.size():
 		var frame_data = recorded_inputs[frame_index]
 		direction  = frame_data["direction"]
+		var is_sprinting = frame_data.get("sprint", false)
 		var jump_pressed: bool = frame_data["jump"]
 		var double_jump: bool = frame_data.get("double_jump", false)
 		var pick_up_pressed: bool = frame_data.get("pick_up", false)
 		var dash_pressed: bool = frame_data.get("dash", false)
-		is_sprinting = frame_data.get("sprint", false)
 
 		# Handle box interaction
 		if pick_up_pressed:
@@ -27,17 +30,6 @@ func _physics_process(delta: float) -> void:
 		if dash_pressed and can_dash and not is_on_floor() and not is_on_wall_only() and not has_used_dash:
 			#perform_dash()
 			pass
-
-		# Handle jump.
-		if jump_pressed:
-			if is_on_floor():
-				start_jump()
-				used_double_jump = false
-			elif can_wall_jump():
-				start_jump()
-			elif double_jump and can_double_jump and not used_double_jump:
-				start_jump()
-				used_double_jump = true
 		
 		# Physics handled in super class
 		super._physics_process(delta)
@@ -64,7 +56,7 @@ func reset_playback():
 	velocity = Vector2.ZERO
 	anim_lock = false
 	#falling = false
-	is_sprinting = false
+	#is_sprinting = false
 	used_double_jump = false
 	is_dead = false
 	is_dashing = false
@@ -89,3 +81,13 @@ func start_cutscene():
 func end_cutscene():
 	in_cutscene = false
 	print("end echo cutscene")
+	
+func is_action_pressed_virtual(action: String) -> bool:
+	if frame_index < recorded_inputs.size():
+		return recorded_inputs[frame_index].get(action, false)
+	return false
+
+func is_action_just_pressed_virtual(action: String) -> bool:
+	if frame_index < recorded_inputs.size():
+		return recorded_inputs[frame_index].get(action, false)
+	return false

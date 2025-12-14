@@ -6,6 +6,7 @@ var nearest_box : RigidBody2D = null
 func enter(player: CharacterBase) -> void:
 	player.animated_sprite.play("idle")
 	player.stop_footsteps()
+	player.target_speed = 0.0
 
 func exit(player: CharacterBase) -> void:
 	pass
@@ -20,8 +21,9 @@ func pre_update(player: CharacterBase) -> void:
 		return
 		
 	# Jump
-	if Input.is_action_just_pressed("jump"):
+	if player.is_action_just_pressed_virtual("jump"):
 		player.change_state_to(PlayerStates.JUMP)
+		
 		
 	# Pick up box
 	if Input.is_action_just_pressed("pick_up") and player:

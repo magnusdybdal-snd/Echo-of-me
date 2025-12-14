@@ -9,6 +9,7 @@ var is_recording := false
 var in_cutscene := false 
 
 func _ready():
+	is_echo = false
 	super._ready()  # Call parent class initialization
 	# Stores spawn position for resets
 	spawn_position = global_position
@@ -24,26 +25,11 @@ func _physics_process(delta: float) -> void:
 	is_recording = GameManager.can_use_echoes()
 	
 	# Check sprint input
-	is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()
-	
-	# Q key to pick up / throw / place box
-		
+	#is_sprinting = Input.is_action_pressed("sprint") and is_on_floor()		
 
 	# Echo recording system
 	if is_recording:
 		record_input()
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			start_jump()
-			
-			used_double_jump = false
-		elif can_double_jump and not used_double_jump and not can_wall_jump():
-			start_jump()
-			used_double_jump = true
-		elif can_wall_jump():
-			start_jump()
 
 	# Base class handles all movement
 	super._physics_process(delta)
@@ -60,9 +46,7 @@ func _on_reset_level():
 func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
-	anim_lock = false
-	#falling = false
-	is_sprinting = false
+	#is_sprinting = false
 	is_dead = false
 	is_dashing = false
 	has_used_dash = false
@@ -106,3 +90,9 @@ func start_cutscene():
 func end_cutscene():
 	in_cutscene = false
 	print("end cutscene")
+	
+func is_action_pressed_virtual(action: String) -> bool:
+	return Input.is_action_pressed(action)
+	
+func is_action_just_pressed_virtual(action: String) -> bool:
+	return Input.is_action_just_pressed(action)
