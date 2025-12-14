@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=4 uid="uid://c5ukyq1g61dbf"]
 
-[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/level_controller.tscn" id="1_5imsi"]
-[ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_kj3gd"]
+[ext_resource type="PackedScene" uid="uid://b1bm6xnnd88dg" path="res://src/scenes/controllers_managers/level_controller.tscn" id="1_5imsi"]
+[ext_resource type="Script" uid="uid://c725qhqx2efll" path="res://src/scenes/levels/level_00.gd" id="1_u2nrp"]
 [ext_resource type="Texture2D" uid="uid://c2d7xxccqemvb" path="res://assets/Art/forrest_outside.png" id="2_kj3gd"]
 [ext_resource type="Texture2D" uid="uid://berulshvh4g8m" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_1.png" id="3_5imsi"]
 [ext_resource type="Texture2D" uid="uid://dmr5enkdvbi0t" path="res://assets/Tilesets/Background/2_Mine_Tileset_1_Background.png" id="3_bf14f"]
@@ -9,12 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://mdh6rxhhnlqf" path="res://assets/Tilesets/Background/2_Mine_Tileset_3_Background.png" id="5_u2nrp"]
 [ext_resource type="Texture2D" uid="uid://b2t2kq08xymqr" path="res://assets/Tilesets/Background/Mine_Tileset_1A_Background_.png" id="6_n446o"]
 [ext_resource type="Texture2D" uid="uid://clqbhbcn06ckx" path="res://assets/Tilesets/Middleground/1_Mine_Tileset_2.png" id="7_q1vha"]
-[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/player.tscn" id="8_e8q3y"]
-[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/torch_glow.tscn" id="10_4p1gg"]
-[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/echo_player.tscn" id="10_bf14f"]
-[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/level_end.tscn" id="11_u28xx"]
-[ext_resource type="Script" uid="uid://3uxpdq33kcq2" path="res://src/scripts/dialog.gd" id="14_nfweu"]
-[ext_resource type="Script" uid="uid://bygws4sn4yuou" path="res://src/scripts/dialogue_audio.gd" id="15_u2nrp"]
+[ext_resource type="PackedScene" uid="uid://biihkc0s4fiab" path="res://src/scenes/characters/player.tscn" id="8_e8q3y"]
+[ext_resource type="PackedScene" uid="uid://lnm6wpnl3wb3" path="res://src/scenes/styling/torch_glow.tscn" id="10_4p1gg"]
+[ext_resource type="PackedScene" uid="uid://c5ima8afigtj5" path="res://src/scenes/characters/echo_player.tscn" id="10_bf14f"]
+[ext_resource type="PackedScene" uid="uid://byq0a4r2scs0v" path="res://src/scenes/zones/level_end.tscn" id="11_u28xx"]
+[ext_resource type="Script" uid="uid://3uxpdq33kcq2" path="res://src/scripts/animations/dialog.gd" id="14_nfweu"]
+[ext_resource type="Script" uid="uid://bygws4sn4yuou" path="res://src/scripts/animations/dialogue_audio.gd" id="15_u2nrp"]
 
 [sub_resource type="Animation" id="Animation_kj3gd"]
 length = 0.1
@@ -87,10 +87,22 @@ tracks/5/keys = {
 "points": PackedFloat32Array(-1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LevelController/AudioStreamPlayer:bus")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Master"]
+}
 
 [sub_resource type="Animation" id="Animation_5imsi"]
 resource_name = "cutscene"
-length = 14.5
+length = 16.487
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -98,9 +110,9 @@ tracks/0/path = NodePath("LevelController/Player:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 1, 0, 0),
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
 "points": PackedFloat32Array(-48, 0, 0, 0.56666666, 49, 278, 0, 0, 0, 0, 278, 0, 0, 0, 0, 299, -0.07555549, -3.5000002, 0, 0),
-"times": PackedFloat32Array(0, 3, 13.1, 14.133334)
+"times": PackedFloat32Array(0, 4.7, 13.800001, 14.833335)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -109,9 +121,9 @@ tracks/1/path = NodePath("LevelController/Player:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 2, 0, 0),
-"points": PackedFloat32Array(550.59, 0, 0, 0.5, -1.4316711, 550.59, -0.5, 0, 0, 0, 550.59, -0.5, 0, 0, 0, 551, -0.07555549, -0.068328865, 0, 0),
-"times": PackedFloat32Array(0, 3, 13.1, 14.166668)
+"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"points": PackedFloat32Array(550.59, 0, 0, 0.5, -1.4316711, 550.59, -0.5, 0, 0, 0, 550.59, -0.5, 0, 0, 0, 554.005, -0.07555549, -0.068328865, 0, 0),
+"times": PackedFloat32Array(0, 4.7000003, 14.800001, 15.866669)
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -120,14 +132,11 @@ tracks/2/path = NodePath("LevelController/Player")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.1666666, 14.466666),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 16.166666),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"start_cutscene"
-}, {
-"args": ["walk"],
-"method": &"set_animation"
 }, {
 "args": [],
 "method": &"end_cutscene"
@@ -140,7 +149,7 @@ tracks/3/path = NodePath("LevelController/Echo_player")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 14.466666),
+"times": PackedFloat32Array(0, 16.166666),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -157,9 +166,12 @@ tracks/4/path = NodePath("LevelController/Echo_player")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2.5333333, 3.6, 9.94),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 3.73, 4.7966666, 12.566668),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
+"args": ["idle"],
+"method": &"set_animation"
+}, {
 "args": ["run"],
 "method": &"set_animation"
 }, {
@@ -177,9 +189,9 @@ tracks/5/path = NodePath("LevelController/Echo_player:position:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(2, 0, 0, 0),
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(745, 0, 0, 0.25500005, -33.756668, 542.46, -0.25, 0, 0.25, 0, 542.46, -0.25, 0, 0.25, 0, 1101, -0.35737023, -93.090004, 0, 0),
-"times": PackedFloat32Array(2.52, 3.6333334, 9.933333, 13.177554)
+"times": PackedFloat32Array(3.7166667, 4.83, 12.5, 15.744221)
 }
 tracks/6/type = "bezier"
 tracks/6/imported = false
@@ -188,9 +200,9 @@ tracks/6/path = NodePath("LevelController/Echo_player:position:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"handle_modes": PackedInt32Array(2, 0, 0, 2),
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(549, 0, 0, 0.25500005, 0, 549, -0.25, 0, 0.25, 0, 549, -0.25, 0, 0.25, 0, 549, -0.35737023, 0, 0, 0),
-"times": PackedFloat32Array(2.52, 3.6333334, 9.933333, 12.077555)
+"times": PackedFloat32Array(3.7166667, 4.83, 12.5, 14.644222)
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -213,7 +225,7 @@ tracks/8/loop_wrap = true
 tracks/8/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0),
 "points": PackedFloat32Array(-1, -0.25, 0, 0.25, 0, -1, -0.25, 0, 0.25, 0, 1, -0.38333338, 0, 0.0016666254, 0),
-"times": PackedFloat32Array(3.77, 9.83, 9.933333)
+"times": PackedFloat32Array(4.9666667, 12.363333, 12.466667)
 }
 tracks/9/type = "method"
 tracks/9/imported = false
@@ -222,7 +234,7 @@ tracks/9/path = NodePath("LevelController/Player")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(1.2, 3.05, 13.133333, 14.11299),
+"times": PackedFloat32Array(0.0333333, 4.75, 14.833334, 15.81299),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": ["walk"],
@@ -245,7 +257,7 @@ tracks/10/path = NodePath("LevelController/UI/Dialog")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 3.7666667, 6.1666665, 8.466666, 9.8, 13.533334),
+"times": PackedFloat32Array(0, 5.4666667, 7.866667, 10.166666, 11.5, 15.233334),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "values": [{
 "args": ["", ""],
@@ -274,7 +286,7 @@ tracks/11/path = NodePath("LevelController/AudioStreamPlayer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(3.8333333, 6.2, 8.466666, 9.866667, 11.06),
+"times": PackedFloat32Array(5.5333333, 7.9, 10.166666, 11.566668, 12.766666),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "values": [{
 "args": ["1", 0.0],
@@ -292,6 +304,18 @@ tracks/11/keys = {
 "args": ["11", 0.0],
 "method": &"_dialogue"
 }]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("LevelController/AudioStreamPlayer:bus")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.03333334),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Master"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bf14f"]
@@ -927,19 +951,18 @@ sources/1 = SubResource("TileSetAtlasSource_bf14f")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5imsi"]
 size = Vector2(1713, 96)
 
-[sub_resource type="SystemFont" id="SystemFont_bf14f"]
+[sub_resource type="SystemFont" id="SystemFont_u2nrp"]
 
 [sub_resource type="Theme" id="Theme_nfweu"]
-default_font = SubResource("SystemFont_bf14f")
+default_font = SubResource("SystemFont_u2nrp")
 default_font_size = 24
 
 [node name="Level00" type="Node2D"]
-script = ExtResource("1_kj3gd")
+script = ExtResource("1_u2nrp")
 
 [node name="LevelController" parent="." instance=ExtResource("1_5imsi")]
-player_path = NodePath("")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelController" groups=["AnimationPlayer"]]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_bf14f")

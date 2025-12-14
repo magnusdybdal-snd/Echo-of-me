@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://drnirfl7rfuns"]
+
+[ext_resource type="Texture2D" uid="uid://2owjif8ppiyg" path="res://assets/Tilesets/Props/stalactite.png" id="1_3ilon"]
+[ext_resource type="Script" uid="uid://btrasl4y3u87r" path="res://src/scripts/level_items/stalactite.gd" id="1_g7bai"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7bai"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujcya"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xtkka"]
+radius = 4.0
+
+[node name="Stalactite" type="RigidBody2D"]
+collision_mask = 7
+script = ExtResource("1_g7bai")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3ilon")
+
+[node name="DamageArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CapsuleShape2D_g7bai")
+
+[node name="TriggerArea" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
+position = Vector2(-1, 101)
+shape = SubResource("RectangleShape2D_ujcya")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xtkka")

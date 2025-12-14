@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbqbmc2mid2l"]
+
+[ext_resource type="Texture2D" uid="uid://wtyrtvesb1oj" path="res://assets/Tilesets/Props/door/door-alpha_32x32_1.png" id="1_80g33"]
+[ext_resource type="Script" uid="uid://cplroxb3hhgq5" path="res://src/scripts/level_items/door.gd" id="1_qkrcv"]
+[ext_resource type="Texture2D" uid="uid://c8rd0r0wmgcs4" path="res://assets/Tilesets/Props/door/door-alpha_32x32_2.png" id="2_qkrcv"]
+[ext_resource type="Texture2D" uid="uid://bt370plslvr16" path="res://assets/Tilesets/Props/door/door-alpha_32x32_frame.png" id="4_fiowe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85hex"]
+size = Vector2(11, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sse73"]
+size = Vector2(19, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fiowe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_80g33")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qkrcv")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkrcv"]
+size = Vector2(29, 30)
+
+[node name="Door" type="StaticBody2D"]
+collision_mask = 5
+script = ExtResource("1_qkrcv")
+
+[node name="CollisionAreaShape_top" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -11)
+shape = SubResource("RectangleShape2D_85hex")
+
+[node name="CollisionAreaShape_bottom" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_sse73")
+
+[node name="Trigger" type="Area2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Trigger"]
+sprite_frames = SubResource("SpriteFrames_fiowe")
+animation = &"open"
+
+[node name="CollisionShapeDoor" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(-4.5, 0)
+shape = SubResource("RectangleShape2D_qkrcv")
+
+[node name="Door Frame Foreground" type="Sprite2D" parent="."]
+z_index = 10
+texture = ExtResource("4_fiowe")
+
+[connection signal="body_entered" from="Trigger" to="." method="_on_trigger_body_entered"]

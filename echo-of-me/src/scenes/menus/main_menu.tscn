@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0n0uyeois5if"]
+[gd_scene load_steps=19 format=3 uid="uid://c0n0uyeois5if"]
 
-[ext_resource type="Script" uid="uid://jlhxir1w6u2c" path="res://src/scripts/main_menu.gd" id="1_123ln"]
+[ext_resource type="Script" uid="uid://jlhxir1w6u2c" path="res://src/scripts/manus/main_menu.gd" id="1_123ln"]
 [ext_resource type="Texture2D" uid="uid://bkteemyhfq46c" path="res://assets/Art/echo_title_bg.png" id="1_ovsfe"]
 [ext_resource type="Texture2D" uid="uid://cn5pxiajvek62" path="res://assets/Art/echo_text.png" id="2_123ln"]
+[ext_resource type="Script" uid="uid://hjl8yoehfi7s" path="res://src/scripts/saved_game/saver_loader.gd" id="4_jvln8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvln8"]
 texture = ExtResource("1_ovsfe")
@@ -63,6 +64,32 @@ shadow_size = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s84or"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib5j0"]
+bg_color = Color(3.3901503, 3.3901503, 3.3901503, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yiml"]
+bg_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1m53"]
+bg_color = Color(0.8111275, 0.8111274, 0.8111274, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_esj2m"]
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -80,6 +107,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_jvln8")
+metadata/_edit_lock_ = true
 
 [node name="GameTitle" type="Panel" parent="."]
 layout_mode = 1
@@ -92,6 +120,7 @@ offset_right = 163.09387
 offset_bottom = 341.5
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ksoms")
+metadata/_edit_lock_ = true
 
 [node name="MenuButtons" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -107,6 +136,7 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
 
 [node name="StartGame" type="Button" parent="MenuButtons"]
 layout_mode = 2
@@ -164,7 +194,53 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ovsfe")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7yiml")
 text = "Quit game"
 
+[node name="Save_and_load" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 867.0
+offset_top = 528.0
+offset_right = 1071.0
+offset_bottom = 578.0
+
+[node name="Save" type="Button" parent="Save_and_load"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ib5j0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7yiml")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y1m53")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_esj2m")
+text = "Save"
+
+[node name="Load" type="Button" parent="Save_and_load"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_ib5j0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7yiml")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y1m53")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_esj2m")
+text = "Load"
+
+[node name="Utilities" type="Node" parent="."]
+
+[node name="SaverLoader" type="Node" parent="Utilities"]
+script = ExtResource("4_jvln8")
+
 [connection signal="pressed" from="MenuButtons/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MenuButtons/SelectLevel" to="." method="_on_select_level_pressed"]
 [connection signal="pressed" from="MenuButtons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MenuButtons/QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="Save_and_load/Save" to="Utilities/SaverLoader" method="save_game"]
+[connection signal="pressed" from="Save_and_load/Load" to="Utilities/SaverLoader" method="load_game"]
