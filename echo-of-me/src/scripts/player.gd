@@ -9,7 +9,6 @@ var is_recording := false
 var in_cutscene := false 
 
 func _ready():
-	is_echo = false
 	super._ready()  # Call parent class initialization
 	# Stores spawn position for resets
 	spawn_position = global_position
@@ -46,18 +45,8 @@ func _on_reset_level():
 func reset_player():
 	global_position = spawn_position
 	velocity = Vector2.ZERO
-	#is_sprinting = false
 	is_dead = false
-	is_dashing = false
-	has_used_dash = false
-	dash_timer = 0.0
 
-	if carried_box != null:
-		carried_box.place_down(facing_direction)
-		carried_box = null
-
-	stop_footsteps()
-	stop_push_sound()
 	clear_recording()
 	change_state_to(PlayerStates.IDLE)
 
@@ -78,9 +67,6 @@ func record_input() -> void:
 func clear_recording():
 	recording.clear()
 	frame_index = 0
-
-func set_animation(anim_name: String):
-	animated_sprite.play(anim_name)
 	
 func start_cutscene():
 	in_cutscene = true
