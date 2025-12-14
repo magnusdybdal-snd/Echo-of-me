@@ -1,0 +1,41 @@
+class_name IdlePlayerState
+extends BasePlayerState
+
+var nearest_box : RigidBody2D = null
+
+func enter(player: CharacterBase) -> void:
+	player.animated_sprite.play("idle")
+	player.stop_footsteps()
+	player.target_speed = 0.0
+
+func exit(_player: CharacterBase) -> void:
+	pass
+
+## Handles transition rules between states
+func pre_update(player: CharacterBase) -> void:
+	var direction = player.get_direction()
+	
+	# If we are not on the floor and we are falling downwards
+	if not player.is_on_floor() and player.velocity.y < 0:
+		player.change_state_to(PlayerStates.FALL)
+		return
+		
+	# Jump
+	if player.is_action_just_pressed_virtual("jump"):
+		player.change_state_to(PlayerStates.JUMP)
+		
+		
+	# Pick up box
+	if player.is_action_just_pressed_virtual("pick_up"):
+		player.pick_up_target = player.find_nearest_box()
+		if player.pick_up_target != null and player.pick_up_target.has_method("pick_up"):
+			player.change_state_to(PlayerStates.PICK_UP)
+		return
+
+
+	if direction != 0 and player.is_on_floor():
+		player.change_state_to(PlayerStates.WALK)
+
+
+func update(player: CharacterBase, delta: float) -> void:
+	player.velocity += player.get_gravity() * delta

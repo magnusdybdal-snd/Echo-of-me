@@ -135,17 +135,17 @@ region = Rect2(32, 480, 32, 32)
 atlas = ExtResource("2_6vemb")
 region = Rect2(64, 480, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l0afe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kph4t"]
 atlas = ExtResource("2_6vemb")
-region = Rect2(64, 352, 32, 32)
+region = Rect2(0, 352, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_405y6"]
 atlas = ExtResource("2_6vemb")
 region = Rect2(32, 352, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kph4t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0afe"]
 atlas = ExtResource("2_6vemb")
-region = Rect2(0, 352, 32, 32)
+region = Rect2(64, 352, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uotpi"]
 atlas = ExtResource("2_6vemb")
@@ -392,6 +392,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kph4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_405y6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0afe")
+}],
+"loop": false,
+"name": &"pick_up",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_l0afe")
 }, {
 "duration": 1.0,
@@ -502,7 +516,7 @@ script = ExtResource("1_jysbo")
 unique_name_in_owner = true
 scale = Vector2(1.7, 1.7)
 sprite_frames = SubResource("SpriteFrames_4mnvi")
-animation = &"die"
+animation = &"pick_up"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

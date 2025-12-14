@@ -237,9 +237,6 @@ position = Vector2(379, 250)
 [node name="spikes_dynamic3" parent="LevelController/Spikes" instance=ExtResource("14_w4lhp")]
 position = Vector2(569, 250)
 
-[node name="spikes_dynamic4" parent="LevelController/Spikes" instance=ExtResource("14_w4lhp")]
-position = Vector2(646, 250)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="LevelController"]
 
 [node name="PlayerInstructions" type="Label" parent="LevelController/CanvasLayer"]

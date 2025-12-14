@@ -1,62 +1,35 @@
-# character_base.gd
-
-extends CharacterBody2D
 class_name CharacterBase
+extends CharacterBody2D
 
 # Constants for player movement and forces
-const SPEED := 150.0
-const CARRY_SPEED := 130
-const SPRINT_SPEED := 210.0
 const ACCELERATION := 1300.0
 const FRICTION := 2000.0
-const AIR_RESISTANCE := 400
-const JUMP_VELOCITY := -370.0
-const SECOND_JUMP_VELOCITY := -270
-const CARRY_JUMP_VELOCITY := -270.0
+const AIR_RESISTANCE := 400.0
+const SPEED := 150.0
 const BOX_PUSH_SPEED := 300.0
+const CYOTEE_GRACE_TIME := 0.75
 
-# Wall climb constants
-const WALL_SLIDE_GRAVITY := 55.0 # How fast you will slide down the wall
-const WALL_JUMP_FORCE := 200 # Push force off the wall when jumping
-const WALL_JUMP_GRACE_TIME := 0.2 # Grace period after leaaving wall (seconds)
+# Speed the player should move at. Updated by states
+var target_speed := 0.0
 
-# Dash constants
-const DASH_FORCE := 400.0 # Horizontal velocity applied when dashing
-const DASH_DURATION := 0.2 # How long the dash lasts in seconds
-
-# Used to control animations
-var falling := false
-var is_sprinting := false
 var is_dead := false
-var anim_lock := false
-var is_dashing := false
 var has_used_dash := false
+var used_double_jump := false
+var cyote_time_remaining := 0.0
+var disable_state_machine := false  # For UI/cutscene usage
 
 # Cached powerup states
 var can_sprint := false
 var can_double_jump := false
-var can_wall_climb := false
-var used_double_jump := false
 var can_dash := false
 
-# Wall jump coyote time
-var wall_jump_timer := 0.0
-var last_wall_normal := Vector2.ZERO
-
-# Dash timer
-var dash_timer := 0.0
-
-# Tracks boxes to apply push force to
+# Tracks boxes to pick up or apply push force to
 var nearby_boxes: Array = []
-
-# Box currently beeing carried
+var pick_up_target: RigidBody2D = null
 var carried_box: RigidBody2D = null
-var facing_direction := 1.0 # -1.0 left, 1.0 right
+var facing_direction := 1.0 # -1.0 left, 1.0 right used to place down boxes
 
 @onready var animated_sprite = %AnimatedSprite2D
-
-# Audio is now managed by AudioPlayer singleton
-# (Old audio nodes in player.tscn can be removed)
 
 # Footstep audio player (persistent for looping)
 var footstep_player: AudioStreamPlayer
@@ -65,7 +38,15 @@ var current_footstep_sound: String = ""
 # Push sound player (persistent for looping)
 var push_player: AudioStreamPlayer
 
-func _ready():
+## The current state the player is in
+var state: BasePlayerState
+
+func _ready() -> void:
+	if not disable_state_machine:
+		state = PlayerStates.IDLE
+		check_powerups()
+		state.enter(self)
+	
 	# Create footstep audio player
 	footstep_player = AudioStreamPlayer.new()
 	footstep_player.bus = "reverb"
@@ -77,17 +58,23 @@ func _ready():
 	push_player.volume_db = -10.0
 	add_child(push_player)
 
+## Change the current player state and rund the correct functinos
+func change_state_to(new_state: BasePlayerState) -> void:
+	state.exit(self)
+	state = new_state
+	state.enter(self)
+
 func _physics_process(delta):
-	if is_dead:
-		return 
+	if is_dead or disable_state_machine:
+		return
+
 	if "in_cutscene" in self and self.in_cutscene:
 		move_and_slide()  # Still allow AnimationPlayer to move the character
 		return
 
-	check_powerups()
-	update_wall_jump_timer(delta)
-	update_dash_timer(delta)
-	apply_gravity(delta)
+	state.pre_update(self)
+	state.update(self, delta)
+
 	apply_movement(delta)
 	update_animation(get_direction())
 	push_boxes()
@@ -96,101 +83,38 @@ func _physics_process(delta):
 func check_powerups() -> void:
 	can_sprint = GameManager.has_powerup("sprint")
 	can_double_jump = GameManager.has_powerup("double_jump") and carried_box == null
-	can_wall_climb = GameManager.has_powerup("wall_climb") and carried_box == null
 	can_dash = GameManager.has_powerup("dash") and carried_box == null
 
-# Updates wall jump grace timer
-func update_wall_jump_timer(delta: float) -> void:
-	if is_on_wall_only() and can_wall_climb:
-		# Resets the timer if we are on the wall
-		wall_jump_timer = WALL_JUMP_GRACE_TIME
-		# Get the normal of the wall we are colliding with
-		var wall_col := get_slide_collision(0) if get_slide_collision_count() > 0 else null
-		if wall_col:
-			last_wall_normal = wall_col.get_normal()
-	# Just left the wall, start counting down the grace timer
-	elif wall_jump_timer > 0:
-		wall_jump_timer -= delta
-
-# Updates dash timer and resets dash flags
-func update_dash_timer(delta: float) -> void:
-	# Reset dash availability when touching ground
-	if is_on_floor():
-		has_used_dash = false
-
-	# Count down dash duration
-	if dash_timer > 0:
-		dash_timer -= delta
-		if dash_timer <= 0:
-			is_dashing = false
-	
-# Check if player can wall jump -> Is on wall OR within wall jump grace period
-func can_wall_jump() -> bool:
-	return can_wall_climb and (is_on_wall_only() or wall_jump_timer > 0) and !carried_box
-	
-# Applies gravity to the characters when in air
-func apply_gravity(delta: float) -> void:
-	# Don't apply gravity while dashing
-	if is_dashing:
-		return
-
-	# If player is in contact with a wall, apply sliding gravity
-	if is_on_wall_only() and velocity.y > 0 and can_wall_climb:
-		velocity.y = WALL_SLIDE_GRAVITY
-	# Otherwise normal world gravity
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-		
 # Acceleration based movement system
 func apply_movement(delta: float) -> void:
 	var direction = get_direction()
-	
-	var target_speed := 0.0
-	var is_pushing := false
-	
-	if direction != 0:
-		is_pushing = is_pushing_box(direction)
+	var is_pushing := is_pushing_box(direction) if direction != 0 else false
 
-		if is_pushing:
-			# Cap speed to the speed of the box while pushing
-			target_speed = BOX_PUSH_SPEED * direction
-			play_push_sound()
-		else:
-			if is_on_floor():
-				# Normal movement speed
-				if (can_sprint and is_sprinting and carried_box == null):
-					target_speed = SPRINT_SPEED
-				elif (carried_box != null):
-					target_speed = CARRY_SPEED
-				else:
-					target_speed = SPEED
-			# Air speed
-			else:
-				if abs(velocity.x) > SPEED and carried_box == null:
-					target_speed = SPRINT_SPEED
-				elif carried_box != null:
-					target_speed = CARRY_SPEED
-				else:
-					target_speed = SPEED
-					
-			target_speed *= direction
-				
-	
+	# Handle push sound
+	if is_pushing:
+		play_push_sound()
+	else:
+		stop_push_sound()
+
+	# Override target speed if pushing, or ensure minimum air control
+	var final_speed: float
+	if is_pushing:
+		final_speed = BOX_PUSH_SPEED
+	elif not is_on_floor() and target_speed < SPEED:
+		# Ensure minimum air control speed even when jumping from idle
+		final_speed = SPEED
+	else:
+		final_speed = target_speed
+
+	# Determine acceleration rate
 	var accel_rate: float
-	
 	if direction != 0:
 		accel_rate = ACCELERATION
 	else:
-		if is_on_floor():
-			accel_rate = FRICTION
-		else:
-			accel_rate = AIR_RESISTANCE
+		accel_rate = FRICTION if is_on_floor() else AIR_RESISTANCE
 
-	velocity.x = move_toward(velocity.x, target_speed, accel_rate * delta)
-
-	# Stop push sound when not pushing
-	if not is_pushing:
-		stop_push_sound()
+	# Apply movement with direction
+	velocity.x = move_toward(velocity.x, final_speed * direction, accel_rate * delta)
 
 # Check if we're actively pushing a box in the given direction	
 func is_pushing_box(direction: float) -> bool:
@@ -208,10 +132,8 @@ func is_pushing_box(direction: float) -> bool:
 			
 	return false
 
-# This function handles update of animations related to physics
+# Flips sprite based on the direction the character is facing
 func update_animation(direction: float) -> void:
-
-	# Flips sprite based on the direction the character is facing
 	if direction > 0:
 		animated_sprite.flip_h = false
 		facing_direction = 1.0
@@ -219,91 +141,7 @@ func update_animation(direction: float) -> void:
 		animated_sprite.flip_h = true
 		facing_direction = -1.0
 
-	# ON GROUND ANIMATIONS
-	if is_on_floor():
-		# Just landed
-		if falling and !anim_lock:
-			falling = false
-			anim_lock = true
-			AudioPlayer.play_sfx("landing")
-			if !carried_box:
-				animated_sprite.play("landing")
-			else:
-				animated_sprite.play("landing_carry_box")
-		# On ground not jumping/falling -> play walk or idle
-		elif !anim_lock:
-			# Animations when carrying a box
-			if carried_box:
-				if direction == 0:
-					animated_sprite.play("idle_carry_box")
-					stop_footsteps()
-				else:
-					animated_sprite.play("walk_carry_box")
-					play_footsteps("walk")
-			# Animations when not carrying a box
-			else:
-				if direction == 0:
-					animated_sprite.play("idle")
-					stop_footsteps()
-				elif can_sprint and is_sprinting:
-					animated_sprite.play("run")
-					play_footsteps("run")
-				else:
-					animated_sprite.play("walk")
-					play_footsteps("walk")
-	else:
-		# IN AIR ANIMATIONS
-		stop_footsteps()  # Stop footsteps when in air
-		if !anim_lock:
-			if carried_box:
-				animated_sprite.play("in_air_carry_box")
-			elif is_on_wall_only() and can_wall_climb and velocity.y > 0:
-				animated_sprite.play("wall_slide")
-			else:
-				animated_sprite.play("in air")
-		if velocity.y > 0:
-			falling = true
 
-# Sets flags for animation control and plays jump animation
-func start_jump():
-	if is_dead:
-		return
-	anim_lock = true
-	falling = false
-	AudioPlayer.play_sfx("jump", -6.0)
-	if can_wall_jump():
-		# Use stored wall normal from last wall contact
-		velocity.x = last_wall_normal.x * WALL_JUMP_FORCE
-		velocity.y = JUMP_VELOCITY
-
-		animated_sprite.play("jump")
-
-	elif carried_box:
-		animated_sprite.play("jump_carry_box")
-		velocity.y = CARRY_JUMP_VELOCITY
-
-	else:
-		velocity.y = JUMP_VELOCITY if is_on_floor() else SECOND_JUMP_VELOCITY
-		animated_sprite.play("jump")
-
-# Performs a dash in the direction the character is facing
-func perform_dash():
-	# Apply dash velocity in the facing direction (horizontal only)
-	velocity.x = DASH_FORCE * facing_direction
-	velocity.y = 0  # Cancel vertical velocity for horizontal dash
-	is_dashing = true
-	has_used_dash = true
-	dash_timer = DASH_DURATION
-
-	anim_lock = true
-	animated_sprite.play("dash")
-	AudioPlayer.play_sfx("dash")
-
-# Makes sure animations finish before physics process takes over by toggeling animation lock
-func _on_animated_sprite_2d_animation_finished() -> void:
-	anim_lock = false
-	print("anim unlocked")
-				
 func push_boxes() -> void:
 	var direction = get_direction()
 	
@@ -325,40 +163,6 @@ func push_boxes() -> void:
 				box.set_target_velocity(velocity.x)
 			else:
 				box.linear_velocity.x = velocity.x
-				
-func handle_box_interraction():
-	# Cannot pick up again before animation is complete
-	if anim_lock:
-		print("PICKUP BLOCKED - anim_lock is true, current animation: ", animated_sprite.animation)
-		return
-
-	if carried_box != null:
-		# Already carrying, place or throw
-		var is_moving = abs(velocity.x) > 10
-		
-		if is_moving:
-			# Take the animation lock and ply the animation. Throw and place animation 
-			# Always overgo other animations so we do not check lock
-			anim_lock = true
-			animated_sprite.play("throw")
-			# Throw the box
-			var throw_dir = sign(velocity.x)
-			carried_box.throw_box(throw_dir, velocity)
-		else:
-			# Place down gently
-			carried_box.place_down(facing_direction)
-			# Take the animation lock and play the animation
-			anim_lock = true
-			animated_sprite.play("place_down")
-		# Reset state of carried box
-		carried_box = null
-	
-	else:
-		# Try to pick up nearby boxa 
-		var nearest_box = find_nearest_box()
-		if nearest_box != null and nearest_box.has_method("pick_up"):
-			nearest_box.pick_up(self)
-			carried_box = nearest_box
 						
 # Function that finds the nearest box to the player
 func find_nearest_box() -> RigidBody2D:
@@ -412,13 +216,6 @@ func die() -> void:
 	else:
 		animated_sprite.stop()
 
-func revive() -> void:
-	is_dead = false
-	velocity = Vector2.ZERO
-
-	# Resume animations
-	animated_sprite.play("idle")
-
 # Plays footstep sounds (looping)
 func play_footsteps(sound_type: String):
 	# Lazy initialization if _ready() wasn't called
@@ -468,3 +265,16 @@ func play_push_sound():
 func stop_push_sound():
 	if push_player != null and push_player.playing:
 		push_player.stop()
+
+func get_speed() -> float:
+	return velocity.length()
+	
+## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
+## In the state machine while differentiating between pressing the button and reading a recording
+func is_action_pressed_virtual(_action: String) -> bool:
+	return false
+
+## Virtual input method, children override. This is used to check for inputs (jump/pickup/dash)
+## In the state machine while differentiating between pressing the button and reading a recording
+func is_action_just_pressed_virtual(_action: String) -> bool:
+	return false

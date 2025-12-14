@@ -84,7 +84,7 @@ position = Vector2(0, -74)
 tile_map_data = PackedByteArray("AAAOAAQAAQAJAAAAAAAsAAQAAQAJAAAAAABKAAQAAQAJAAAAAAA=")
 
 [node name="Player" parent="LevelController" instance=ExtResource("5_lx8a3")]
-position = Vector2(1076, 220)
+position = Vector2(172, 324)
 
 [node name="Door" parent="LevelController" instance=ExtResource("6_8he6n")]
 position = Vector2(344, 98)
